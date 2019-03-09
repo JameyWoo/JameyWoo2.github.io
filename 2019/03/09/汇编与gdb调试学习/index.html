@@ -95,11 +95,11 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/005BYqpggy1g0wz509prej31el0k5wmu.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz5i91ybj30nn0scq9h.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz5u0tlsj30er05s3yw.jpg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190309112754648.png">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/005BYqpggy1g0wzcl23cbj30vx05176q.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz6h56eaj30pi09kq3z.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz6uqm52j30mu03kabl.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz788t0zj30u30gtjsb.jpg">
-<meta property="og:updated_time" content="2019-03-09T15:49:25.462Z">
+<meta property="og:updated_time" content="2019-03-09T15:53:54.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编与gdb调试学习">
 <meta name="twitter:description" content="1、在gdb中如何列出汇编代码 – 为何应该是不可以用list 命令列出汇编代码的。但可以使用display /i $pc 命令在调试的时候出了列出一行源码，也列出相应的汇编代码同时，s和si等的区别还是比较大的：si按汇编一行一行执行，有的源码一行会有很多条汇编；我认为这是个学习汇编的好方法：使用gdb一步一步调试，对比汇编和源码 2、如何将一个可执行文件或者是.o文件得到它的汇编码或者是源码？">
@@ -435,7 +435,7 @@
 <h4 id="3、将c源码变成-o文件，会不会很干净，和变成可执行文件的区别？体量？"><a href="#3、将c源码变成-o文件，会不会很干净，和变成可执行文件的区别？体量？" class="headerlink" title="3、将c源码变成.o文件，会不会很干净，和变成可执行文件的区别？体量？"></a>3、将c源码变成.o文件，会不会很干净，和变成可执行文件的区别？体量？</h4><p>编译过程图，来源：<a href="https://blog.csdn.net/misskissC/article/details/38020151" target="_blank" rel="noopener">https://blog.csdn.net/misskissC/article/details/38020151</a><br><img src="https://ws3.sinaimg.cn/large/005BYqpggy1g0wz3cnv22j30dk07874k.jpg" alt="在这里插入图片描述"><br>和期待的相符，没有目标文件的链接过程，.o 文件果然很干净，使用-d命令查看的话，可以只看我自己写的代码部分！但是没有 -g 的话没有源码。<br><img src="https://ws3.sinaimg.cn/large/005BYqpggy1g0wz3qgssaj30uu0t3dpz.jpg" alt="在这里插入图片描述"><br>同样和期待的相符，加了-g之后，成功出现源码<br><img src="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz49e2xnj30r30oyq8r.jpg" alt="在这里插入图片描述"></p>
 <h4 id="4、c代码变成-s文件，如何精确捕捉到我写的函数的内容？"><a href="#4、c代码变成-s文件，如何精确捕捉到我写的函数的内容？" class="headerlink" title="4、c代码变成.s文件，如何精确捕捉到我写的函数的内容？"></a>4、c代码变成.s文件，如何精确捕捉到我写的函数的内容？</h4><p>额，我发现.s 文件还是非常干净的，没有什么特别多的其他文件，想要找哪个函数，前面都有名字的。 尝试是由-g会有什么区别码？<br><img src="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz4p1qm5j30hd0kt41y.jpg" alt="在这里插入图片描述"><br>加了-g 参数后，生成的.s 文件果然多了很多不认识的东西，仔细找了下后，发现并没有看到源码的字符串，可能是以某种特殊的方式编码了？如图是对比，左侧是加了 -g的，而右侧是没有加的。<br><img src="https://ws3.sinaimg.cn/large/005BYqpggy1g0wz509prej31el0k5wmu.jpg" alt="在这里插入图片描述"><br>我们来验证以下，这个加了-g的.s文件，是否真的是包含了我源码的信息？</p>
 <p>验证通过，确实有，哈哈<br><img src="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz5i91ybj30nn0scq9h.jpg" alt="在这里插入图片描述"></p>
-<h4 id="5、各种情况的编译失败是在编译的过程是哪一步？"><a href="#5、各种情况的编译失败是在编译的过程是哪一步？" class="headerlink" title="5、各种情况的编译失败是在编译的过程是哪一步？"></a>5、各种情况的编译失败是在编译的过程是哪一步？</h4><p>在编译c语言的时候，通常是一步全编译，我们来尝试分部编译，探究不同错误的编译失败地点。<br>1、如果我只是写一个函数而没有main函数，可以进行到哪一步？<br><img src="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz5u0tlsj30er05s3yw.jpg" alt="在这里插入图片描述"><br>编译成汇编代码居然就报错了！预处理的话还是可以的<br><img src="https://img-blog.csdnimg.cn/20190309112754648.png" alt="在这里插入图片描述"></p>
+<h4 id="5、各种情况的编译失败是在编译的过程是哪一步？"><a href="#5、各种情况的编译失败是在编译的过程是哪一步？" class="headerlink" title="5、各种情况的编译失败是在编译的过程是哪一步？"></a>5、各种情况的编译失败是在编译的过程是哪一步？</h4><p>在编译c语言的时候，通常是一步全编译，我们来尝试分部编译，探究不同错误的编译失败地点。<br>1、如果我只是写一个函数而没有main函数，可以进行到哪一步？<br><img src="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz5u0tlsj30er05s3yw.jpg" alt="在这里插入图片描述"><br>编译成汇编代码居然就报错了！预处理的话还是可以的<br><img src="https://ws3.sinaimg.cn/large/005BYqpggy1g0wzcl23cbj30vx05176q.jpg" alt="在这里插入图片描述"></p>
 <p>2、不小心没写分号 ;<br><img src="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz6h56eaj30pi09kq3z.jpg" alt="在这里插入图片描述"><br>额，看来还是这个源码变成汇编的过程过程<br><img src="https://ws3.sinaimg.cn/large/005BYqpgly1g0wz6uqm52j30mu03kabl.jpg" alt="在这里插入图片描述"><br>我突然想到，整个编译的大过程分为<code>预处理-&gt;编译-&gt;汇编-&gt;链接</code>，那么可能语法问题之类的都是在<code>编译</code>这个小过程被发现的吧。</p>
 <h4 id="6、list命令用法"><a href="#6、list命令用法" class="headerlink" title="6、list命令用法"></a>6、list命令用法</h4><p>默认显示10行，可使用<code>list 1,1000</code> 来获取更多行的代码<br>使用<code>list +/-</code> 用以继续，和查看更前的源码<br><code>set listsize 20</code> 设置显示行数<br><code>show listsize</code> 查看显示行数</p>
 <h4 id="7、删除断点：d-b"><a href="#7、删除断点：d-b" class="headerlink" title="7、删除断点：d b"></a>7、删除断点：<code>d b</code></h4><p>查看断点：<br><code>info b</code><br><code>info watch</code></p>
