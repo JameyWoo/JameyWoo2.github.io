@@ -1945,7 +1945,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6c7914;
+  background: #cb3844;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2739,7 +2739,7 @@ img:hover {
   overflow: hidden;
   padding: 0;
   width: 240px;
-  background: #fff;
+  background: rgba(255,255,255,0.2);
   box-shadow: initial;
   border-radius: initial;
 }
@@ -2802,6 +2802,8 @@ img:hover {
   min-height: 700px;
   box-shadow: initial;
   border-radius: initial;
+  opacity: 1;
+  background-color: rgba(255,255,255,0.2);
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .content-wrap {
@@ -2876,7 +2878,7 @@ img:hover {
 .site-meta {
   padding: 20px 0;
   color: #fff;
-  background: #222;
+  background: $white;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .site-meta {
@@ -2891,13 +2893,15 @@ img:hover {
 .brand {
   padding: 0;
   background: none;
+  color: #000;
 }
 .brand:hover {
-  color: #fff;
+  color: #000;
 }
 .site-subtitle {
   margin: 10px 10px 0;
   font-weight: initial;
+  color: #000;
 }
 .site-search form {
   display: none;
@@ -2980,7 +2984,7 @@ img:hover {
   box-sizing: border-box;
   width: 240px;
   color: #555;
-  background: #fff;
+  background: rgba(0,0,0,0);
   box-shadow: initial;
   border-radius: initial;
   opacity: 0;
@@ -3112,4 +3116,11 @@ img:hover {
   .post-body {
     text-align: justify;
   }
+}
+.post {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 25px;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }

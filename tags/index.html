@@ -10,6 +10,22 @@
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="“//" cdn.bootcss.com pace 1.0.2 pace.min.js”> </script> 
+<link href="“//cdn.bootcss.com/pace/1.0.2/themes" pink pace-theme-flash.css“rel="”stylesheet“">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
 <meta name="theme-color" content="#222">
 
 
@@ -113,6 +129,7 @@
     }
   };
 </script>
+
 
 
 
@@ -297,13 +314,58 @@
         
         
           <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 2 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/JameyWoo.github.io/tags/gdb/" style="font-size: 12px; color: #ccc">gdb</a> <a href="/JameyWoo.github.io/tags/汇编/" style="font-size: 12px; color: #ccc">汇编</a>
-            </div>
-          </div>
+  <!-- <div class="tag-cloud-title">
+      目前共计 2 个标签
+  </div> -->
+  <div class="tag-cloud-tags" id="tags">
+    <a href="/JameyWoo.github.io/tags/gdb/" style="font-size: 16px; color: #fff">gdb</a> <a href="/JameyWoo.github.io/tags/汇编/" style="font-size: 16px; color: #fff">汇编</a>
+  </div>
+</div>
+<br>
+
+<script type="text/javascript">
+   var alltags=document.getElementById('tags');
+   var tags=alltags.getElementsByTagName('a');
+
+   for (var i = tags.length - 1; i >= 0; i--) {
+     var r=Math.floor(Math.random()*75+130);
+     var g=Math.floor(Math.random()*75+100);
+     var b=Math.floor(Math.random()*75+80);
+     tags[i].style.background = "rgb("+r+","+g+","+b+")";
+   }
+</script>
+
+<style type="text/css">
+    div#posts.posts-expand .tag-cloud a{
+   background-color: #f5f7f1;
+   border-radius: 6px;
+   padding-left: 10px;
+   padding-right: 10px;
+   margin-top: 18px;
+
+ }
+
+ .tag-cloud a{
+   background-color: #f5f7f1;
+   border-radius: 4px;
+   padding-right: 5px;
+   padding-left: 5px;
+   margin-right: 5px;
+   margin-left: 0px;
+   margin-top: 8px;
+   margin-bottom: 0px;
+
+ }
+
+ .tag-cloud a:before{
+      content: "📜";
+ }
+
+ .tag-cloud-tags{
+   text-align: left;
+   counter-reset: tags;
+ }
+</style>
         
       </div>
       
