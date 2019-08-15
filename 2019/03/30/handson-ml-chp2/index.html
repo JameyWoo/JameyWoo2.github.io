@@ -440,11 +440,6 @@ batch learning 如果数据很大的话，">
                 
 				
 				
-                    <div id="busuanzi_container_page_pv" class="info-break-policy">
-                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
-                        <span id="busuanzi_value_page_pv"></span>
-                    </div>
-				
             </div>
         </div>
         <hr class="clearfix">
@@ -617,33 +612,30 @@ batch learning 如果数据很大的话，">
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/08/15/yi-jian-an-zhuang-v2ray/">
+                <a href="/2019/08/14/zi-bian-ma-qi-autoencoder/">
                     <div class="card-image">
                         
+                        <img src="../images/autoencoder.png" class="responsive-img" alt="自编码器AutoEncoder">
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="一键安装v2ray">
-                        
-                        <span class="card-title">一键安装v2ray</span>
+                        <span class="card-title">自编码器AutoEncoder</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0、我的vps版本：Ubuntu 18.10 x64。 地点：东京。
-1、v2ray官方给出了一键安装脚本bash &lt;(curl -L -s https://install.direct/go.sh)
-2、很快就可以安装好了，可以用这
+                            一. 什么是自编码器自动编码器 autoencoder, 简单表现编码器为将一组数据进行压缩编码(降维), 解码器将这组数据恢复成高维的数据. 这种编码和解码的过程不是无损的, 因此最终的输出和输入是有一些差异的, 且非常依赖于训练的数据集
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-15
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-14
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/网络/" class="post-category" target="_blank">
-                                    网络
+                            <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                    深度学习
                                 </a>
                             
                             
@@ -653,12 +645,8 @@ batch learning 如果数据很大的话，">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/科学上网/" target="_blank">
-                        <span class="chip bg-color">科学上网</span>
-                    </a>
-                    
-                    <a href="/tags/v2ray/" target="_blank">
-                        <span class="chip bg-color">v2ray</span>
+                    <a href="/tags/深度学习/" target="_blank">
+                        <span class="chip bg-color">深度学习</span>
                     </a>
                     
                 </div>
@@ -853,11 +841,11 @@ batch learning 如果数据很大的话，">
 <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
-            &copy; 2019 WeiYang. All Rights Reserved.
+            &copy; 2019 JameyWoo. All Rights Reserved.
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">6.5k</span>
+            <span class="white-color">21.4k</span>
             
 
             <br>
@@ -865,34 +853,27 @@ batch learning 如果数据很大的话，">
 
             
             
-            <br>
-            
-            <span id="busuanzi_container_site_pv" style='display:none'>
-                <i class="fa fa-heart-o"></i>
-                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv" style='display:none'>
-                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
-            </span>
-            
-            
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
+        <div class="col s12 m4 l4 social-link ">
     <a href="https://github.com/JameyWoo" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fa fa-github"></i>
     </a>
 
 
 
-
-
-
-
-    <a href="https://user.qzone.qq.com/2622075127" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
-        <i class="fa fa-qq"></i>
+    <a href="https://blog.csdn.net/wjh2622075127" class="tooltipped" target="_blank" data-tooltip="访问我的CSDN博客" data-position="top" data-delay="50">
+        <i class="fa fa-inverse">CSDN</i>
     </a>
+
+
+
+    <a href="mailto:2622075127@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
 
 
 
@@ -901,6 +882,7 @@ batch learning 如果数据很大的话，">
     <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
+
 </div>
     </div>
 </footer>
@@ -912,8 +894,8 @@ batch learning 如果数据很大的话，">
     $(document).ready(function () {
 
         var int = setInterval(fixCount, 50);
-        var pvcountOffset = 80000;
-        var uvcountOffset = 20000;
+        var pvcountOffset = 100;
+        var uvcountOffset = 10;
 
         function fixCount() {
             if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
@@ -951,7 +933,7 @@ batch learning 如果数据很大的话，">
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2017, 09, 11, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t1 = Date.UTC(2019, 03, 09, 00, 00, 00); //北京时间2019-3-9 00:00:00
         var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
         var diff = t2 - t1;
         var diffYears = Math.floor(diff / years);
@@ -1014,8 +996,6 @@ $(function () {
 
     <script src="/libs/others/clicklove.js"></script>
 
-
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>

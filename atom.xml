@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fiveplus.com/"/>
-  <updated>2019-08-15T02:09:48.868Z</updated>
+  <updated>2019-08-15T04:50:20.754Z</updated>
   <id>https://fiveplus.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://fiveplus.com/2019/08/15/zi-bian-ma-qi-autoencoder/"/>
-    <id>https://fiveplus.com/2019/08/15/zi-bian-ma-qi-autoencoder/</id>
-    <published>2019-08-15T02:07:54.351Z</published>
-    <updated>2019-08-15T02:09:48.868Z</updated>
+    <title>自编码器AutoEncoder</title>
+    <link href="https://fiveplus.com/2019/08/14/zi-bian-ma-qi-autoencoder/"/>
+    <id>https://fiveplus.com/2019/08/14/zi-bian-ma-qi-autoencoder/</id>
+    <published>2019-08-14T01:25:00.000Z</published>
+    <updated>2019-08-15T04:50:20.754Z</updated>
     
     <summary type="html">
     
@@ -35,35 +35,10 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>一键安装v2ray</title>
-    <link href="https://fiveplus.com/2019/08/15/yi-jian-an-zhuang-v2ray/"/>
-    <id>https://fiveplus.com/2019/08/15/yi-jian-an-zhuang-v2ray/</id>
-    <published>2019-08-14T16:36:15.082Z</published>
-    <updated>2019-03-10T11:20:39.855Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;0、我的vps版本：Ubuntu 18.10 x64。 地点：东京。&lt;/p&gt;
-&lt;p&gt;1、v2ray官方给出了一键安装脚本&lt;br&gt;&lt;code&gt;bash &amp;lt;(curl -L -s
-        
-      
-    
-    </summary>
-    
-      <category term="网络" scheme="https://fiveplus.com/categories/%E7%BD%91%E7%BB%9C/"/>
+      <category term="深度学习" scheme="https://fiveplus.com/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="科学上网" scheme="https://fiveplus.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
-    
-      <category term="v2ray" scheme="https://fiveplus.com/tags/v2ray/"/>
+      <category term="深度学习" scheme="https://fiveplus.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -159,20 +134,305 @@
   </entry>
   
   <entry>
-    <title>test</title>
-    <link href="https://fiveplus.com/2017/09/19/test/"/>
-    <id>https://fiveplus.com/2017/09/19/test/</id>
-    <published>2017-09-19T06:11:10.000Z</published>
-    <updated>2019-08-11T08:46:53.000Z</updated>
+    <title>数组中出现次数超过一半的数字</title>
+    <link href="https://fiveplus.com/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/"/>
+    <id>https://fiveplus.com/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/</id>
+    <published>2018-09-22T16:00:00.000Z</published>
+    <updated>2019-08-15T05:16:02.184Z</updated>
     
     <summary type="html">
     
+      
+      
+        
+        
+          &lt;p&gt;用头脑风暴学算法，对于一个问题，我们不只是要解决它，还要去思考有什么好的方法，差的方法去解决，甚至是一些错误的但可以提供思想借鉴的方法。&lt;/p&gt;
+&lt;p&gt;此问题“数组中出现次数超过一半的数字”是一道非常经典的算法题，我把它放在算法风暴系列第一篇来解析，探讨学习一个算法的过程，
+        
+      
+    
     </summary>
     
-      <category term="test" scheme="https://fiveplus.com/categories/test/"/>
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python实现简单分类器</title>
+    <link href="https://fiveplus.com/2018/09/21/python-shi-xian-jian-dan-fen-lei-qi/"/>
+    <id>https://fiveplus.com/2018/09/21/python-shi-xian-jian-dan-fen-lei-qi/</id>
+    <published>2018-09-20T16:00:00.000Z</published>
+    <updated>2019-08-15T05:19:52.267Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;今天重新开始学习机器学习，训练了一个简单的分类器。&lt;/p&gt;
+&lt;p&gt;如何工作的呢？给定一组训练数据，他们的参数有三个，x轴坐标，y轴坐标，类别。即&lt;code&gt;(x, y, c)&lt;/code&gt;。如图所示&lt;br&gt;&lt;img src=&quot;/images/20180921_1.png&quot;
+        
+      
+    
+    </summary>
     
     
-      <category term="test" scheme="https://fiveplus.com/tags/test/"/>
+      <category term="机器学习" scheme="https://fiveplus.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tarjan算法缩点+DAG最长路(DP)</title>
+    <link href="https://fiveplus.com/2018/08/13/tarjan-suan-fa-suo-dian-dag-zui-chang-lu-dp/"/>
+    <id>https://fiveplus.com/2018/08/13/tarjan-suan-fa-suo-dian-dag-zui-chang-lu-dp/</id>
+    <published>2018-08-12T16:00:00.000Z</published>
+    <updated>2019-08-15T05:13:45.429Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;我们按照复杂程度来讨论不同的Tarjan算法变形的差异.&lt;/p&gt;
+&lt;h2 id=&quot;第一个问题-Tarjan算法找出一个图里面的全部强连通分量-包括单独的点&quot;&gt;&lt;a href=&quot;#第一个问题-Tarjan算法找出一个图里面的全部强连通分量-包括单独的点&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斐波那契_矩阵快速幂解法</title>
+    <link href="https://fiveplus.com/2018/07/26/fei-bo-na-qi-ju-zhen-kuai-su-mi-jie-fa/"/>
+    <id>https://fiveplus.com/2018/07/26/fei-bo-na-qi-ju-zhen-kuai-su-mi-jie-fa/</id>
+    <published>2018-07-25T16:00:00.000Z</published>
+    <updated>2019-08-15T05:07:30.793Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;学过矩阵学了矩阵再看斐波那契数列, 秒懂, 结合矩阵快速幂, 加深了一个概念的理解: 矩阵也就是一个基本的计算单位.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;矩阵快速幂解法其实就是&lt;strong&gt;快速幂+矩阵.&lt;/strong&gt;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>倍增法求Lca(最近公共祖先)</title>
+    <link href="https://fiveplus.com/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/"/>
+    <id>https://fiveplus.com/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/</id>
+    <published>2018-07-15T16:00:00.000Z</published>
+    <updated>2019-08-15T05:10:48.352Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-明确问题&quot;&gt;&lt;a href=&quot;#一-明确问题&quot; class=&quot;headerlink&quot; title=&quot;一. 明确问题&quot;&gt;&lt;/a&gt;一. 明确问题&lt;/h2&gt;&lt;p&gt;看标题便知道了,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DP_最长不下降子序列</title>
+    <link href="https://fiveplus.com/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/"/>
+    <id>https://fiveplus.com/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/</id>
+    <published>2018-07-10T16:00:00.000Z</published>
+    <updated>2019-08-15T05:05:25.549Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;序言&quot;&gt;&lt;a href=&quot;#序言&quot; class=&quot;headerlink&quot; title=&quot;序言&quot;&gt;&lt;/a&gt;序言&lt;/h3&gt;&lt;p&gt;同类的问题还有&lt;em&gt;“最长上升子序列”, “最长下降子序列”,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DP_最长回文子串</title>
+    <link href="https://fiveplus.com/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/"/>
+    <id>https://fiveplus.com/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/</id>
+    <published>2018-07-10T16:00:00.000Z</published>
+    <updated>2019-08-15T05:04:16.531Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;####DP问题, 最长回文子串&lt;/p&gt;
+&lt;p&gt;最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是&lt;strong&gt;连续的&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;如字符串”PATZJUJZTACCBCC”,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>离散数学_C++生成真值表_模拟</title>
+    <link href="https://fiveplus.com/2018/04/07/chi-san-shu-xue-c-sheng-cheng-zhen-zhi-biao-mo-ni/"/>
+    <id>https://fiveplus.com/2018/04/07/chi-san-shu-xue-c-sheng-cheng-zhen-zhi-biao-mo-ni/</id>
+    <published>2018-04-06T16:00:00.000Z</published>
+    <updated>2019-08-15T05:24:45.013Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;生成真值表的代码&lt;/p&gt;
+&lt;p&gt;输入一个真值表达式,
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一键安装v2ray</title>
+    <link href="https://fiveplus.com/2018/03/10/yi-jian-an-zhuang-v2ray/"/>
+    <id>https://fiveplus.com/2018/03/10/yi-jian-an-zhuang-v2ray/</id>
+    <published>2018-03-10T11:19:19.000Z</published>
+    <updated>2019-08-15T05:02:29.820Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;0、我的vps版本：Ubuntu 18.10 x64。 地点：东京。&lt;/p&gt;
+&lt;p&gt;1、v2ray官方给出了一键安装脚本&lt;br&gt;&lt;code&gt;bash &amp;lt;(curl -L -s
+        
+      
+    
+    </summary>
+    
+      <category term="网络" scheme="https://fiveplus.com/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="科学上网" scheme="https://fiveplus.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+      <category term="v2ray" scheme="https://fiveplus.com/tags/v2ray/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>主元素问题_奇妙的思维</title>
+    <link href="https://fiveplus.com/2018/02/13/zhu-yuan-su-wen-ti-qi-miao-de-si-wei/"/>
+    <id>https://fiveplus.com/2018/02/13/zhu-yuan-su-wen-ti-qi-miao-de-si-wei/</id>
+    <published>2018-02-12T16:00:00.000Z</published>
+    <updated>2019-08-15T04:54:56.344Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;主元素问题&quot;&gt;&lt;a href=&quot;#主元素问题&quot; class=&quot;headerlink&quot; title=&quot;主元素问题&quot;&gt;&lt;/a&gt;主元素问题&lt;/h1&gt;&lt;h2 id=&quot;什么是主元素问题&quot;&gt;&lt;a href=&quot;#什么是主元素问题&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>最大子段和_三种方法</title>
+    <link href="https://fiveplus.com/2018/02/09/zui-da-zi-duan-he-san-chong-fang-fa/"/>
+    <id>https://fiveplus.com/2018/02/09/zui-da-zi-duan-he-san-chong-fang-fa/</id>
+    <published>2018-02-08T16:00:00.000Z</published>
+    <updated>2019-08-15T04:59:39.304Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;今天参加了一场洛谷网的比赛, 深受打击. 寒假过了这么多天, 一直没有认真学习算法, 以至于现在的水平比两个月前还要低. &lt;/p&gt;
+&lt;p&gt;本来就没有多少底子, 又退步了许多, 感慨万分.&lt;/p&gt;
+&lt;p&gt;在洛谷上看到这么一道题&lt;br&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://fiveplus.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初步数论-扩展欧几里得&amp;线性同余方程</title>
+    <link href="https://fiveplus.com/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/"/>
+    <id>https://fiveplus.com/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/</id>
+    <published>2018-01-03T16:00:00.000Z</published>
+    <updated>2019-08-15T04:48:55.361Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这篇博客我将介绍数论中的&lt;strong&gt;扩展欧几里得算法&lt;/strong&gt;(extended Euclidean algorithm ),以及其在&lt;strong&gt;解线性同余方程(乘法逆元)&lt;/strong&gt;中的运用.&lt;/p&gt;
+&lt;p&gt;首先要了解几个概念:&lt;br&gt;    &lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="数学" scheme="https://fiveplus.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
