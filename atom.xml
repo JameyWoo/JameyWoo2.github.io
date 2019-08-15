@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>姬小野的博客</title>
+  
+  <subtitle>铁甲依然在</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://fiveplus.com/"/>
+  <updated>2019-08-15T02:09:48.868Z</updated>
+  <id>https://fiveplus.com/</id>
+  
+  <author>
+    <name>姬小野</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://fiveplus.com/2019/08/15/zi-bian-ma-qi-autoencoder/"/>
+    <id>https://fiveplus.com/2019/08/15/zi-bian-ma-qi-autoencoder/</id>
+    <published>2019-08-15T02:07:54.351Z</published>
+    <updated>2019-08-15T02:09:48.868Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一-什么是自编码器&quot;&gt;&lt;a href=&quot;#一-什么是自编码器&quot; class=&quot;headerlink&quot; title=&quot;一. 什么是自编码器&quot;&gt;&lt;/a&gt;一. 什么是自编码器&lt;/h2&gt;&lt;p&gt;自动编码器 autoencoder,
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>一键安装v2ray</title>
+    <link href="https://fiveplus.com/2019/08/15/yi-jian-an-zhuang-v2ray/"/>
+    <id>https://fiveplus.com/2019/08/15/yi-jian-an-zhuang-v2ray/</id>
+    <published>2019-08-14T16:36:15.082Z</published>
+    <updated>2019-03-10T11:20:39.855Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;0、我的vps版本：Ubuntu 18.10 x64。 地点：东京。&lt;/p&gt;
+&lt;p&gt;1、v2ray官方给出了一键安装脚本&lt;br&gt;&lt;code&gt;bash &amp;lt;(curl -L -s
+        
+      
+    
+    </summary>
+    
+      <category term="网络" scheme="https://fiveplus.com/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="科学上网" scheme="https://fiveplus.com/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+      <category term="v2ray" scheme="https://fiveplus.com/tags/v2ray/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hands-on-ml chapter2 笔记1</title>
+    <link href="https://fiveplus.com/2019/03/30/handson-ml-chp2/"/>
+    <id>https://fiveplus.com/2019/03/30/handson-ml-chp2/</id>
+    <published>2019-03-30T15:06:26.000Z</published>
+    <updated>2019-03-31T16:37:17.605Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;批量学习（batch learning），一次性批量输入给学习算法，可以被形象的称为填鸭式学习。&lt;br&gt;在线学习（online learning），按照顺序，循序的学习，不断的去修正模型，进行优化。&lt;/p&gt;
+&lt;p&gt;batch learning
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>csapp datalab实验</title>
+    <link href="https://fiveplus.com/2019/03/29/csapp-datalab-shi-yan/"/>
+    <id>https://fiveplus.com/2019/03/29/csapp-datalab-shi-yan/</id>
+    <published>2019-03-29T08:54:16.000Z</published>
+    <updated>2019-03-29T09:12:56.290Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;datalab 实验&lt;/p&gt;
+&lt;p&gt;代码如下&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>汇编与gdb调试学习</title>
+    <link href="https://fiveplus.com/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/"/>
+    <id>https://fiveplus.com/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/</id>
+    <published>2019-03-09T09:48:59.000Z</published>
+    <updated>2019-03-10T10:50:16.410Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;1、在gdb中如何列出汇编代码&quot;&gt;&lt;a href=&quot;#1、在gdb中如何列出汇编代码&quot; class=&quot;headerlink&quot; title=&quot;1、在gdb中如何列出汇编代码&quot;&gt;&lt;/a&gt;1、在gdb中如何列出汇编代码&lt;/h4&gt;&lt;p&gt;应该是不可以用list
+        
+      
+    
+    </summary>
+    
+      <category term="汇编" scheme="https://fiveplus.com/categories/%E6%B1%87%E7%BC%96/"/>
+    
+    
+      <category term="汇编" scheme="https://fiveplus.com/tags/%E6%B1%87%E7%BC%96/"/>
+    
+      <category term="gdb" scheme="https://fiveplus.com/tags/gdb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://fiveplus.com/2019/03/09/hello-world/"/>
+    <id>https://fiveplus.com/2019/03/09/hello-world/</id>
+    <published>2019-03-09T04:00:00.000Z</published>
+    <updated>2019-03-10T10:50:14.412Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;你好，世界！&quot;&gt;&lt;a href=&quot;#你好，世界！&quot; class=&quot;headerlink&quot; title=&quot;你好，世界！&quot;&gt;&lt;/a&gt;你好，世界！&lt;/h1&gt;&lt;p&gt;今天是本博客诞生的第一天，向世界问好！&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;hello,
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="https://fiveplus.com/2017/09/19/test/"/>
+    <id>https://fiveplus.com/2017/09/19/test/</id>
+    <published>2017-09-19T06:11:10.000Z</published>
+    <updated>2019-08-11T08:46:53.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="test" scheme="https://fiveplus.com/categories/test/"/>
+    
+    
+      <category term="test" scheme="https://fiveplus.com/tags/test/"/>
+    
+  </entry>
+  
+</feed>
