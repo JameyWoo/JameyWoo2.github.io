@@ -40,7 +40,7 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="stylesheet" href="/blog/css/prism-tomorrow.css" type="text/css"></head>
 
 <body>
 
@@ -48,7 +48,7 @@
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
+                <a href="/blog/" class="waves-effect waves-light">
                     
                     <span class="logo-span">姬小野的部落</span>
                 </a>
@@ -275,7 +275,7 @@
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
-                location.href = '/';
+                location.href = '/blog/';
             }
         }
     })();
@@ -401,11 +401,11 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/汇编/" target="_blank">
+                            <a href="/blog/tags/汇编/" target="_blank">
                                 <span class="chip bg-color">汇编</span>
                             </a>
                         
-                            <a href="/tags/gdb/" target="_blank">
+                            <a href="/blog/tags/gdb/" target="_blank">
                                 <span class="chip bg-color">gdb</span>
                             </a>
                         
@@ -417,7 +417,7 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/计算机系统/" class="post-category" target="_blank">
+                            <a href="/blog/categories/计算机系统/" class="post-category" target="_blank">
                                 计算机系统
                             </a>
                         
@@ -510,7 +510,7 @@
                   property="dct:title" rel="dct:type">
                     《汇编与gdb调试学习》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/blog/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/" property="cc:attributionName"
                rel="cc:attributionURL">
                 姬小野
             </a> 采用
@@ -554,7 +554,7 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/03/29/csapp-datalab-shi-yan/">
+                <a href="/blog/2019/03/29/csapp-datalab-shi-yan/">
                     <div class="card-image">
                         
                         
@@ -586,7 +586,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/计算机系统/" class="post-category" target="_blank">
+                            <a href="/blog/categories/计算机系统/" class="post-category" target="_blank">
                                     计算机系统
                                 </a>
                             
@@ -597,7 +597,7 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/csapp/" target="_blank">
+                    <a href="/blog/tags/csapp/" target="_blank">
                         <span class="chip bg-color">csapp</span>
                     </a>
                     
@@ -612,7 +612,7 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/07/python-cha-kan-bao-ban-ben-quan-bu-ke-geng-xin-bao-geng-xin-dan-ge-bao-geng-xin-quan-bu-bao/">
+                <a href="/blog/2019/03/07/python-cha-kan-bao-ban-ben-quan-bu-ke-geng-xin-bao-geng-xin-dan-ge-bao-geng-xin-quan-bu-bao/">
                     <div class="card-image">
                         
                         
@@ -639,7 +639,7 @@
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/开发工具/" class="post-category" target="_blank">
+                            <a href="/blog/categories/开发工具/" class="post-category" target="_blank">
                                     开发工具
                                 </a>
                             
@@ -650,11 +650,11 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/开发工具/" target="_blank">
+                    <a href="/blog/tags/开发工具/" target="_blank">
                         <span class="chip bg-color">开发工具</span>
                     </a>
                     
-                    <a href="/tags/Anaconda/" target="_blank">
+                    <a href="/blog/tags/Anaconda/" target="_blank">
                         <span class="chip bg-color">Anaconda</span>
                     </a>
                     
@@ -845,7 +845,7 @@
 
 
 
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <a href="/blog/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
         <i class="fa fa-rss"></i>
     </a>
 
@@ -927,7 +927,7 @@
 <script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+    searchFunc("/blog/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
 <!-- 回到顶部按钮 -->
