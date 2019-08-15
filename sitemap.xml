@@ -2,6 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fiveplus.com/2018/09/08/chrome-liu-lan-qi-shi-yong-zhi-nan/</loc>
+    
+    <lastmod>2019-08-15T09:24:06.419Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/05/05/anaconda-xu-ni-huan-jing-ji-pycharm-xiang-mu-huan-jing-she-zhi/</loc>
+    
+    <lastmod>2019-08-15T09:18:41.008Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/06/08/opencv-python-ren-lian-shi-bie-chang-shi-knn-yu-shen-du-xue-xi/</loc>
+    
+    <lastmod>2019-08-15T09:14:32.877Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/06/09/you-ya-di-shi-yong-ubuntu18.04-yi/</loc>
+    
+    <lastmod>2019-08-15T09:12:45.073Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/06/10/you-ya-di-shi-yong-ubuntu18.04-er/</loc>
+    
+    <lastmod>2019-08-15T09:07:43.467Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/06/26/shi-yong-face-recognition-jin-xing-ren-lian-te-zheng-jian-ce/</loc>
+    
+    <lastmod>2019-08-15T09:01:51.537Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/06/28/darknet-mu-biao-jian-ce-kai-yuan-ku-xue-xi-ji-lu/</loc>
+    
+    <lastmod>2019-08-15T08:58:40.064Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/07/08/idea-ji-qi-ta-kai-fa-gong-ju-ri-chang-shi-yong-zhi-nan/</loc>
+    
+    <lastmod>2019-08-15T08:51:12.379Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/07/10/java-lian-jie-mysql-shu-ju-ku-jdbc-zeng-shan-gai-cha/</loc>
+    
+    <lastmod>2019-08-15T08:40:07.283Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/08/05/li-yong-qian-yi-xue-xi-jin-xing-hua-de-fen-lei-github-xiang-mu-jie-shao/</loc>
+    
+    <lastmod>2019-08-15T08:37:59.432Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/08/05/introduction-to-pytorch-bi-ji/</loc>
+    
+    <lastmod>2019-08-15T08:36:43.631Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/2019/08/14/zi-bian-ma-qi-autoencoder/</loc>
+    
+    <lastmod>2019-08-15T08:29:04.255Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fiveplus.com/2019/03/02/ubuntu-chang-jian-ming-ling-ji-shi-yong-ji-qiao/</loc>
     
     <lastmod>2019-08-15T05:50:04.158Z</lastmod>
@@ -128,13 +212,6 @@
   </url>
   
   <url>
-    <loc>https://fiveplus.com/2019/08/14/zi-bian-ma-qi-autoencoder/</loc>
-    
-    <lastmod>2019-08-15T05:28:44.516Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://fiveplus.com/2018/03/10/yi-jian-an-zhuang-v2ray/</loc>
     
     <lastmod>2019-08-15T05:02:29.820Z</lastmod>
@@ -156,13 +233,6 @@
   </url>
   
   <url>
-    <loc>https://fiveplus.com/categories/index.html</loc>
-    
-    <lastmod>2019-08-11T08:46:53.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://fiveplus.com/archives/index.html</loc>
     
     <lastmod>2019-08-11T08:46:53.000Z</lastmod>
@@ -170,7 +240,7 @@
   </url>
   
   <url>
-    <loc>https://fiveplus.com/friends/index.html</loc>
+    <loc>https://fiveplus.com/categories/index.html</loc>
     
     <lastmod>2019-08-11T08:46:53.000Z</lastmod>
     
@@ -185,6 +255,13 @@
   
   <url>
     <loc>https://fiveplus.com/tags/index.html</loc>
+    
+    <lastmod>2019-08-11T08:46:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fiveplus.com/friends/index.html</loc>
     
     <lastmod>2019-08-11T08:46:53.000Z</lastmod>
     

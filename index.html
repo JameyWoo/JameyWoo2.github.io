@@ -313,6 +313,13 @@
 
 <div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
     
+    <div id="prev-cover" class="left waves-effect carousel-control">
+        <i class="icon fa fa-angle-left"></i>
+    </div>
+    <div id="next-cover" class="right waves-effect carousel-control">
+        <i class="icon fa fa-angle-right"></i>
+    </div>
+    
 
     <div class="carousel-item red white-text bg-cover about-cover">
         <div class="container">
@@ -386,6 +393,78 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         </div>
     </div>
 
+    
+    
+
+    
+    
+    <div class="carousel-item amber white-text carousel-post bg-cover"
+            style="background-image: url('/images/1.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="title center-align">自编码器AutoEncoder</div>
+                    <div class="description center-align">
+                    
+                        一. 什么是自编码器自动编码器 autoencoder, 简单表现编码器为将一组数据进行压缩编码(降维), 解码器将这组数据恢复成高维的数据. 这种编码和解码的过程不是无损的, 因此最终的输出和输入是有一些差异的, 且非常依赖于训练的数据集
+                    
+                    </div>
+                    <div class="cover-btns">
+                        <a href="/2019/08/14/zi-bian-ma-qi-autoencoder/" class="waves-effect waves-light btn" target="_blank">
+                            <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="carousel-item amber white-text carousel-post bg-cover"
+            style="background-image: url('/images/2.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="title center-align">利用迁移学习进行花的分类 - github项目介绍</div>
+                    <div class="description center-align">
+                    
+                        前几天写了个小项目, 利用深度学习里的迁移学习方法做花的分类, 下面是项目的github地址.https://github.com/JameyWoo/transfer-learning
+感兴趣的同学可以了解一下, 源码比较简单, 下面是项目
+                    
+                    </div>
+                    <div class="cover-btns">
+                        <a href="/2019/08/05/li-yong-qian-yi-xue-xi-jin-xing-hua-de-fen-lei-github-xiang-mu-jie-shao/" class="waves-effect waves-light btn" target="_blank">
+                            <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="carousel-item amber white-text carousel-post bg-cover"
+            style="background-image: url('/images/idea.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="title center-align">IDEA及其他开发工具日常使用指南</div>
+                    <div class="description center-align">
+                    
+                        1. 引入依赖包通过如图所示的路径添加tar文件, 即可引入外部包.
+2. 单独运行一个java文件在java文件上右键, 如果你写好了main函数就可以编译运行. 之前由于不熟悉java, 所以main的参数没有写String[] arg
+                    
+                    </div>
+                    <div class="cover-btns">
+                        <a href="/2019/07/08/idea-ji-qi-ta-kai-fa-gong-ju-ri-chang-shi-yong-zhi-nan/" class="waves-effect waves-light btn" target="_blank">
+                            <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
 </div>
 
@@ -489,7 +568,7 @@ $(function () {
 
     
     
-    <div class="col s12 m6" >
+    <div class="col s12" >
         <div class="post-card" style="background-image: url('/medias/featureimages/5.jpg')">
             <div class="post-body">
                 <div class="post-categories">
@@ -500,12 +579,10 @@ $(function () {
                 <a href="/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/" target="_blank">
                     <h3 class="post-title">倍增法求Lca(最近公共祖先)</h3>
                 </a>
-                <p class="post-description">
-                    
-                        一. 明确问题看标题便知道了, 这篇博客力求解决的问题是求出一棵树的两个结点的最近公共祖先(LCA), 方法是倍增法.
-那么什么是Lca呢?
-                    
-                </p>
+                <p class="post-description">一. 明确问题看标题便知道了, 这篇博客力求解决的问题是求出一棵树的两个结点的最近公共祖先(LCA), 方法是倍增法.
+那么什么是Lca呢? 
+
+它是一棵树上两个结点向上</p>
                 <a href="/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/" target="_blank"
                         class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)">
                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
@@ -515,7 +592,7 @@ $(function () {
     </div>
     
     
-    <div class="col s12 m6" >
+    <div class="col s12 m6" data-aos="zoom-in-up">
         <div class="post-card" style="background-image: url('../images/autoencoder.png')">
             <div class="post-body">
                 <div class="post-categories">
@@ -526,13 +603,77 @@ $(function () {
                 <a href="/2019/08/14/zi-bian-ma-qi-autoencoder/" target="_blank">
                     <h3 class="post-title">自编码器AutoEncoder</h3>
                 </a>
-                <p class="post-description">
-                    
-                        一. 什么是自编码器自动编码器 autoencoder, 简单表现编码器为将一组数据进行压缩编码(降维), 解码器将这组数据恢复成高维的数据
-                    
-                </p>
+                <p class="post-description">一. 什么是自编码器自动编码器 autoencoder, 简单表现编码器为将一组数据进行压缩编码(降维), 解码器将这组数据恢复成高维的数据</p>
                 <a href="/2019/08/14/zi-bian-ma-qi-autoencoder/" target="_blank"
                         class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)">
+                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col s12 m6" data-aos="zoom-in-up">
+        <div class="post-card" style="background-image: url('/images/transfer-learning.png')">
+            <div class="post-body">
+                <div class="post-categories">
+                    
+                    <a href="/categories/深度学习/" class="category" target="_blank">深度学习</a>
+                    
+                </div>
+                <a href="/2019/08/05/li-yong-qian-yi-xue-xi-jin-xing-hua-de-fen-lei-github-xiang-mu-jie-shao/" target="_blank">
+                    <h3 class="post-title">利用迁移学习进行花的分类 - github项目介绍</h3>
+                </a>
+                <p class="post-description">前几天写了个小项目, 利用深度学习里的迁移学习方法做花的分类, 下面是项目的github地址.https://github.com/Jame</p>
+                <a href="/2019/08/05/li-yong-qian-yi-xue-xi-jin-xing-hua-de-fen-lei-github-xiang-mu-jie-shao/" target="_blank"
+                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #1AD6FD 0%, #1D62F0 100%)">
+                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col s12" data-aos="zoom-in-up">
+        <div class="post-card" style="background-image: url('/images/idea.jpg')">
+            <div class="post-body">
+                <div class="post-categories">
+                    
+                    <a href="/categories/开发工具/" class="category" target="_blank">开发工具</a>
+                    
+                </div>
+                <a href="/2019/07/08/idea-ji-qi-ta-kai-fa-gong-ju-ri-chang-shi-yong-zhi-nan/" target="_blank">
+                    <h3 class="post-title">IDEA及其他开发工具日常使用指南</h3>
+                </a>
+                <p class="post-description">1. 引入依赖包通过如图所示的路径添加tar文件, 即可引入外部包.
+2. 单独运行一个java文件在java文件上右键, 如果你写好了main函数就可以编译运行. 之前</p>
+                <a href="/2019/07/08/idea-ji-qi-ta-kai-fa-gong-ju-ri-chang-shi-yong-zhi-nan/" target="_blank"
+                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FFCC00 0%, #FF9500 100%)">
+                    <i class="icon fa fa-eye fa-fw"></i>阅读更多
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="col s12 m6" data-aos="zoom-in-up">
+        <div class="post-card" style="background-image: url('/medias/featureimages/9.jpg')">
+            <div class="post-body">
+                <div class="post-categories">
+                    
+                    <a href="/categories/计算机视觉/" class="category" target="_blank">计算机视觉</a>
+                    
+                </div>
+                <a href="/2019/06/28/darknet-mu-biao-jian-ce-kai-yuan-ku-xue-xi-ji-lu/" target="_blank">
+                    <h3 class="post-title">darknet--目标检测开源库学习记录</h3>
+                </a>
+                <p class="post-description">1. 效果展示官网链接
+darknet 实现了c语言版本的yolo v3, 不依赖任何其他库. 因此安装非常简单.
+效果图:
+
+2. 安装方</p>
+                <a href="/2019/06/28/darknet-mu-biao-jian-ce-kai-yuan-ku-xue-xi-ji-lu/" target="_blank"
+                        class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%)">
                     <i class="icon fa fa-eye fa-fw"></i>阅读更多
                 </a>
             </div>
@@ -604,6 +745,527 @@ $(function () {
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2019/08/05/li-yong-qian-yi-xue-xi-jin-xing-hua-de-fen-lei-github-xiang-mu-jie-shao/" target="_blank">
+                        <div class="card-image">
+                            
+                            <img src="/images/transfer-learning.png" class="responsive-img" alt="利用迁移学习进行花的分类 - github项目介绍">
+                            
+                            <span class="card-title">利用迁移学习进行花的分类 - github项目介绍</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            前几天写了个小项目, 利用深度学习里的迁移学习方法做花的分类, 下面是项目的github地址.https://github.com/JameyWoo/transfer-learning
+感兴趣的同学可以了解一下, 源码比较简单, 下面是项目
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                    深度学习
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/深度学习/" target="_blank">
+                            <span class="chip bg-color">深度学习</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/08/05/introduction-to-pytorch-bi-ji/" target="_blank">
+                        <div class="card-image">
+                            
+                            <img src="/images/pytorch.png" class="responsive-img" alt="Introduction to PyTorch 笔记">
+                            
+                            <span class="card-title">Introduction to PyTorch 笔记</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            Introduction to PyTorch 笔记Part 1 - Tensors in PyTorch (Solution).ipynb
+最基本的神经网络, 使用矩阵计算. 
+
+激活函数, sigmoid, softmax, relu等
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                    深度学习
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/深度学习/" target="_blank">
+                            <span class="chip bg-color">深度学习</span>
+                        </a>
+                        
+                        <a href="/tags/pytorch/" target="_blank">
+                            <span class="chip bg-color">pytorch</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/07/10/java-lian-jie-mysql-shu-ju-ku-jdbc-zeng-shan-gai-cha/" target="_blank">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="java连接mysql数据库(jdbc增删改查)">
+                            
+                            <span class="card-title">java连接mysql数据库(jdbc增删改查)</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            刚学java连接数据库, 放一个代码实例, 以作参考
+由于是学习测试用, 因此代码并不规范, 并没有将增删改查等操作写在单独的函数里, 整个90+行的代码只有一个函数. 不过代码中有很多清晰的注释
+菜鸟的教程写的非常好
+经过这次学习, 了解
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-10
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/java/" target="_blank">
+                            <span class="chip bg-color">java</span>
+                        </a>
+                        
+                        <a href="/tags/数据库/" target="_blank">
+                            <span class="chip bg-color">数据库</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/07/08/idea-ji-qi-ta-kai-fa-gong-ju-ri-chang-shi-yong-zhi-nan/" target="_blank">
+                        <div class="card-image">
+                            
+                            <img src="/images/idea.jpg" class="responsive-img" alt="IDEA及其他开发工具日常使用指南">
+                            
+                            <span class="card-title">IDEA及其他开发工具日常使用指南</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            1. 引入依赖包通过如图所示的路径添加tar文件, 即可引入外部包.
+2. 单独运行一个java文件在java文件上右键, 如果你写好了main函数就可以编译运行. 之前由于不熟悉java, 所以main的参数没有写String[] arg
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/开发工具/" class="post-category" target="_blank">
+                                    开发工具
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/idea/" target="_blank">
+                            <span class="chip bg-color">idea</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/06/28/darknet-mu-biao-jian-ce-kai-yuan-ku-xue-xi-ji-lu/" target="_blank">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="darknet--目标检测开源库学习记录">
+                            
+                            <span class="card-title">darknet--目标检测开源库学习记录</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            1. 效果展示官网链接
+darknet 实现了c语言版本的yolo v3, 不依赖任何其他库. 因此安装非常简单.
+效果图:
+
+2. 安装方法如何安装?
+git clone https://github.com/pjreddie/darkn
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/计算机视觉/" class="post-category" target="_blank">
+                                    计算机视觉
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/目标检测/" target="_blank">
+                            <span class="chip bg-color">目标检测</span>
+                        </a>
+                        
+                        <a href="/tags/开源库/" target="_blank">
+                            <span class="chip bg-color">开源库</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/06/26/shi-yong-face-recognition-jin-xing-ren-lian-te-zheng-jian-ce/" target="_blank">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="使用face_recognition进行人脸特征检测">
+                            
+                            <span class="card-title">使用face_recognition进行人脸特征检测</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            效果图调用face_recognition.face_landmarks()方法即可得到人脸特征点, 返回一个字典, 下图是返回的数据, 包括chin(下巴), left_eye(左眼)等.我画了两种图, 一种是遍历所有的点, 直接给点画图
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                    深度学习
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/深度学习/" target="_blank">
+                            <span class="chip bg-color">深度学习</span>
+                        </a>
+                        
+                        <a href="/tags/开源库/" target="_blank">
+                            <span class="chip bg-color">开源库</span>
+                        </a>
+                        
+                        <a href="/tags/人脸识别/" target="_blank">
+                            <span class="chip bg-color">人脸识别</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/06/10/you-ya-di-shi-yong-ubuntu18.04-er/" target="_blank">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="优雅地使用ubuntu18.04（二）">
+                            
+                            <span class="card-title">优雅地使用ubuntu18.04（二）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            文章链接优雅地使用ubuntu18.04（一）优雅地使用ubuntu18.04（二）
+12、设置默认终端使用命令sudo update-alternatives --config x-terminal-emulator然后就可以选择了
+13
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-10
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/操作系统/" class="post-category" target="_blank">
+                                    操作系统
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/ubuntu/" target="_blank">
+                            <span class="chip bg-color">ubuntu</span>
+                        </a>
+                        
+                        <a href="/tags/开源库/" target="_blank">
+                            <span class="chip bg-color">开源库</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/06/09/you-ya-di-shi-yong-ubuntu18.04-yi/" target="_blank">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="优雅地使用ubuntu18.04（一）">
+                            
+                            <span class="card-title">优雅地使用ubuntu18.04（一）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            文章链接优雅地使用ubuntu18.04（一）优雅地使用ubuntu18.04（二）
+1、ubuntu 截图理论上来说应该是可以直接下面这样，但是我的截图出来不会弹出窗口，所以直接搜索截图程序进行截图。shift+ctrl+prtSc 能够
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-09
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/操作系统/" class="post-category" target="_blank">
+                                    操作系统
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/ubuntu/" target="_blank">
+                            <span class="chip bg-color">ubuntu</span>
+                        </a>
+                        
+                        <a href="/tags/开源库/" target="_blank">
+                            <span class="chip bg-color">开源库</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/06/08/opencv-python-ren-lian-shi-bie-chang-shi-knn-yu-shen-du-xue-xi/" target="_blank">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="opencv-python 人脸识别尝试——knn与深度学习">
+                            
+                            <span class="card-title">opencv-python 人脸识别尝试——knn与深度学习</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            引言人脸识别和人脸检测不同，人脸检测时检测到人脸位置，而人脸识别是基于人脸数据库，进行一些识别操作如识别某一个人像是数据库中的哪个标签。
+需要说明的是，使用knn和Dense层的神经网络作为人脸识别算法只是我的尝试，在实际的使用中基本不使用
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                    深度学习
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/人脸识别/" target="_blank">
+                            <span class="chip bg-color">人脸识别</span>
+                        </a>
+                        
+                        <a href="/tags/opencv/" target="_blank">
+                            <span class="chip bg-color">opencv</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/05/05/anaconda-xu-ni-huan-jing-ji-pycharm-xiang-mu-huan-jing-she-zhi/" target="_blank">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="Anaconda虚拟环境及PyCharm项目环境设置">
+                            
+                            <span class="card-title">Anaconda虚拟环境及PyCharm项目环境设置</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                            Anaconda虚拟环境1、创建环境conda create --name your_env_name python=3.6或者conda create -n  your_env_name python=3.7新建一个环境
+2、查看环境进入
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-05
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/开发工具/" class="post-category" target="_blank">
+                                    开发工具
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/开发工具/" target="_blank">
+                            <span class="chip bg-color">开发工具</span>
+                        </a>
+                        
+                        <a href="/tags/Anaconda/" target="_blank">
+                            <span class="chip bg-color">Anaconda</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2019/03/30/handson-ml-chp2/" target="_blank">
                         <div class="card-image">
                             
@@ -650,510 +1312,6 @@ batch learning 如果数据很大的话，
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/03/29/csapp-datalab-shi-yan/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/30.jpg" class="responsive-img" alt="csapp datalab实验">
-                            
-                            <span class="card-title">csapp datalab实验</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            datalab 实验
-代码如下
-
-
-/* 
- * CS:APP Data Lab 
- * 
- * &lt;Please put your name and userid here>
- * 
- * bits.c - Source file w
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-29
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/计算机系统/" class="post-category" target="_blank">
-                                    计算机系统
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/csapp/" target="_blank">
-                            <span class="chip bg-color">csapp</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="汇编与gdb调试学习">
-                            
-                            <span class="card-title">汇编与gdb调试学习</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            1、在gdb中如何列出汇编代码应该是不可以用list 命令列出汇编代码的。但可以使用display /i $pc 命令在调试的时候出了列出一行源码，也列出相应的汇编代码同时，s和si等的区别还是比较大的：si按汇编一行一行执行，有的源码一行
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-09
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/计算机系统/" class="post-category" target="_blank">
-                                    计算机系统
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/汇编/" target="_blank">
-                            <span class="chip bg-color">汇编</span>
-                        </a>
-                        
-                        <a href="/tags/gdb/" target="_blank">
-                            <span class="chip bg-color">gdb</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/03/02/ubuntu-chang-jian-ming-ling-ji-shi-yong-ji-qiao/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="Ubuntu常见命令及使用技巧">
-                            
-                            <span class="card-title">Ubuntu常见命令及使用技巧</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            一个查询Linux命令比较方便的网址http://man.linuxde.net/
-
-1、在ubuntu 12.04系统中，使用Ctrl+Alt+F1~6切换到shell，使用Ctrl+Alt+F7切换到图形界面
-2、使用touch新建一个
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-02
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/操作系统/" class="post-category" target="_blank">
-                                    操作系统
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/操作系统/" target="_blank">
-                            <span class="chip bg-color">操作系统</span>
-                        </a>
-                        
-                        <a href="/tags/ubuntu/" target="_blank">
-                            <span class="chip bg-color">ubuntu</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/11/17/gao-si-po-su-bei-xie-si-fang-fa-jin-xing-yuan-wei-hua-fen-lei/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="高斯朴素贝叶斯方法进行鸢尾花分类">
-                            
-                            <span class="card-title">高斯朴素贝叶斯方法进行鸢尾花分类</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            贝叶斯方法完整代码import seaborn as sns  
-iris = sns.load_dataset('iris')
-
-X_iris = iris.drop('species', axis=1)
-y_iris = iris['s
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-11-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/机器学习/" class="post-category" target="_blank">
-                                    机器学习
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/机器学习/" target="_blank">
-                            <span class="chip bg-color">机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/10/01/ida-star-suan-fa-jie-shi-liu-gong-ge-pin-tu-wen-ti/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="IDA*算法解十六宫格拼图问题">
-                            
-                            <span class="card-title">IDA*算法解十六宫格拼图问题</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            IDA*算法, ID(Iterative Deepening)指的是迭代加深. 它的思想是重复进行限制最大深度的深度优先搜索(此限制从某个最小值遍历到最大值), 也称为深度受限搜索.
-一般情况下, 为了提高搜索速度, 迭代加深不会记录已搜索
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-10-01
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/算法/" class="post-category" target="_blank">
-                                    算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/算法/" target="_blank">
-                            <span class="chip bg-color">算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="数组中出现次数超过一半的数字">
-                            
-                            <span class="card-title">数组中出现次数超过一半的数字</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            用头脑风暴学算法，对于一个问题，我们不只是要解决它，还要去思考有什么好的方法，差的方法去解决，甚至是一些错误的但可以提供思想借鉴的方法。
-此问题“数组中出现次数超过一半的数字”是一道非常经典的算法题，我把它放在算法风暴系列第一篇来解析，探讨
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-23
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/算法/" class="post-category" target="_blank">
-                                    算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/算法/" target="_blank">
-                            <span class="chip bg-color">算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/09/21/python-shi-xian-jian-dan-fen-lei-qi/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Python实现简单分类器">
-                            
-                            <span class="card-title">Python实现简单分类器</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            今天重新开始学习机器学习，训练了一个简单的分类器。
-如何工作的呢？给定一组训练数据，他们的参数有三个，x轴坐标，y轴坐标，类别。即(x, y, c)。如图所示红色的圆点代表第一类点，类别编号为1；蓝色的倒三角形代表第二类点，类别编号为0.
-
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-21
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/机器学习/" class="post-category" target="_blank">
-                                    机器学习
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/机器学习/" target="_blank">
-                            <span class="chip bg-color">机器学习</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/08/13/tarjan-suan-fa-suo-dian-dag-zui-chang-lu-dp/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="Tarjan算法缩点+DAG最长路(DP)">
-                            
-                            <span class="card-title">Tarjan算法缩点+DAG最长路(DP)</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            我们按照复杂程度来讨论不同的Tarjan算法变形的差异.
-第一个问题: Tarjan算法找出一个图里面的全部强连通分量(包括单独的点).但此时只是有所区分的将所有的点划分为一个个的强连通分量, 尚且没有缩点. 上面这个功能实现起来最简单. 
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-08-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/算法/" class="post-category" target="_blank">
-                                    算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/算法/" target="_blank">
-                            <span class="chip bg-color">算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/07/26/fei-bo-na-qi-ju-zhen-kuai-su-mi-jie-fa/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="斐波那契_矩阵快速幂解法">
-                            
-                            <span class="card-title">斐波那契_矩阵快速幂解法</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            学过矩阵学了矩阵再看斐波那契数列, 秒懂, 结合矩阵快速幂, 加深了一个概念的理解: 矩阵也就是一个基本的计算单位.
-矩阵快速幂解法其实就是快速幂+矩阵. 
-和普通的快速幂有什么不同? 不同的是基数的类型,快速幂的过程还是一样的. 同样的,
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/算法/" class="post-category" target="_blank">
-                                    算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/算法/" target="_blank">
-                            <span class="chip bg-color">算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/" target="_blank">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="倍增法求Lca(最近公共祖先)">
-                            
-                            <span class="card-title">倍增法求Lca(最近公共祖先)</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                            一. 明确问题看标题便知道了, 这篇博客力求解决的问题是求出一棵树的两个结点的最近公共祖先(LCA), 方法是倍增法.
-那么什么是Lca呢? 
-
-它是一棵树上两个结点向上移动, 最后交汇的第一个结点, 也就是说这两个结点祖先里离树根最远也是
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-16
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/算法/" class="post-category" target="_blank">
-                                    算法
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/算法/" target="_blank">
-                            <span class="chip bg-color">算法</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -1170,7 +1328,7 @@ y_iris = iris['s
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 2</div>
+            <div class="center-align b-text-gray">1 / 3</div>
         </div>
         <div class="col s6 m4 l4">
             
@@ -1191,7 +1349,7 @@ y_iris = iris['s
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">23.6k</span>
+            <span class="white-color">36.8k</span>
             
 
             <br>

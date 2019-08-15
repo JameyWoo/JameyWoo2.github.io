@@ -458,10 +458,10 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="一-什么是自编码器"><a href="#一-什么是自编码器" class="headerlink" title="一. 什么是自编码器"></a>一. 什么是自编码器</h2><p>自动编码器 autoencoder, 简单表现编码器为将一组数据进行压缩编码(降维), 解码器将这组数据恢复成高维的数据. 这种编码和解码的过程不是无损的, 因此最终的输出和输入是有一些差异的, 且非常依赖于训练的数据集.</p>
-<p>如图所示<br><img src="https://img-blog.csdnimg.cn/20190813221832515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>如图所示<br><img src="/images/20190814_1.png" alt></p>
 <p>如上面这张图所示, 对于一个简单的三层线性神经网络组成的自编码器, 我们在进行神经网络的搭建过程中, 将(input, hidden) 这个过程叫做编码器, 将(hidden, output) 这个过程叫做解码器. 对于mnist数据集而言, 它的维度变化是 784 -&gt; x -&gt; 784, 其中, x &lt; 784, 是编码的维度.</p>
 <hr>
-<h2 id="二-有什么作用"><a href="#二-有什么作用" class="headerlink" title="二. 有什么作用"></a>二. 有什么作用</h2><h3 id="1-图像去噪"><a href="#1-图像去噪" class="headerlink" title="1) 图像去噪"></a>1) 图像去噪</h3><p>看上去很强啊<br><img src="https://img-blog.csdnimg.cn/20190813222525217.png" alt="在这里插入图片描述"></p>
+<h2 id="二-有什么作用"><a href="#二-有什么作用" class="headerlink" title="二. 有什么作用"></a>二. 有什么作用</h2><h3 id="1-图像去噪"><a href="#1-图像去噪" class="headerlink" title="1) 图像去噪"></a>1) 图像去噪</h3><p>看上去很强啊<br><img src="/images/20190814_2.png" alt></p>
 <h3 id="2-可视化降维"><a href="#2-可视化降维" class="headerlink" title="2) 可视化降维"></a>2) 可视化降维</h3><hr>
 <h2 id="三-如何实现"><a href="#三-如何实现" class="headerlink" title="三. 如何实现"></a>三. 如何实现</h2><p>训练神经网络需要定义损失函数, 那么这个自编码器的损失衡量值是什么? </p>
 <p>衡量损失的值是由网络的输出结果和输入决定的. 也就是说, 是由这两个784维数据的差别决定的.</p>
@@ -552,7 +552,7 @@ Epoch: 18     Training Loss: 0.038162
 Epoch: 19     Training Loss: 0.038012
 Epoch: 20     Training Loss: 0.037874</code></pre>
 <p>那么效果如何呢? 上面一排是输入图像, 下面一排是输出图像. 经过自编码器之后, 还原度还是很高的.</p>
-<p><img src="https://img-blog.csdnimg.cn/2019081323064636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="/images/20190814_3.png" alt></p>
 <h3 id="2-测试-对有噪声图像的自编码"><a href="#2-测试-对有噪声图像的自编码" class="headerlink" title="2) 测试: 对有噪声图像的自编码"></a>2) 测试: 对有噪声图像的自编码</h3><p>首先查看一张图片</p>
 <pre class=" language-py"><code class="language-py">a_img = np.squeeze(images[0])
 print(a_img.shape)
@@ -560,11 +560,11 @@ print(np.max(a_img))
 print(np.min(a_img))
 
 plt.imshow(a_img, cmap='gray')</code></pre>
-<p><img src="https://img-blog.csdnimg.cn/20190813232552587.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后向其中加入噪声</p>
+<p><img src="/images/20190814_4.png" alt><br>然后向其中加入噪声</p>
 <pre class=" language-py"><code class="language-py">a_img_x = a_img + 0.08 * np.random.normal(loc=0.0, scale=1.0, size=a_img.shape)
 
 plt.imshow(a_img_x, cmap='gray')</code></pre>
-<p>这是加入噪声之后的图片, 可以看出差别还是很大的. 那么我们的编码器能还原出如何的效果呢?<br><img src="https://img-blog.csdnimg.cn/20190813232635605.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>这是加入噪声之后的图片, 可以看出差别还是很大的. 那么我们的编码器能还原出如何的效果呢?<br><img src="/images/20190814_5.png" alt></p>
 <pre class=" language-py"><code class="language-py">a_img_output = model(torch.Tensor(a_img_x).view(1, -1))
 print(a_img_output.shape)
 
@@ -572,8 +572,8 @@ output_img = a_img_output.view(28, 28)
 output_img = output_img.detach().numpy()
 
 plt.imshow(output_img, cmap='gray')</code></pre>
-<p>这是还原后的, 说实话看到这个图片我心里也是很惊讶的. 就在于加入那么多噪声之后, 居然还可以还原的如此清晰. 当然这是对于MNIST数据集而言, 这个数据集比较简单.<br><img src="https://img-blog.csdnimg.cn/20190813232753783.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="3-卷积层实现"><a href="#3-卷积层实现" class="headerlink" title="3) 卷积层实现"></a>3) 卷积层实现</h3><p>不同之处在于定义自编码器的神经网络结构<br>如图所示<br><img src="https://img-blog.csdnimg.cn/2019081323523769.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到在decoder中经过了两个反卷积层, <del>但是由于水平有限, 这个反卷积层看着好奇怪, 不知道是怎么反卷积的. </del></p>
+<p>这是还原后的, 说实话看到这个图片我心里也是很惊讶的. 就在于加入那么多噪声之后, 居然还可以还原的如此清晰. 当然这是对于MNIST数据集而言, 这个数据集比较简单.<br><img src="/images/20190814_6.png" alt></p>
+<h3 id="3-卷积层实现"><a href="#3-卷积层实现" class="headerlink" title="3) 卷积层实现"></a>3) 卷积层实现</h3><p>不同之处在于定义自编码器的神经网络结构<br>如图所示<br><img src="/images/20190814_7.png" alt><br>可以看到在decoder中经过了两个反卷积层, <del>但是由于水平有限, 这个反卷积层看着好奇怪, 不知道是怎么反卷积的. </del></p>
 <p>pytorch实现</p>
 <pre class=" language-py"><code class="language-py">import torch.nn as nn
 import torch.nn.functional as F
@@ -629,11 +629,9 @@ Epoch: 12     Training Loss: 0.188406
 Epoch: 13     Training Loss: 0.186529
 Epoch: 14     Training Loss: 0.184983
 Epoch: 15     Training Loss: 0.183579</code></pre>
-<p>观察下图的数字9的话, 可以看到损失了不少.<br><img src="https://img-blog.csdnimg.cn/20190814000232600.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>观察下图的数字9的话, 可以看到损失了不少.<br><img src="/images/20190814_8.png" alt></p>
 <p><strong>再看看噪声图片的处理能力如何</strong></p>
-<p>原图:<br><img src="https://img-blog.csdnimg.cn/20190814000948937.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>加入噪声:<br><img src="https://img-blog.csdnimg.cn/20190814001018505.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>经过自编码器<br><img src="https://img-blog.csdnimg.cn/20190814001040411.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>呃, 效果似乎有点不是很对, 可能是训练的epoch太少了, 毕竟我们可以前面看到训练15个epoch的损失值还是达到了0.18, 而在全连接层的简单自编码器上第二个epoch的损失值就达到了0.08</p>
-<p>另一张图片</p>
-<p><img src="https://img-blog.csdnimg.cn/20190814001258299.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>噪声<br><img src="https://img-blog.csdnimg.cn/20190814001310217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190814002017372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dqaDI2MjIwNzUxMjc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>原图:<br><img src="/images/20190814_9.png" alt><br>加入噪声:<br><img src="/images/20190814_10.png" alt><br>经过自编码器<br><img src="/images/20190814_11.png" alt><br>呃, 效果似乎有点不是很对, 可能是训练的epoch太少了, 毕竟我们可以前面看到训练15个epoch的损失值还是达到了0.18, 而在全连接层的简单自编码器上第二个epoch的损失值就达到了0.08</p>
 <hr>
 <h2 id="四-一些小细节"><a href="#四-一些小细节" class="headerlink" title="四. 一些小细节"></a>四. 一些小细节</h2><ol>
 <li><p>numpy 的 squeeze 函数<br><a href="https://blog.csdn.net/zenghaitao0128/article/details/78512715" target="_blank" rel="noopener">参考博客</a><br>作用：<strong>从数组的形状中删除单维度条目，即把shape中为1的维度去掉</strong></p>
@@ -795,32 +793,31 @@ Epoch: 15     Training Loss: 0.183579</code></pre>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/30/handson-ml-chp2/">
+                <a href="/2019/08/05/li-yong-qian-yi-xue-xi-jin-xing-hua-de-fen-lei-github-xiang-mu-jie-shao/">
                     <div class="card-image">
                         
+                        <img src="/images/transfer-learning.png" class="responsive-img" alt="利用迁移学习进行花的分类 - github项目介绍">
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="hands-on-ml chapter2 笔记1">
-                        
-                        <span class="card-title">hands-on-ml chapter2 笔记1</span>
+                        <span class="card-title">利用迁移学习进行花的分类 - github项目介绍</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            批量学习（batch learning），一次性批量输入给学习算法，可以被形象的称为填鸭式学习。在线学习（online learning），按照顺序，循序的学习，不断的去修正模型，进行优化。
-batch learning 如果数据很大的话，
+                            前几天写了个小项目, 利用深度学习里的迁移学习方法做花的分类, 下面是项目的github地址.https://github.com/JameyWoo/transfer-learning
+感兴趣的同学可以了解一下, 源码比较简单, 下面是项目
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-30
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/机器学习/" class="post-category" target="_blank">
-                                    机器学习
+                            <a href="/categories/深度学习/" class="post-category" target="_blank">
+                                    深度学习
                                 </a>
                             
                             
@@ -830,8 +827,8 @@ batch learning 如果数据很大的话，
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/机器学习/" target="_blank">
-                        <span class="chip bg-color">机器学习</span>
+                    <a href="/tags/深度学习/" target="_blank">
+                        <span class="chip bg-color">深度学习</span>
                     </a>
                     
                 </div>
@@ -987,7 +984,7 @@ batch learning 如果数据很大的话，
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">23.6k</span>
+            <span class="white-color">36.8k</span>
             
 
             <br>
