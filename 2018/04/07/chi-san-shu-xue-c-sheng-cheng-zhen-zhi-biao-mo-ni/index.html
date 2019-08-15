@@ -418,6 +418,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                算法
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
             
@@ -727,21 +736,21 @@ p*q|r*b
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/">
+                <a href="/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="DP_最长回文子串">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="DP_最长不下降子序列">
                         
-                        <span class="card-title">DP_最长回文子串</span>
+                        <span class="card-title">DP_最长不下降子序列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ####DP问题, 最长回文子串
-最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是连续的. 
-如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还
+                            序言同类的问题还有“最长上升子序列”, “最长下降子序列”, …
+他们的不同就在于定义的core规则不同, 有的是&gt;=, 有的是&gt;, 有的是&lt;
+由此启发, 我们可以在解决其他的问题, 不一定是比较数的大小的问题里面抽象出这
                         
                     </div>
                     <div class="publish-info">
@@ -749,6 +758,13 @@ p*q|r*b
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-11
                         </span>
                         <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                    算法
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -968,7 +984,7 @@ p*q|r*b
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">21.4k</span>
+            <span class="white-color">23.6k</span>
             
 
             <br>
@@ -1056,7 +1072,7 @@ p*q|r*b
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2019, 03, 09, 00, 00, 00); //北京时间2019-3-9 00:00:00
+        var t1 = Date.UTC(2018, 01, 04, 00, 00, 00); //北京时间2019-3-9 00:00:00
         var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
         var diff = t2 - t1;
         var diffYears = Math.floor(diff / years);

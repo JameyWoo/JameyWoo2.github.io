@@ -4,16 +4,14 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 湖南大学">
+    <meta name="keywords" content="高斯朴素贝叶斯方法进行鸢尾花分类, 湖南大学">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="yCy2azpds5XSuGZvis6OuA-XIGF5GuGpYRAaGfD6o48">
-    <meta name="description" content="你好，世界！今天是本博客诞生的第一天，向世界问好！
-hello, world!
-cpp#include &amp;lt;iostream&gt;
-using namespace std;
+    <meta name="description" content="贝叶斯方法完整代码import seaborn as sns  
+iris = sns.load_dataset(&#39;iris&#39;)
 
-int main() {
-    cout &amp;lt;&amp;lt; &#34;">
+X_iris = iris.drop(&#39;species&#39;, axis=1)
+y_iris = iris[&#39;s">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +19,7 @@ int main() {
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hello World | 姬小野的博客</title>
+    <title>高斯朴素贝叶斯方法进行鸢尾花分类 | 姬小野的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -290,13 +288,13 @@ int main() {
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/28.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Hello World
+                        高斯朴素贝叶斯方法进行鸢尾花分类
                     </div>
                 </div>
             </div>
@@ -405,12 +403,25 @@ int main() {
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/机器学习/" target="_blank">
+                                <span class="chip bg-color">机器学习</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/机器学习/" class="post-category" target="_blank">
+                                机器学习
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -418,7 +429,7 @@ int main() {
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-03-09
+                    2018-11-17
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -432,7 +443,7 @@ int main() {
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        57
+                        335
                     </div>
                     
 
@@ -450,21 +461,44 @@ int main() {
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="你好，世界！"><a href="#你好，世界！" class="headerlink" title="你好，世界！"></a>你好，世界！</h1><p>今天是本博客诞生的第一天，向世界问好！</p>
-<p><code>hello, world!</code></p>
-<h2 id="cpp"><a href="#cpp" class="headerlink" title="cpp"></a>cpp</h2><pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+                <h3 id="贝叶斯方法完整代码"><a href="#贝叶斯方法完整代码" class="headerlink" title="贝叶斯方法完整代码"></a>贝叶斯方法完整代码</h3><pre class=" language-py"><code class="language-py">import seaborn as sns  
+iris = sns.load_dataset('iris')
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello, world!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<h2 id="c"><a href="#c" class="headerlink" title="c"></a>c</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+X_iris = iris.drop('species', axis=1)
+y_iris = iris['species']
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span>"hello<span class="token punctuation">,</span> world<span class="token operator">!</span>\n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><pre class=" language-py"><code class="language-py">print('hello, world!\n')</code></pre>
+print(X_iris)
+from sklearn.cross_validation import train_test_split
+Xtrain, Xtest, ytrain, ytest = train_test_split(X_iris, y_iris, random_state=1)
+
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit(Xtrain, ytrain)
+y_model = model.predict(Xtest)
+
+from sklearn.metrics import accuracy_score
+accuracy_score(ytest, y_model)</code></pre>
+<hr>
+<h2 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h2><h3 id="一-首先获取数据"><a href="#一-首先获取数据" class="headerlink" title="一-首先获取数据."></a>一-首先获取数据.</h3><p>这里我们在线导入seaborn库的iris(鸢尾花)数据</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> seaborn <span class="token keyword">as</span> sns
+iris <span class="token operator">=</span> sns<span class="token punctuation">.</span>load_dataset<span class="token punctuation">(</span><span class="token string">'iris'</span><span class="token punctuation">)</span></code></pre>
+<p><a href="https://github.com/mwaskom/seaborn-data" target="_blank" rel="noopener">这是github上的说明</a>, 可直接下载csv文件</p>
+<h3 id="二-将数据格式化"><a href="#二-将数据格式化" class="headerlink" title="二-将数据格式化"></a>二-将数据格式化</h3><pre class=" language-py"><code class="language-py">X_iris = iris.drop('species', axis=1)
+y_iris = iris['species']</code></pre>
+<p>将类别那一列删除生成新的对象赋值给X_iris, y_iris为分类.<br><a href="https://blog.csdn.net/sinat_32547403/article/details/73822660" target="_blank" rel="noopener">pandas的drop方法参考</a></p>
+<h3 id="三-将数据切分为训练数据和测试数据"><a href="#三-将数据切分为训练数据和测试数据" class="headerlink" title="三-将数据切分为训练数据和测试数据"></a>三-将数据切分为训练数据和测试数据</h3><pre class=" language-py"><code class="language-py">from sklearn.cross_validation import train_test_split
+Xtrain, Xtest, ytrain, ytest = train_test_split(X_iris, y_iris, random_state=1)</code></pre>
+<p><code>cross validation</code>是<strong>交叉验证</strong>的意思, <a href="https://blog.csdn.net/CherDW/article/details/54881167" target="_blank" rel="noopener">参考文章</a><br>参数<code>random_state</code>是固定的随机种子, <a href="http://sofasofa.io/forum_main_post.php?postid=1001204" target="_blank" rel="noopener">参考文章</a></p>
+<h3 id="四-调用高斯朴素贝叶斯实现训练"><a href="#四-调用高斯朴素贝叶斯实现训练" class="headerlink" title="四-调用高斯朴素贝叶斯实现训练"></a>四-调用高斯朴素贝叶斯实现训练</h3><pre class=" language-cpp"><code class="language-cpp">from sklearn<span class="token punctuation">.</span>naive_bayes import GaussianNB
+model <span class="token operator">=</span> <span class="token function">GaussianNB</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+model<span class="token punctuation">.</span><span class="token function">fit</span><span class="token punctuation">(</span>Xtrain<span class="token punctuation">,</span> ytrain<span class="token punctuation">)</span>
+y_model <span class="token operator">=</span> model<span class="token punctuation">.</span><span class="token function">predict</span><span class="token punctuation">(</span>Xtest<span class="token punctuation">)</span> # 进行预测</code></pre>
+<p>调用<code>Gaussian naive Bayes</code>模型, 并进行拟合, 预测</p>
+<h3 id="五-对测试结果进行评估"><a href="#五-对测试结果进行评估" class="headerlink" title="五-对测试结果进行评估"></a>五-对测试结果进行评估</h3><p><a href="https://blog.csdn.net/CherDW/article/details/55813071" target="_blank" rel="noopener">评估方法介绍</a></p>
+<pre class=" language-py"><code class="language-py">from sklearn.metrics import accuracy_score
+accuracy_score(ytest, y_model)</code></pre>
+<p>得到准确率为<code>0.9736842105263158</code><br><code>metrics</code>是指标的意思.</p>
+<p>说明对特征明显的数据, 即使是非常简单的分类算法也可以高效地进行分析.</p>
 
             </div>
             <hr/>
@@ -499,9 +533,9 @@ int main() {
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《Hello World》
+                    《高斯朴素贝叶斯方法进行鸢尾花分类》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/03/09/hello-world/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2018/11/17/gao-si-po-su-bei-xie-si-fang-fa-jin-xing-yuan-wei-hua-fen-lei/" property="cc:attributionName"
                rel="cc:attributionURL">
                 姬小野
             </a> 采用
@@ -542,7 +576,7 @@ int main() {
         repo: 'JameyWoo.github.io',
         owner: 'JameyWoo',
         admin: "JameyWoo",
-        id: '2019/03/09/hello-world/',
+        id: '2018/11/17/gao-si-po-su-bei-xie-si-fang-fa-jin-xing-yuan-wei-hua-fen-lei/',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -567,31 +601,34 @@ int main() {
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/">
+                <a href="/2019/03/02/ubuntu-chang-jian-ming-ling-ji-shi-yong-ji-qiao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="汇编与gdb调试学习">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="Ubuntu常见命令及使用技巧">
                         
-                        <span class="card-title">汇编与gdb调试学习</span>
+                        <span class="card-title">Ubuntu常见命令及使用技巧</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、在gdb中如何列出汇编代码应该是不可以用list 命令列出汇编代码的。但可以使用display /i $pc 命令在调试的时候出了列出一行源码，也列出相应的汇编代码同时，s和si等的区别还是比较大的：si按汇编一行一行执行，有的源码一行
+                            一个查询Linux命令比较方便的网址http://man.linuxde.net/
+
+1、在ubuntu 12.04系统中，使用Ctrl+Alt+F1~6切换到shell，使用Ctrl+Alt+F7切换到图形界面
+2、使用touch新建一个
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-09
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-02
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/汇编/" class="post-category" target="_blank">
-                                    汇编
+                            <a href="/categories/操作系统/" class="post-category" target="_blank">
+                                    操作系统
                                 </a>
                             
                             
@@ -601,12 +638,12 @@ int main() {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/汇编/" target="_blank">
-                        <span class="chip bg-color">汇编</span>
+                    <a href="/tags/操作系统/" target="_blank">
+                        <span class="chip bg-color">操作系统</span>
                     </a>
                     
-                    <a href="/tags/gdb/" target="_blank">
-                        <span class="chip bg-color">gdb</span>
+                    <a href="/tags/ubuntu/" target="_blank">
+                        <span class="chip bg-color">ubuntu</span>
                     </a>
                     
                 </div>
@@ -620,27 +657,34 @@ int main() {
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/">
+                <a href="/2018/10/01/ida-star-suan-fa-jie-shi-liu-gong-ge-pin-tu-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/31.jpg" class="responsive-img" alt="数组中出现次数超过一半的数字">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="IDA*算法解十六宫格拼图问题">
                         
-                        <span class="card-title">数组中出现次数超过一半的数字</span>
+                        <span class="card-title">IDA*算法解十六宫格拼图问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            用头脑风暴学算法，对于一个问题，我们不只是要解决它，还要去思考有什么好的方法，差的方法去解决，甚至是一些错误的但可以提供思想借鉴的方法。
-此问题“数组中出现次数超过一半的数字”是一道非常经典的算法题，我把它放在算法风暴系列第一篇来解析，探讨
+                            IDA*算法, ID(Iterative Deepening)指的是迭代加深. 它的思想是重复进行限制最大深度的深度优先搜索(此限制从某个最小值遍历到最大值), 也称为深度受限搜索.
+一般情况下, 为了提高搜索速度, 迭代加深不会记录已搜索
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-23
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-10-01
                             </span>
                         <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                    算法
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -805,7 +849,7 @@ int main() {
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">21.4k</span>
+            <span class="white-color">23.6k</span>
             
 
             <br>
@@ -893,7 +937,7 @@ int main() {
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2019, 03, 09, 00, 00, 00); //北京时间2019-3-9 00:00:00
+        var t1 = Date.UTC(2018, 01, 04, 00, 00, 00); //北京时间2019-3-9 00:00:00
         var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
         var diff = t2 - t1;
         var diffYears = Math.floor(diff / years);

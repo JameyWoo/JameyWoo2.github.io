@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://fiveplus.com/2018/04/07/chi-san-shu-xue-c-sheng-cheng-zhen-zhi-biao-mo-ni/</loc>
-    <lastmod>2019-08-15</lastmod>
-  </url>  <url>
-    <loc>https://fiveplus.com/2018/09/21/python-shi-xian-jian-dan-fen-lei-qi/</loc>
-    <lastmod>2019-08-15</lastmod>
-  </url>  <url>
-    <loc>https://fiveplus.com/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/</loc>
+    <loc>https://fiveplus.com/2019/03/02/ubuntu-chang-jian-ming-ling-ji-shi-yong-ji-qiao/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
     <loc>https://fiveplus.com/2018/08/13/tarjan-suan-fa-suo-dian-dag-zui-chang-lu-dp/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
-    <loc>https://fiveplus.com/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/</loc>
+    <loc>https://fiveplus.com/2018/09/21/python-shi-xian-jian-dan-fen-lei-qi/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
-    <loc>https://fiveplus.com/2018/07/26/fei-bo-na-qi-ju-zhen-kuai-su-mi-jie-fa/</loc>
+    <loc>https://fiveplus.com/2018/10/01/ida-star-suan-fa-jie-shi-liu-gong-ge-pin-tu-wen-ti/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
-    <loc>https://fiveplus.com/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/</loc>
+    <loc>https://fiveplus.com/2018/01/04/hello-world/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
     <loc>https://fiveplus.com/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
-    <loc>https://fiveplus.com/2018/03/10/yi-jian-an-zhuang-v2ray/</loc>
+    <loc>https://fiveplus.com/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/</loc>
+    <lastmod>2019-08-15</lastmod>
+  </url>  <url>
+    <loc>https://fiveplus.com/2019/03/29/csapp-datalab-shi-yan/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
     <loc>https://fiveplus.com/2018/02/09/zui-da-zi-duan-he-san-chong-fang-fa/</loc>
@@ -34,22 +31,34 @@
     <loc>https://fiveplus.com/2018/02/13/zhu-yuan-su-wen-ti-qi-miao-de-si-wei/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
-    <loc>https://fiveplus.com/2019/08/14/zi-bian-ma-qi-autoencoder/</loc>
+    <loc>https://fiveplus.com/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/</loc>
+    <lastmod>2019-08-15</lastmod>
+  </url>  <url>
+    <loc>https://fiveplus.com/2018/04/07/chi-san-shu-xue-c-sheng-cheng-zhen-zhi-biao-mo-ni/</loc>
+    <lastmod>2019-08-15</lastmod>
+  </url>  <url>
+    <loc>https://fiveplus.com/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/</loc>
+    <lastmod>2019-08-15</lastmod>
+  </url>  <url>
+    <loc>https://fiveplus.com/2018/11/17/gao-si-po-su-bei-xie-si-fang-fa-jin-xing-yuan-wei-hua-fen-lei/</loc>
+    <lastmod>2019-08-15</lastmod>
+  </url>  <url>
+    <loc>https://fiveplus.com/2018/07/26/fei-bo-na-qi-ju-zhen-kuai-su-mi-jie-fa/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
     <loc>https://fiveplus.com/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/</loc>
     <lastmod>2019-08-15</lastmod>
   </url>  <url>
+    <loc>https://fiveplus.com/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/</loc>
+    <lastmod>2019-08-15</lastmod>
+  </url>  <url>
     <loc>https://fiveplus.com/2019/03/30/handson-ml-chp2/</loc>
-    <lastmod>2019-03-31</lastmod>
+    <lastmod>2019-08-15</lastmod>
   </url>  <url>
-    <loc>https://fiveplus.com/2019/03/29/csapp-datalab-shi-yan/</loc>
-    <lastmod>2019-03-29</lastmod>
+    <loc>https://fiveplus.com/2019/08/14/zi-bian-ma-qi-autoencoder/</loc>
+    <lastmod>2019-08-15</lastmod>
   </url>  <url>
-    <loc>https://fiveplus.com/2019/03/09/hui-bian-yu-gdb-diao-shi-xue-xi/</loc>
-    <lastmod>2019-03-10</lastmod>
-  </url>  <url>
-    <loc>https://fiveplus.com/2019/03/09/hello-world/</loc>
-    <lastmod>2019-03-10</lastmod>
+    <loc>https://fiveplus.com/2018/03/10/yi-jian-an-zhuang-v2ray/</loc>
+    <lastmod>2019-08-15</lastmod>
   </url>
 </urlset>

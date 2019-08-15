@@ -412,6 +412,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                算法
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
             
@@ -650,29 +659,35 @@ int main()
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/">
+                <a href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="倍增法求Lca(最近公共祖先)">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="DP_最长回文子串">
                         
-                        <span class="card-title">倍增法求Lca(最近公共祖先)</span>
+                        <span class="card-title">DP_最长回文子串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一. 明确问题看标题便知道了, 这篇博客力求解决的问题是求出一棵树的两个结点的最近公共祖先(LCA), 方法是倍增法.
-那么什么是Lca呢? 
-
-它是一棵树上两个结点向上移动, 最后交汇的第一个结点, 也就是说这两个结点祖先里离树根最远也是
+                            ####DP问题, 最长回文子串
+最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是连续的. 
+如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-16
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-11
                         </span>
                         <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                    算法
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -695,28 +710,41 @@ int main()
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/">
+                <a href="/2018/04/07/chi-san-shu-xue-c-sheng-cheng-zhen-zhi-biao-mo-ni/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="DP_最长回文子串">
+                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="离散数学_C++生成真值表_模拟">
                         
-                        <span class="card-title">DP_最长回文子串</span>
+                        <span class="card-title">离散数学_C++生成真值表_模拟</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ####DP问题, 最长回文子串
-最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是连续的. 
-如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还
+                            生成真值表的代码
+输入一个真值表达式, 程序自动生成它的真值表.
+纯模拟思路
+
+合取*析取|单条件&gt;双条件-非!
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-11
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-04-07
                             </span>
                         <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                    算法
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -881,7 +909,7 @@ int main()
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">21.4k</span>
+            <span class="white-color">23.6k</span>
             
 
             <br>
@@ -969,7 +997,7 @@ int main()
         minutes - 0-59之间的整数，做为date对象的分钟数
         seconds - 0-59之间的整数，做为date对象的秒数
         microseconds - 0-999之间的整数，做为date对象的毫秒数 */
-        var t1 = Date.UTC(2019, 03, 09, 00, 00, 00); //北京时间2019-3-9 00:00:00
+        var t1 = Date.UTC(2018, 01, 04, 00, 00, 00); //北京时间2019-3-9 00:00:00
         var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
         var diff = t2 - t1;
         var diffYears = Math.floor(diff / years);
