@@ -653,11 +653,11 @@
     
     
     <entry>
-      <title>DP_最长回文子串</title>
-      <link href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/"/>
-      <url>/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/</url>
+      <title>DP_最长不下降子序列</title>
+      <link href="/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/"/>
+      <url>/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/</url>
       
-        <content type="html"><![CDATA[<p>####DP问题, 最长回文子串</p><p>最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是<strong>连续的</strong>. </p><p><em>如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还有其他回文子串如”CCBCC”, 但是长度不够长.</em></p><p>这类问题似乎有多种解法, 复杂度从O(n^3)到O(n)不等.</p><p>下面介绍一种<strong>时间复杂度为O(n^2)</strong>的.</p><p>思路是典型的DP思路, 我们可以考量这样一个数组, dp[i][j], bool类型, 值为1代表字符串从S[i]到S[j]是回文子串, 值为0代表不是.</p><p>那么对于任意的i, j, 如何判断dp[i][j]的值呢? 讨论下面两种情况:</p><p><strong>1. s[i] = s[j]时, 如果dp[i+1][j-1] = 0, 即从s[i+1]到s[j-1]是回文子串, 那么从s[i][j]自然是回文子串, 所以dp[i][j] = dp[i+1][j-1]</strong><br><strong>2.  s[i] != s[j]时, 如论如何dp[i][j] = 0</strong></p><p>那么这样看思路就非常清晰了, 看上去非常简单, 按照这个规则判断一下就好了.</p><p>不过其实这道题是非常有技巧的, 我们可以看到要获取dp[i][j]值, 那么就需要知道dp[i+1][j-1]的值, 那么就不能从前往后遍历i了, 怎么办呢? 从后往前遍历吗? 当然也不行. 这就是这种方法的精彩所在, 两套循环,<strong>外围遍历长度, 内围遍历字符串起始点i.</strong></p><p>因为dp[i][j]的长度是j - i + 1, 而dp[i+1][j-1]的长度是j - i - 1, 长度差了两个, 如果我把长度小的结果都求解出来了, 那么长度更长的用长度更小的, 无论i是否会更大, 都是可以的. 不得不说很是精彩.</p><p>代码实现上, <strong>注意前面初始化长度 2时对ans赋恰当的值.</strong></p><pre><code>#include &lt;iostream&gt;using namespace std;int main(){    string str;     cin &gt;&gt; str;    int dp[str.size() + 1][str.size() + 1] = {}, ans = 1;    for (int i = 0; i &lt; int(str.size()); ++i) {        dp[i][i] = 1;        if (str[i] == str[i + 1]) {            dp[i][i + 1] = 1;            ans = 2;        }    }    for (int len = 3; len &lt;= (int)str.size(); ++len) {        for (int i = 0; i + len - 1 &lt; (int)str.size(); ++i) {            int k = i + len - 1;            if (str[i] == str[k]) {                dp[i][k] = dp[i + 1][k - 1];                if (dp[i][k]) ans = len;            }        }    }    cout &lt;&lt; ans;}/*PATZJUJZTACCBCC    ans = 934567536487326483254   ans = 1*/ </code></pre>]]></content>
+        <content type="html"><![CDATA[<h3 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h3><p>同类的问题还有<em>“最长上升子序列”, “最长下降子序列”, …</em></p><p>他们的不同就在于<strong>定义的core规则不同</strong>, 有的是&gt;=, 有的是&gt;, 有的是&lt;</p><p>由此启发, 我们可以在解决其他的问题, <strong>不一定是比较数的大小的问题里面抽象出这种模型.</strong></p><p>下面介绍这种动态规划入门都会介绍的问题的思路. </p><p>首先我们从头开始分析这个问题.</p><h3 id="一-最容易想到的最暴力的方法"><a href="#一-最容易想到的最暴力的方法" class="headerlink" title="一. 最容易想到的最暴力的方法"></a>一. 最容易想到的最暴力的方法</h3><p>对这个序列中的每一个数的”有”和”无”分两种情况讨论. 代码实现上就是递归.</p><p><strong>时间复杂度就是O(2^n)</strong></p><p>代码实现上较为简单. 不展示</p><h3 id="二-第二种方法是O-n-2-的DP方法"><a href="#二-第二种方法是O-n-2-的DP方法" class="headerlink" title="二. 第二种方法是O(n^2)的DP方法"></a>二. 第二种方法是O(n^2)的DP方法</h3><p><strong>动态规划的问题是无后效性的, 每个问题都可以分解为更小的子问题, 从而求解.</strong></p><p>这道题也不例外.</p><p>这个序列的每一个数为止都有一个解, 作为子问题的解. 后面的问题的解就是从这些子问题的最优解继承过来的.</p><p>so, 给这个序列的解建立数组dp[n], 0 - n分别是截止到Ai的解.</p><blockquote><p>当下一个数要加入来的时候, 有两种情况</p><ol><li><p>前面的数都比当前数更大, 因此以这个数为止的最长不下降子序列的长度就是1. 遍历到第一个数的情况也包含在内.</p></li><li><p>前面的数有不比当前数大的, 那么这个数的结果dp[i] = max(dp[i], dp[j] + 1). 这个过程遍历前面所有数的dp[j]进行比较.</p></li></ol><p><strong>最后的答案就是所有dp[i]里面的最大值.</strong></p></blockquote><p>这种方法的<strong>时间复杂度是O(n^2)</strong>, 可以看到相比于前面暴力递归的方法有了极大的进步.</p><p>代码通过样例, 但不一定能过题, 请谨慎使用.</p><pre><code>#include &lt;iostream&gt;#include &lt;vector&gt;using namespace std;int main(){    int n, x;    vector&lt;int&gt; v;    cin &gt;&gt; n;    for (int i = 0; i &lt; n; ++i) {        cin &gt;&gt; x;        v.push_back(x);    }    int dp[(int)v.size()] = {1}, ans = 1;    for (int i = 1; i &lt; (int)v.size(); ++i) {        for (int j = 0; j &lt; i; ++j) {            if (v[i] &gt;= v[j]) dp[i] = max(dp[i], dp[j] + 1); // 状态转移方程        }        ans = max(ans, dp[i]);    }    cout &lt;&lt; ans;}/*81 2 3 -9 3 9 0 11*/</code></pre><h3 id="三-O-nlogn-方法-维护单调数组"><a href="#三-O-nlogn-方法-维护单调数组" class="headerlink" title="三. O(nlogn)方法, 维护单调数组"></a>三. O(nlogn)方法, 维护单调数组</h3><p>这个方法也是DP方法</p><p>时间复杂度可以从O(n^2)降到O(n log n).</p><p><strong>我们从最长上升子序列的角度来探讨</strong></p><p>假设对一个序列n[1…9] = {2 1 5 3 6 4 8 9 7}, 维护一个单调数组, 使得这个数组为最长上升子序列. 设这个数组为d[ ].</p><p>对n[1] = 2, 使得d[1] = 2;</p><p>对n[2] = 1, 因为1比2小, 所以修改d[1]的值, 使其为1</p><p>对n[3] = 5, 5比1大, 所以len++, d[2] = 5</p><p>对n[4] = 3, 3比1大比5小, 所以替换掉5, 使d[2] = 3</p><p>对n[5] = 6, 6比d[2]大, 所以len++, d[3] = 6</p><p>对n[6] = 4, 4比3大比6小, 所以替换掉6, 使d[3] = 4</p><p>对n[7] = 8, 8比4大, 所以len++, 使d[4] = 8</p><p>对n[8] = 9, 9比8大, 所以len++, 使d[5] = 9</p><p>对n[9] = 7, 7比4大比8小, 所以替换掉8, 使d[4] = 7.</p><p>至此这个序列遍历完了, 最小的长度也出来了. 最后的序列是1 3 4 7 9, len = 5</p><p> 仔细琢磨会觉得, <strong>如最后一步操作, 为什么后面的7反而到他前面的8, 9的前面去了.</strong> 其实仔细一想并无问题, 因为即使7出现在前面, 它并不影响最终结果, <strong>因为我们已经得出最后结果就是len</strong>, 而以7为结尾的最长序列在该题中是len - 1, 如果后面还有序列, <strong>那么这里把7替换掉8会使得当前状态更优, 因为这样的修改是不会改变当前结果的, 但是确实后续最优状态的基础. 而这道题的动态规划思想就是这样, 不断地获取最优状态.</strong></p><p>经过前面的分析我们也许会发现, 这个DP的过程无法存储中间结果, 也就是说<strong>我们只能知道最长的子序列是多长, 而无法得到是哪个序列.</strong> 可谓是有利有弊.</p><p>利用我们维护的数组的单调性, 我们可以用二分法查找这个比当前数更大数的位置, 从而方便的实现替换.</p><p>所以时间复杂度为O(n log n).</p><pre><code>#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;vector&gt;using namespace std;int main(){    int n, x;    vector&lt;int&gt; v, vec;    cin &gt;&gt; n;    for (int i = 0; i &lt; n; ++i) {        cin &gt;&gt; x;        v.push_back(x);    }    for (int i = 0; i &lt; (int)v.size(); ++i) {        if (i == 0) vec.push_back(v[0]);        else {            if (v[i] &gt;= vec[vec.size() - 1]) vec.push_back(v[i]);            else *upper_bound(vec.begin(), vec.end(), v[i]) = v[i];        }    }    for (int i = 0; i &lt; (int)vec.size(); ++i) {        cout &lt;&lt; vec[i] &lt;&lt; &#39; &#39;;    }    cout &lt;&lt; endl;    cout &lt;&lt; &quot;len == &quot; &lt;&lt; vec.size() &lt;&lt; endl;}/*92 1 5 3 6 4 8 9 7*/</code></pre>]]></content>
       
       
       <categories>
@@ -678,11 +678,11 @@
     
     
     <entry>
-      <title>DP_最长不下降子序列</title>
-      <link href="/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/"/>
-      <url>/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/</url>
+      <title>DP_最长回文子串</title>
+      <link href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/"/>
+      <url>/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/</url>
       
-        <content type="html"><![CDATA[<h3 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h3><p>同类的问题还有<em>“最长上升子序列”, “最长下降子序列”, …</em></p><p>他们的不同就在于<strong>定义的core规则不同</strong>, 有的是&gt;=, 有的是&gt;, 有的是&lt;</p><p>由此启发, 我们可以在解决其他的问题, <strong>不一定是比较数的大小的问题里面抽象出这种模型.</strong></p><p>下面介绍这种动态规划入门都会介绍的问题的思路. </p><p>首先我们从头开始分析这个问题.</p><h3 id="一-最容易想到的最暴力的方法"><a href="#一-最容易想到的最暴力的方法" class="headerlink" title="一. 最容易想到的最暴力的方法"></a>一. 最容易想到的最暴力的方法</h3><p>对这个序列中的每一个数的”有”和”无”分两种情况讨论. 代码实现上就是递归.</p><p><strong>时间复杂度就是O(2^n)</strong></p><p>代码实现上较为简单. 不展示</p><h3 id="二-第二种方法是O-n-2-的DP方法"><a href="#二-第二种方法是O-n-2-的DP方法" class="headerlink" title="二. 第二种方法是O(n^2)的DP方法"></a>二. 第二种方法是O(n^2)的DP方法</h3><p><strong>动态规划的问题是无后效性的, 每个问题都可以分解为更小的子问题, 从而求解.</strong></p><p>这道题也不例外.</p><p>这个序列的每一个数为止都有一个解, 作为子问题的解. 后面的问题的解就是从这些子问题的最优解继承过来的.</p><p>so, 给这个序列的解建立数组dp[n], 0 - n分别是截止到Ai的解.</p><blockquote><p>当下一个数要加入来的时候, 有两种情况</p><ol><li><p>前面的数都比当前数更大, 因此以这个数为止的最长不下降子序列的长度就是1. 遍历到第一个数的情况也包含在内.</p></li><li><p>前面的数有不比当前数大的, 那么这个数的结果dp[i] = max(dp[i], dp[j] + 1). 这个过程遍历前面所有数的dp[j]进行比较.</p></li></ol><p><strong>最后的答案就是所有dp[i]里面的最大值.</strong></p></blockquote><p>这种方法的<strong>时间复杂度是O(n^2)</strong>, 可以看到相比于前面暴力递归的方法有了极大的进步.</p><p>代码通过样例, 但不一定能过题, 请谨慎使用.</p><pre><code>#include &lt;iostream&gt;#include &lt;vector&gt;using namespace std;int main(){    int n, x;    vector&lt;int&gt; v;    cin &gt;&gt; n;    for (int i = 0; i &lt; n; ++i) {        cin &gt;&gt; x;        v.push_back(x);    }    int dp[(int)v.size()] = {1}, ans = 1;    for (int i = 1; i &lt; (int)v.size(); ++i) {        for (int j = 0; j &lt; i; ++j) {            if (v[i] &gt;= v[j]) dp[i] = max(dp[i], dp[j] + 1); // 状态转移方程        }        ans = max(ans, dp[i]);    }    cout &lt;&lt; ans;}/*81 2 3 -9 3 9 0 11*/</code></pre><h3 id="三-O-nlogn-方法-维护单调数组"><a href="#三-O-nlogn-方法-维护单调数组" class="headerlink" title="三. O(nlogn)方法, 维护单调数组"></a>三. O(nlogn)方法, 维护单调数组</h3><p>这个方法也是DP方法</p><p>时间复杂度可以从O(n^2)降到O(n log n).</p><p><strong>我们从最长上升子序列的角度来探讨</strong></p><p>假设对一个序列n[1…9] = {2 1 5 3 6 4 8 9 7}, 维护一个单调数组, 使得这个数组为最长上升子序列. 设这个数组为d[ ].</p><p>对n[1] = 2, 使得d[1] = 2;</p><p>对n[2] = 1, 因为1比2小, 所以修改d[1]的值, 使其为1</p><p>对n[3] = 5, 5比1大, 所以len++, d[2] = 5</p><p>对n[4] = 3, 3比1大比5小, 所以替换掉5, 使d[2] = 3</p><p>对n[5] = 6, 6比d[2]大, 所以len++, d[3] = 6</p><p>对n[6] = 4, 4比3大比6小, 所以替换掉6, 使d[3] = 4</p><p>对n[7] = 8, 8比4大, 所以len++, 使d[4] = 8</p><p>对n[8] = 9, 9比8大, 所以len++, 使d[5] = 9</p><p>对n[9] = 7, 7比4大比8小, 所以替换掉8, 使d[4] = 7.</p><p>至此这个序列遍历完了, 最小的长度也出来了. 最后的序列是1 3 4 7 9, len = 5</p><p> 仔细琢磨会觉得, <strong>如最后一步操作, 为什么后面的7反而到他前面的8, 9的前面去了.</strong> 其实仔细一想并无问题, 因为即使7出现在前面, 它并不影响最终结果, <strong>因为我们已经得出最后结果就是len</strong>, 而以7为结尾的最长序列在该题中是len - 1, 如果后面还有序列, <strong>那么这里把7替换掉8会使得当前状态更优, 因为这样的修改是不会改变当前结果的, 但是确实后续最优状态的基础. 而这道题的动态规划思想就是这样, 不断地获取最优状态.</strong></p><p>经过前面的分析我们也许会发现, 这个DP的过程无法存储中间结果, 也就是说<strong>我们只能知道最长的子序列是多长, 而无法得到是哪个序列.</strong> 可谓是有利有弊.</p><p>利用我们维护的数组的单调性, 我们可以用二分法查找这个比当前数更大数的位置, 从而方便的实现替换.</p><p>所以时间复杂度为O(n log n).</p><pre><code>#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;vector&gt;using namespace std;int main(){    int n, x;    vector&lt;int&gt; v, vec;    cin &gt;&gt; n;    for (int i = 0; i &lt; n; ++i) {        cin &gt;&gt; x;        v.push_back(x);    }    for (int i = 0; i &lt; (int)v.size(); ++i) {        if (i == 0) vec.push_back(v[0]);        else {            if (v[i] &gt;= vec[vec.size() - 1]) vec.push_back(v[i]);            else *upper_bound(vec.begin(), vec.end(), v[i]) = v[i];        }    }    for (int i = 0; i &lt; (int)vec.size(); ++i) {        cout &lt;&lt; vec[i] &lt;&lt; &#39; &#39;;    }    cout &lt;&lt; endl;    cout &lt;&lt; &quot;len == &quot; &lt;&lt; vec.size() &lt;&lt; endl;}/*92 1 5 3 6 4 8 9 7*/</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>####DP问题, 最长回文子串</p><p>最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是<strong>连续的</strong>. </p><p><em>如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还有其他回文子串如”CCBCC”, 但是长度不够长.</em></p><p>这类问题似乎有多种解法, 复杂度从O(n^3)到O(n)不等.</p><p>下面介绍一种<strong>时间复杂度为O(n^2)</strong>的.</p><p>思路是典型的DP思路, 我们可以考量这样一个数组, dp[i][j], bool类型, 值为1代表字符串从S[i]到S[j]是回文子串, 值为0代表不是.</p><p>那么对于任意的i, j, 如何判断dp[i][j]的值呢? 讨论下面两种情况:</p><p><strong>1. s[i] = s[j]时, 如果dp[i+1][j-1] = 0, 即从s[i+1]到s[j-1]是回文子串, 那么从s[i][j]自然是回文子串, 所以dp[i][j] = dp[i+1][j-1]</strong><br><strong>2.  s[i] != s[j]时, 如论如何dp[i][j] = 0</strong></p><p>那么这样看思路就非常清晰了, 看上去非常简单, 按照这个规则判断一下就好了.</p><p>不过其实这道题是非常有技巧的, 我们可以看到要获取dp[i][j]值, 那么就需要知道dp[i+1][j-1]的值, 那么就不能从前往后遍历i了, 怎么办呢? 从后往前遍历吗? 当然也不行. 这就是这种方法的精彩所在, 两套循环,<strong>外围遍历长度, 内围遍历字符串起始点i.</strong></p><p>因为dp[i][j]的长度是j - i + 1, 而dp[i+1][j-1]的长度是j - i - 1, 长度差了两个, 如果我把长度小的结果都求解出来了, 那么长度更长的用长度更小的, 无论i是否会更大, 都是可以的. 不得不说很是精彩.</p><p>代码实现上, <strong>注意前面初始化长度 2时对ans赋恰当的值.</strong></p><pre><code>#include &lt;iostream&gt;using namespace std;int main(){    string str;     cin &gt;&gt; str;    int dp[str.size() + 1][str.size() + 1] = {}, ans = 1;    for (int i = 0; i &lt; int(str.size()); ++i) {        dp[i][i] = 1;        if (str[i] == str[i + 1]) {            dp[i][i + 1] = 1;            ans = 2;        }    }    for (int len = 3; len &lt;= (int)str.size(); ++len) {        for (int i = 0; i + len - 1 &lt; (int)str.size(); ++i) {            int k = i + len - 1;            if (str[i] == str[k]) {                dp[i][k] = dp[i + 1][k - 1];                if (dp[i][k]) ans = len;            }        }    }    cout &lt;&lt; ans;}/*PATZJUJZTACCBCC    ans = 934567536487326483254   ans = 1*/ </code></pre>]]></content>
       
       
       <categories>
@@ -805,31 +805,6 @@
     
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2018/01/04/hello-world/"/>
-      <url>/2018/01/04/hello-world/</url>
-      
-        <content type="html"><![CDATA[<h1 id="你好，世界！"><a href="#你好，世界！" class="headerlink" title="你好，世界！"></a>你好，世界！</h1><p>今天是本博客诞生的第一天，向世界问好！</p><p><code>hello, world!</code></p><h2 id="cpp"><a href="#cpp" class="headerlink" title="cpp"></a>cpp</h2><pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span><span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello, world!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="c"><a href="#c" class="headerlink" title="c"></a>c</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token function">printf</span><span class="token punctuation">(</span>"hello<span class="token punctuation">,</span> world<span class="token operator">!</span>\n<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><pre class=" language-py"><code class="language-py">print('hello, world!\n')</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> blog </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> blog </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>初步数论-扩展欧几里得&amp;线性同余方程</title>
       <link href="/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/"/>
       <url>/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/</url>
@@ -847,6 +822,31 @@
         <tags>
             
             <tag> 数学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2018/01/04/hello-world/"/>
+      <url>/2018/01/04/hello-world/</url>
+      
+        <content type="html"><![CDATA[<h1 id="你好，世界！"><a href="#你好，世界！" class="headerlink" title="你好，世界！"></a>你好，世界！</h1><p>今天是本博客诞生的第一天，向世界问好！</p><p><code>hello, world!</code></p><h2 id="cpp"><a href="#cpp" class="headerlink" title="cpp"></a>cpp</h2><pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span><span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello, world!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="c"><a href="#c" class="headerlink" title="c"></a>c</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token function">printf</span><span class="token punctuation">(</span>"hello<span class="token punctuation">,</span> world<span class="token operator">!</span>\n<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><pre class=" language-py"><code class="language-py">print('hello, world!\n')</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> blog </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
             
         </tags>
       
