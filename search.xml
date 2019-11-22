@@ -830,31 +830,6 @@
     
     
     <entry>
-      <title>初步数论-扩展欧几里得&amp;线性同余方程</title>
-      <link href="/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/"/>
-      <url>/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/</url>
-      
-        <content type="html"><![CDATA[<p>这篇博客我将介绍数论中的<strong>扩展欧几里得算法</strong>(extended Euclidean algorithm ),以及其在<strong>解线性同余方程(乘法逆元)</strong>中的运用.</p><p>首先要了解几个概念:<br>    <a href="https://baike.baidu.com/item/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E7%AE%97%E6%B3%95/9002848?fr=aladdin" target="_blank" rel="noopener">欧几里得算法</a><br>    <a href="https://baike.baidu.com/item/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E7%AE%97%E6%B3%95/1053275?fr=aladdin" target="_blank" rel="noopener">扩展欧几里得算法</a><br>    <a href="https://baike.baidu.com/item/%E7%BA%BF%E6%80%A7%E5%90%8C%E4%BD%99%E6%96%B9%E7%A8%8B/5544515?fr=aladdin" target="_blank" rel="noopener">线性同余方程</a></p><p><strong>欧几里得算法</strong>是一种求解两个正整数a, b的最大公因子(一般记为gcd,gcd(a, b) )的方法,这个方法最早被记载在欧几里得的&lt;&lt;几何原本&gt;&gt;中.<br><strong>扩展欧几里得算法</strong>是在欧几里得算法的基础上扩展的一种算法.我们知道了 a 和 b 的最大公约数是 gcd ，那么，我们一定能够找到这样的 x 和 y ，使得: a<em>x + b</em>y = gcd 这是一个不定方程（一种丢番图方程）.扩展欧几里得算法就这求这样的x, y 的.<br><strong>线性同余方程</strong>是最基本的同余方程，“线性”表示方程的未知数次数是一次.它的表现形式是这样的:<br>    设x是未知整数, 形如<br>        ax ≡ b(mod m)<br>    的同余式称为一元线性同余方程.<br>    加下来我将介绍使用扩展欧几里得算法解b = 1时的同余方程, 未知数为 x ,x又称为a的乘法逆元.<br><strong>乘法逆元</strong>是当b = 1时的解 x , 可以这样理解:<br>    ax ≡ 1(mod m)<br>    我们称 x 是a关于m的乘法逆元</p><p>那么,从欧几里得算法开始.学习算法过程中,欧几里得算法大概是我接触到的第一个算法</p><pre><code>int gcd(int a, int b){    if( b==0 ) return a;    else return gcd(b,a%b);}</code></pre><p>函数返回的是a, b的最大公约数,一般用gcd(a,b)来表示,数论中一般用(a,b)来表示a,b的最大公约数<br>由于此算法较为基础,在此不过多赘述.</p><p>但,需要了解的是,扩展欧几里算法就是在欧几里得算法的基础上加以扩展形成的.</p><p>我们首先要知道这样一个结论:<br>a 和 b 的最大公约数是 gcd ，那么，我们一定能够找到这样的 x 和 y ，使得: a<em>x + b</em>y = gcd(a,b)<br>扩展欧几里得算法的作用就是求这样的x, y的.它的解是无限的,我们可以这样表示它的通解:</p><pre><code> x = x0 + (b/gcd)*t; y = y0 - (a/gcd)*t;</code></pre><p>为什么不是：</p><pre><code>x = x0 + b*t;y = y0 - a*t;?</code></pre><p>我们要知道,这个通解中未知数的表达式的运算过程是互相抵消的.如:</p><pre><code>    (b/gcd) *t *a - (a/gcd) *t *b = 0;</code></pre><p>而如果a, b不是互质的, 另一种形式那么会漏掉一些解.读者自己斟酌.(具体证明博主也不知如何是好)</p><p>如何求解呢?<br>只需要在欧几里德算法的基础上加点改动就行了。</p><p>  下面引自<a href="http://blog.csdn.net/zhjchengfeng5/article/details/7786595" target="_blank" rel="noopener"><em>一篇博客</em></a></p><blockquote><p> 我们观察到：欧几里德算法停止的状态是： a= gcd ， b = 0 ，那么，这是否能给我们求解 x y<br> 提供一种思路呢？因为，这时候，只要 a = gcd 的系数是 1 ，那么只要 b 的系数是 0 或者其他值（无所谓是多少，反正任何数乘以 0<br> 都等于 0 但是a 的系数一定要是 1），这时，我们就会有： a<em>1 + b</em>0 = gcd</p><p>  当然这是最终状态，但是我们是否可以从最终状态反推到最初的状态呢？</p><p>  假设当前我们要处理的是求出 a 和 b的最大公约数，并求出 x 和 y 使得 a<em>x + b</em>y= gcd ，而我们已经求出了下一个状态：b 和 a%b 的最大公约数，并且求出了一组x1 和y1 使得： b<em>x1 + (a%b)</em>y1 = gcd<br> ， 那么这两个相邻的状态之间是否存在一种关系呢？</p><p>  我们知道： a%b = a - (a/b)*b（这里的 “/” 指的是整除，例如 5/2=2 , 1/3=0），那么，我们可以进一步得到：</p><pre><code>  gcd = b*x1 + (a-(a/b)*b)*y1      = b*x1 + a*y1 – (a/b)*b*y1      = a*y1 + b*(x1 – a/b*y1)</code></pre><p>  对比之前我们的状态：求一组 x 和 y 使得：a<em>x + b</em>y = gcd ，是否发现了什么？</p><p>  这里：</p><pre><code>  x = y1  y = x1 – a/b*y1</code></pre></blockquote><pre><code>int ex_gcd( int a, int b, int &amp;x, int &amp;y ){    if( b==0 ){        x = 1, y = 0;        return a;    }    int ans = ex_gcd(b,a%b,x,y);    int tmp = x;    x = y;    y = tmp - a/b*y;    return ans;}</code></pre><p>欧几里得算法只能求a, b的最大公因数,而扩展欧几里得算法不仅可以求gcd(a,b),还可以求出a<em> x + b</em> y = gcd的通解只需在欧几里得算法的基础上稍加改动<br>然而,求通解有什么用呢?<br>我将介绍扩展欧几里得算法的一个应用,那就是前面提到过的解乘法逆元.</p><p>对于</p><pre><code>ax ≡ 1(mod m)</code></pre><p>我们称 x 是a关于m的乘法逆元<br>这和扩欧有什么关系呢?可以看到这个式子和a<em> x + b</em> y = gcd = 1是有些类似的<br>可以等价于这样的表达式： a<em> x + m</em> y = 1<br>a<em> x + b</em> y = gcd = 1, 说明a, b互质, 那么推广的式子a<em> x + m</em> y = 1中, a, m也是互质的<br>当gcd(a, m) != 1时,x是无解的.</p><p>乘法逆元式子中, 已知a, m, 那么就可以利用扩展欧几里得算法求解x了.<br>算法如下:</p><pre><code>#include &lt;iostream&gt;using namespace std;int ex_gcd( int a, int b, int &amp;x, int &amp;y ){    if( b==0 ){        x = 1, y = 0;//递归到终止条件, 初始化x, y        return a;    }    int ans = ex_gcd(b,a%b,x,y);//继续递归,此前不对x, y进行操作    int temp = x;    x = y;    y = tmp - a/b*y;//利用推导出的两个相邻状态的代换式进行迭代    return ans;}int main( ){    int a, b, x, y;    cin &gt;&gt; a &gt;&gt; b;    if( ex_gcd(a,b,x,y)==1 ){        cout &lt;&lt; (x+b)%b;     }}</code></pre><p>注意,在ex_gcd()中求得的x可能为负值,因此采用了　cout &lt;&lt; (x+b)%b; 这样的输出方式，输出ｘ最小的正整数解</p><p>到这里就结束了,我们讲了什么呢?</p><pre><code>欧几里得算法扩展欧几里得算法线性同余方程中一种特殊情况:乘法逆元 </code></pre><p>这是我在CSDN发表的的第一篇博客,有很多不足.如果没看懂的话,欢迎看这篇文章<br>    <a href="http://blog.csdn.net/zhjchengfeng5/article/details/7786595" target="_blank" rel="noopener">扩展欧几里德算法详解</a><br>    博主讲的很清楚, 对我启发很大.</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 算法 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 数学 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Hello World</title>
       <link href="/2018/01/04/hello-world/"/>
       <url>/2018/01/04/hello-world/</url>
@@ -872,6 +847,31 @@
         <tags>
             
             <tag> blog </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>初步数论-扩展欧几里得&amp;线性同余方程</title>
+      <link href="/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/"/>
+      <url>/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/</url>
+      
+        <content type="html"><![CDATA[<p>这篇博客我将介绍数论中的<strong>扩展欧几里得算法</strong>(extended Euclidean algorithm ),以及其在<strong>解线性同余方程(乘法逆元)</strong>中的运用.</p><p>首先要了解几个概念:<br>    <a href="https://baike.baidu.com/item/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E7%AE%97%E6%B3%95/9002848?fr=aladdin" target="_blank" rel="noopener">欧几里得算法</a><br>    <a href="https://baike.baidu.com/item/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E7%AE%97%E6%B3%95/1053275?fr=aladdin" target="_blank" rel="noopener">扩展欧几里得算法</a><br>    <a href="https://baike.baidu.com/item/%E7%BA%BF%E6%80%A7%E5%90%8C%E4%BD%99%E6%96%B9%E7%A8%8B/5544515?fr=aladdin" target="_blank" rel="noopener">线性同余方程</a></p><p><strong>欧几里得算法</strong>是一种求解两个正整数a, b的最大公因子(一般记为gcd,gcd(a, b) )的方法,这个方法最早被记载在欧几里得的&lt;&lt;几何原本&gt;&gt;中.<br><strong>扩展欧几里得算法</strong>是在欧几里得算法的基础上扩展的一种算法.我们知道了 a 和 b 的最大公约数是 gcd ，那么，我们一定能够找到这样的 x 和 y ，使得: a<em>x + b</em>y = gcd 这是一个不定方程（一种丢番图方程）.扩展欧几里得算法就这求这样的x, y 的.<br><strong>线性同余方程</strong>是最基本的同余方程，“线性”表示方程的未知数次数是一次.它的表现形式是这样的:<br>    设x是未知整数, 形如<br>        ax ≡ b(mod m)<br>    的同余式称为一元线性同余方程.<br>    加下来我将介绍使用扩展欧几里得算法解b = 1时的同余方程, 未知数为 x ,x又称为a的乘法逆元.<br><strong>乘法逆元</strong>是当b = 1时的解 x , 可以这样理解:<br>    ax ≡ 1(mod m)<br>    我们称 x 是a关于m的乘法逆元</p><p>那么,从欧几里得算法开始.学习算法过程中,欧几里得算法大概是我接触到的第一个算法</p><pre><code>int gcd(int a, int b){    if( b==0 ) return a;    else return gcd(b,a%b);}</code></pre><p>函数返回的是a, b的最大公约数,一般用gcd(a,b)来表示,数论中一般用(a,b)来表示a,b的最大公约数<br>由于此算法较为基础,在此不过多赘述.</p><p>但,需要了解的是,扩展欧几里算法就是在欧几里得算法的基础上加以扩展形成的.</p><p>我们首先要知道这样一个结论:<br>a 和 b 的最大公约数是 gcd ，那么，我们一定能够找到这样的 x 和 y ，使得: a<em>x + b</em>y = gcd(a,b)<br>扩展欧几里得算法的作用就是求这样的x, y的.它的解是无限的,我们可以这样表示它的通解:</p><pre><code> x = x0 + (b/gcd)*t; y = y0 - (a/gcd)*t;</code></pre><p>为什么不是：</p><pre><code>x = x0 + b*t;y = y0 - a*t;?</code></pre><p>我们要知道,这个通解中未知数的表达式的运算过程是互相抵消的.如:</p><pre><code>    (b/gcd) *t *a - (a/gcd) *t *b = 0;</code></pre><p>而如果a, b不是互质的, 另一种形式那么会漏掉一些解.读者自己斟酌.(具体证明博主也不知如何是好)</p><p>如何求解呢?<br>只需要在欧几里德算法的基础上加点改动就行了。</p><p>  下面引自<a href="http://blog.csdn.net/zhjchengfeng5/article/details/7786595" target="_blank" rel="noopener"><em>一篇博客</em></a></p><blockquote><p> 我们观察到：欧几里德算法停止的状态是： a= gcd ， b = 0 ，那么，这是否能给我们求解 x y<br> 提供一种思路呢？因为，这时候，只要 a = gcd 的系数是 1 ，那么只要 b 的系数是 0 或者其他值（无所谓是多少，反正任何数乘以 0<br> 都等于 0 但是a 的系数一定要是 1），这时，我们就会有： a<em>1 + b</em>0 = gcd</p><p>  当然这是最终状态，但是我们是否可以从最终状态反推到最初的状态呢？</p><p>  假设当前我们要处理的是求出 a 和 b的最大公约数，并求出 x 和 y 使得 a<em>x + b</em>y= gcd ，而我们已经求出了下一个状态：b 和 a%b 的最大公约数，并且求出了一组x1 和y1 使得： b<em>x1 + (a%b)</em>y1 = gcd<br> ， 那么这两个相邻的状态之间是否存在一种关系呢？</p><p>  我们知道： a%b = a - (a/b)*b（这里的 “/” 指的是整除，例如 5/2=2 , 1/3=0），那么，我们可以进一步得到：</p><pre><code>  gcd = b*x1 + (a-(a/b)*b)*y1      = b*x1 + a*y1 – (a/b)*b*y1      = a*y1 + b*(x1 – a/b*y1)</code></pre><p>  对比之前我们的状态：求一组 x 和 y 使得：a<em>x + b</em>y = gcd ，是否发现了什么？</p><p>  这里：</p><pre><code>  x = y1  y = x1 – a/b*y1</code></pre></blockquote><pre><code>int ex_gcd( int a, int b, int &amp;x, int &amp;y ){    if( b==0 ){        x = 1, y = 0;        return a;    }    int ans = ex_gcd(b,a%b,x,y);    int tmp = x;    x = y;    y = tmp - a/b*y;    return ans;}</code></pre><p>欧几里得算法只能求a, b的最大公因数,而扩展欧几里得算法不仅可以求gcd(a,b),还可以求出a<em> x + b</em> y = gcd的通解只需在欧几里得算法的基础上稍加改动<br>然而,求通解有什么用呢?<br>我将介绍扩展欧几里得算法的一个应用,那就是前面提到过的解乘法逆元.</p><p>对于</p><pre><code>ax ≡ 1(mod m)</code></pre><p>我们称 x 是a关于m的乘法逆元<br>这和扩欧有什么关系呢?可以看到这个式子和a<em> x + b</em> y = gcd = 1是有些类似的<br>可以等价于这样的表达式： a<em> x + m</em> y = 1<br>a<em> x + b</em> y = gcd = 1, 说明a, b互质, 那么推广的式子a<em> x + m</em> y = 1中, a, m也是互质的<br>当gcd(a, m) != 1时,x是无解的.</p><p>乘法逆元式子中, 已知a, m, 那么就可以利用扩展欧几里得算法求解x了.<br>算法如下:</p><pre><code>#include &lt;iostream&gt;using namespace std;int ex_gcd( int a, int b, int &amp;x, int &amp;y ){    if( b==0 ){        x = 1, y = 0;//递归到终止条件, 初始化x, y        return a;    }    int ans = ex_gcd(b,a%b,x,y);//继续递归,此前不对x, y进行操作    int temp = x;    x = y;    y = tmp - a/b*y;//利用推导出的两个相邻状态的代换式进行迭代    return ans;}int main( ){    int a, b, x, y;    cin &gt;&gt; a &gt;&gt; b;    if( ex_gcd(a,b,x,y)==1 ){        cout &lt;&lt; (x+b)%b;     }}</code></pre><p>注意,在ex_gcd()中求得的x可能为负值,因此采用了　cout &lt;&lt; (x+b)%b; 这样的输出方式，输出ｘ最小的正整数解</p><p>到这里就结束了,我们讲了什么呢?</p><pre><code>欧几里得算法扩展欧几里得算法线性同余方程中一种特殊情况:乘法逆元 </code></pre><p>这是我在CSDN发表的的第一篇博客,有很多不足.如果没看懂的话,欢迎看这篇文章<br>    <a href="http://blog.csdn.net/zhjchengfeng5/article/details/7786595" target="_blank" rel="noopener">扩展欧几里德算法详解</a><br>    博主讲的很清楚, 对我启发很大.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数学 </tag>
             
         </tags>
       
