@@ -340,32 +340,9 @@
 </blockquote>
 <p>这种方法的<strong>时间复杂度是O(n^2)</strong>, 可以看到相比于前面暴力递归的方法有了极大的进步.</p>
 <p>代码通过样例, 但不一定能过题, 请谨慎使用.</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n, x;</span><br><span class="line">	vector&lt;int&gt; v;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	for (int i = 0; i &lt; n; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; x;</span><br><span class="line">		v.push_back(x);</span><br><span class="line">	&#125;</span><br><span class="line">	int dp[(int)v.size()] = &#123;1&#125;, ans = 1;</span><br><span class="line">	for (int i = 1; i &lt; (int)v.size(); ++i) &#123;</span><br><span class="line">		for (int j = 0; j &lt; i; ++j) &#123;</span><br><span class="line">			if (v[i] &gt;= v[j]) dp[i] = max(dp[i], dp[j] + 1); // 状态转移方程</span><br><span class="line">		&#125;</span><br><span class="line">		ans = max(ans, dp[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">8</span><br><span class="line">1 2 3 -9 3 9 0 11</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
 
-int main()
-{
-    int n, x;
-    vector&lt;int&gt; v;
-    cin &gt;&gt; n;
-    for (int i = 0; i &lt; n; ++i) {
-        cin &gt;&gt; x;
-        v.push_back(x);
-    }
-    int dp[(int)v.size()] = {1}, ans = 1;
-    for (int i = 1; i &lt; (int)v.size(); ++i) {
-        for (int j = 0; j &lt; i; ++j) {
-            if (v[i] &gt;= v[j]) dp[i] = max(dp[i], dp[j] + 1); // 状态转移方程
-        }
-        ans = max(ans, dp[i]);
-    }
-    cout &lt;&lt; ans;
-}
-/*
-8
-1 2 3 -9 3 9 0 11
-*/</code></pre><h3 id="三-O-nlogn-方法-维护单调数组"><a href="#三-O-nlogn-方法-维护单调数组" class="headerlink" title="三. O(nlogn)方法, 维护单调数组"></a>三. O(nlogn)方法, 维护单调数组</h3><p>这个方法也是DP方法</p>
+<h3 id="三-O-nlogn-方法-维护单调数组"><a href="#三-O-nlogn-方法-维护单调数组" class="headerlink" title="三. O(nlogn)方法, 维护单调数组"></a>三. O(nlogn)方法, 维护单调数组</h3><p>这个方法也是DP方法</p>
 <p>时间复杂度可以从O(n^2)降到O(n log n).</p>
 <p><strong>我们从最长上升子序列的角度来探讨</strong></p>
 <p>假设对一个序列n[1…9] = {2 1 5 3 6 4 8 9 7}, 维护一个单调数组, 使得这个数组为最长上升子序列. 设这个数组为d[ ].</p>
@@ -383,38 +360,7 @@ int main()
 <p>经过前面的分析我们也许会发现, 这个DP的过程无法存储中间结果, 也就是说<strong>我们只能知道最长的子序列是多长, 而无法得到是哪个序列.</strong> 可谓是有利有弊.</p>
 <p>利用我们维护的数组的单调性, 我们可以用二分法查找这个比当前数更大数的位置, 从而方便的实现替换.</p>
 <p>所以时间复杂度为O(n log n).</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-int main()
-{
-    int n, x;
-    vector&lt;int&gt; v, vec;
-    cin &gt;&gt; n;
-    for (int i = 0; i &lt; n; ++i) {
-        cin &gt;&gt; x;
-        v.push_back(x);
-    }
-    for (int i = 0; i &lt; (int)v.size(); ++i) {
-        if (i == 0) vec.push_back(v[0]);
-        else {
-            if (v[i] &gt;= vec[vec.size() - 1]) vec.push_back(v[i]);
-            else *upper_bound(vec.begin(), vec.end(), v[i]) = v[i];
-        }
-    }
-    for (int i = 0; i &lt; (int)vec.size(); ++i) {
-        cout &lt;&lt; vec[i] &lt;&lt; &#39; &#39;;
-    }
-    cout &lt;&lt; endl;
-    cout &lt;&lt; &quot;len == &quot; &lt;&lt; vec.size() &lt;&lt; endl;
-}
-
-/*
-9
-2 1 5 3 6 4 8 9 7
-*/</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n, x;</span><br><span class="line">	vector&lt;int&gt; v, vec;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	for (int i = 0; i &lt; n; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; x;</span><br><span class="line">		v.push_back(x);</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 0; i &lt; (int)v.size(); ++i) &#123;</span><br><span class="line">		if (i == 0) vec.push_back(v[0]);</span><br><span class="line">		else &#123;</span><br><span class="line">			if (v[i] &gt;= vec[vec.size() - 1]) vec.push_back(v[i]);</span><br><span class="line">			else *upper_bound(vec.begin(), vec.end(), v[i]) = v[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 0; i &lt; (int)vec.size(); ++i) &#123;</span><br><span class="line">		cout &lt;&lt; vec[i] &lt;&lt; &apos; &apos;;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;len == &quot; &lt;&lt; vec.size() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">9</span><br><span class="line">2 1 5 3 6 4 8 9 7</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
       </div>
       
         <br>

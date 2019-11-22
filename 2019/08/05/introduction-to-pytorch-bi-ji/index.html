@@ -332,160 +332,40 @@
 <li><p>加载MNIST数据集, 设置是训练或者测试, 用DataLoader进行分批加载, 可设置随机化</p>
 </li>
 <li><p>使用了transforms转换器转换数据, 比如归一化, 转化为tensor, 改变图片大小等</p>
-<pre class=" language-python"><code class="language-python"> train_transforms <span class="token operator">=</span> transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>transforms<span class="token punctuation">.</span>RandomRotation<span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                        transforms<span class="token punctuation">.</span>RandomResizedCrop<span class="token punctuation">(</span><span class="token number">224</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                        transforms<span class="token punctuation">.</span>RandomHorizontalFlip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                        transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                        transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
-                                                             <span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">train_transforms = transforms.Compose([transforms.RandomRotation(<span class="number">30</span>),</span><br><span class="line">                                       transforms.RandomResizedCrop(<span class="number">224</span>),</span><br><span class="line">                                       transforms.RandomHorizontalFlip(),</span><br><span class="line">                                       transforms.ToTensor(),</span><br><span class="line">                                       transforms.Normalize([<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>], </span><br><span class="line">                                                            [<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>])])</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>练习自定义网络权重, 并实现网络的前向传播</p>
 </li>
 <li><p>自己用pytorch实现了softmax. 使用sum, argmax等函数需要注意设置dim</p>
-<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">softmax</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-     <span class="token keyword">return</span> torch<span class="token punctuation">.</span>exp<span class="token punctuation">(</span>out<span class="token punctuation">)</span> <span class="token operator">/</span> torch<span class="token punctuation">.</span>exp<span class="token punctuation">(</span>out<span class="token punctuation">)</span><span class="token punctuation">.</span>sum<span class="token punctuation">(</span>dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span></code></pre>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> torch.exp(out) / torch.exp(out).sum(dim=<span class="number">1</span>).view(<span class="number">64</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>自定义网络结构(class方式), 继承自nn.Module. 自定义层次, 激活函数等, 实现init, forward函数</p>
-<pre class=" language-py"><code class="language-py"> class Network(nn.Module):
-     def __init__(self):
-         super().__init__()
-
-         # Inputs to hidden layer linear transformation
-         self.hidden = nn.Linear(784, 256)
-         # Output layer, 10 units - one for each digit
-         self.output = nn.Linear(256, 10)
-
-         # Define sigmoid activation and softmax output 
-         self.sigmoid = nn.Sigmoid()
-         self.softmax = nn.Softmax(dim=1)
-
-     def forward(self, x):
-         # Pass the input tensor through each of our operations
-         x = self.hidden(x)
-         x = self.sigmoid(x)
-         x = self.output(x)
-         x = self.softmax(x)
-
-         return x</code></pre>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Network</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Inputs to hidden layer linear transformation</span></span><br><span class="line">        self.hidden = nn.Linear(<span class="number">784</span>, <span class="number">256</span>)</span><br><span class="line">        <span class="comment"># Output layer, 10 units - one for each digit</span></span><br><span class="line">        self.output = nn.Linear(<span class="number">256</span>, <span class="number">10</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Define sigmoid activation and softmax output </span></span><br><span class="line">        self.sigmoid = nn.Sigmoid()</span><br><span class="line">        self.softmax = nn.Softmax(dim=<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># Pass the input tensor through each of our operations</span></span><br><span class="line">        x = self.hidden(x)</span><br><span class="line">        x = self.sigmoid(x)</span><br><span class="line">        x = self.output(x)</span><br><span class="line">        x = self.softmax(x)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>有model对象, 可方便地查看模型的权重, 偏置值, 还可以进行更改, 如使用随机值</p>
 </li>
 <li><p>使用nn.Sequential()搭建网络, 和之前其实类似</p>
-<pre class=" language-py"><code class="language-py"> model = nn.Sequential(nn.Linear(input_size, hidden_sizes[0]),
-                       nn.ReLU(),
-                       nn.Linear(hidden_sizes[0], hidden_sizes[1]),
-                       nn.ReLU(),
-                       nn.Linear(hidden_sizes[1], output_size),
-                       nn.Softmax(dim=1))</code></pre>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model = nn.Sequential(nn.Linear(input_size, hidden_sizes[<span class="number">0</span>]),</span><br><span class="line">                      nn.ReLU(),</span><br><span class="line">                      nn.Linear(hidden_sizes[<span class="number">0</span>], hidden_sizes[<span class="number">1</span>]),</span><br><span class="line">                      nn.ReLU(),</span><br><span class="line">                      nn.Linear(hidden_sizes[<span class="number">1</span>], output_size),</span><br><span class="line">                      nn.Softmax(dim=<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ol>
 <ol start="8">
 <li>多次出现helper辅助代码, 实现一些功能, 如下所示</li>
 </ol>
-<pre class=" language-py"><code class="language-py">import matplotlib.pyplot as plt
-import numpy as np
-from torch import nn, optim
-from torch.autograd import Variable
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn, optim</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_network</span><span class="params">(net, trainloader)</span>:</span></span><br><span class="line"></span><br><span class="line">    criterion = nn.MSELoss()</span><br><span class="line">    optimizer = optim.Adam(net.parameters(), lr=<span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line">    dataiter = iter(trainloader)</span><br><span class="line">    images, labels = dataiter.next()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create Variables for the inputs and targets</span></span><br><span class="line">    inputs = Variable(images)</span><br><span class="line">    targets = Variable(images)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Clear the gradients from all Variables</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Forward pass, then backward pass, then update weights</span></span><br><span class="line">    output = net.forward(inputs)</span><br><span class="line">    loss = criterion(output, targets)</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">imshow</span><span class="params">(image, ax=None, title=None, normalize=True)</span>:</span></span><br><span class="line">    <span class="string">"""Imshow for Tensor."""</span></span><br><span class="line">    <span class="keyword">if</span> ax <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        fig, ax = plt.subplots()</span><br><span class="line">    image = image.numpy().transpose((<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> normalize:</span><br><span class="line">        mean = np.array([<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>])</span><br><span class="line">        std = np.array([<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</span><br><span class="line">        image = std * image + mean</span><br><span class="line">        image = np.clip(image, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    ax.imshow(image)</span><br><span class="line">    ax.spines[<span class="string">'top'</span>].set_visible(<span class="literal">False</span>)</span><br><span class="line">    ax.spines[<span class="string">'right'</span>].set_visible(<span class="literal">False</span>)</span><br><span class="line">    ax.spines[<span class="string">'left'</span>].set_visible(<span class="literal">False</span>)</span><br><span class="line">    ax.spines[<span class="string">'bottom'</span>].set_visible(<span class="literal">False</span>)</span><br><span class="line">    ax.tick_params(axis=<span class="string">'both'</span>, length=<span class="number">0</span>)</span><br><span class="line">    ax.set_xticklabels(<span class="string">''</span>)</span><br><span class="line">    ax.set_yticklabels(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ax</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">view_recon</span><span class="params">(img, recon)</span>:</span></span><br><span class="line">    <span class="string">''' Function for displaying an image (as a PyTorch Tensor) and its</span></span><br><span class="line"><span class="string">        reconstruction also a PyTorch Tensor</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    fig, axes = plt.subplots(ncols=<span class="number">2</span>, sharex=<span class="literal">True</span>, sharey=<span class="literal">True</span>)</span><br><span class="line">    axes[<span class="number">0</span>].imshow(img.numpy().squeeze())</span><br><span class="line">    axes[<span class="number">1</span>].imshow(recon.data.numpy().squeeze())</span><br><span class="line">    <span class="keyword">for</span> ax <span class="keyword">in</span> axes:</span><br><span class="line">        ax.axis(<span class="string">'off'</span>)</span><br><span class="line">        ax.set_adjustable(<span class="string">'box-forced'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">view_classify</span><span class="params">(img, ps, version=<span class="string">"MNIST"</span>)</span>:</span></span><br><span class="line">    <span class="string">''' Function for viewing an image and it's predicted classes.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    ps = ps.data.numpy().squeeze()</span><br><span class="line"></span><br><span class="line">    fig, (ax1, ax2) = plt.subplots(figsize=(<span class="number">6</span>,<span class="number">9</span>), ncols=<span class="number">2</span>)</span><br><span class="line">    ax1.imshow(img.resize_(<span class="number">1</span>, <span class="number">28</span>, <span class="number">28</span>).numpy().squeeze())</span><br><span class="line">    ax1.axis(<span class="string">'off'</span>)</span><br><span class="line">    ax2.barh(np.arange(<span class="number">10</span>), ps)</span><br><span class="line">    ax2.set_aspect(<span class="number">0.1</span>)</span><br><span class="line">    ax2.set_yticks(np.arange(<span class="number">10</span>))</span><br><span class="line">    <span class="keyword">if</span> version == <span class="string">"MNIST"</span>:</span><br><span class="line">        ax2.set_yticklabels(np.arange(<span class="number">10</span>))</span><br><span class="line">    <span class="keyword">elif</span> version == <span class="string">"Fashion"</span>:</span><br><span class="line">        ax2.set_yticklabels([<span class="string">'T-shirt/top'</span>,</span><br><span class="line">                            <span class="string">'Trouser'</span>,</span><br><span class="line">                            <span class="string">'Pullover'</span>,</span><br><span class="line">                            <span class="string">'Dress'</span>,</span><br><span class="line">                            <span class="string">'Coat'</span>,</span><br><span class="line">                            <span class="string">'Sandal'</span>,</span><br><span class="line">                            <span class="string">'Shirt'</span>,</span><br><span class="line">                            <span class="string">'Sneaker'</span>,</span><br><span class="line">                            <span class="string">'Bag'</span>,</span><br><span class="line">                            <span class="string">'Ankle Boot'</span>], size=<span class="string">'small'</span>);</span><br><span class="line">    ax2.set_title(<span class="string">'Class Probability'</span>)</span><br><span class="line">    ax2.set_xlim(<span class="number">0</span>, <span class="number">1.1</span>)</span><br><span class="line"></span><br><span class="line">    plt.tight_layout()</span><br></pre></td></tr></table></figure>
 
-
-def test_network(net, trainloader):
-
-    criterion = nn.MSELoss()
-    optimizer = optim.Adam(net.parameters(), lr=0.001)
-
-    dataiter = iter(trainloader)
-    images, labels = dataiter.next()
-
-    # Create Variables for the inputs and targets
-    inputs = Variable(images)
-    targets = Variable(images)
-
-    # Clear the gradients from all Variables
-    optimizer.zero_grad()
-
-    # Forward pass, then backward pass, then update weights
-    output = net.forward(inputs)
-    loss = criterion(output, targets)
-    loss.backward()
-    optimizer.step()
-
-    return True
-
-
-def imshow(image, ax=None, title=None, normalize=True):
-    """Imshow for Tensor."""
-    if ax is None:
-        fig, ax = plt.subplots()
-    image = image.numpy().transpose((1, 2, 0))
-
-    if normalize:
-        mean = np.array([0.485, 0.456, 0.406])
-        std = np.array([0.229, 0.224, 0.225])
-        image = std * image + mean
-        image = np.clip(image, 0, 1)
-
-    ax.imshow(image)
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.spines['left'].set_visible(False)
-    ax.spines['bottom'].set_visible(False)
-    ax.tick_params(axis='both', length=0)
-    ax.set_xticklabels('')
-    ax.set_yticklabels('')
-
-    return ax
-
-
-def view_recon(img, recon):
-    ''' Function for displaying an image (as a PyTorch Tensor) and its
-        reconstruction also a PyTorch Tensor
-    '''
-
-    fig, axes = plt.subplots(ncols=2, sharex=True, sharey=True)
-    axes[0].imshow(img.numpy().squeeze())
-    axes[1].imshow(recon.data.numpy().squeeze())
-    for ax in axes:
-        ax.axis('off')
-        ax.set_adjustable('box-forced')
-
-def view_classify(img, ps, version="MNIST"):
-    ''' Function for viewing an image and it's predicted classes.
-    '''
-    ps = ps.data.numpy().squeeze()
-
-    fig, (ax1, ax2) = plt.subplots(figsize=(6,9), ncols=2)
-    ax1.imshow(img.resize_(1, 28, 28).numpy().squeeze())
-    ax1.axis('off')
-    ax2.barh(np.arange(10), ps)
-    ax2.set_aspect(0.1)
-    ax2.set_yticks(np.arange(10))
-    if version == "MNIST":
-        ax2.set_yticklabels(np.arange(10))
-    elif version == "Fashion":
-        ax2.set_yticklabels(['T-shirt/top',
-                            'Trouser',
-                            'Pullover',
-                            'Dress',
-                            'Coat',
-                            'Sandal',
-                            'Shirt',
-                            'Sneaker',
-                            'Bag',
-                            'Ankle Boot'], size='small');
-    ax2.set_title('Class Probability')
-    ax2.set_xlim(0, 1.1)
-
-    plt.tight_layout()</code></pre>
 <h2 id="Part-3-Training-Neural-Networks-Exercises-ipynb"><a href="#Part-3-Training-Neural-Networks-Exercises-ipynb" class="headerlink" title="Part 3 - Training Neural Networks (Exercises).ipynb"></a>Part 3 - Training Neural Networks (Exercises).ipynb</h2><ol>
 <li>梯度下降与反向传播. 反向传播算法是求导过程中链式法则的应用<br> $$<br> \large \frac{\partial \ell}{\partial W_1} = \frac{\partial L_1}{\partial W_1} \frac{\partial S}{\partial L_1} \frac{\partial L_2}{\partial S} \frac{\partial \ell}{\partial L_2}<br> $$</li>
 </ol>
 <p>$$<br>\large W^\prime_1 = W_1 - \alpha \frac{\partial \ell}{\partial W_1}<br>$$</p>
 <ol start="2">
 <li><p>通常会导入的包</p>
-<pre class=" language-py"><code class="language-py"> import torch
- from torch import nn
- import torch.nn.functional as F
- from torchvision import datasets, transforms</code></pre>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets, transforms</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ol>
 <ol start="3">
@@ -498,10 +378,10 @@ def view_classify(img, ps, version="MNIST"):
 <li><p>介绍了自动求导autograd, 调用.backward()可查看导数</p>
 </li>
 <li><p>介绍了optimizer, 在torch.optim中. 有SGD(随机梯度下降等). Adam更好. </p>
-<pre class=" language-py"><code class="language-py"> from torch import optim
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</span><br><span class="line"></span><br><span class="line"><span class="comment"># Optimizers require the parameters to optimize and a learning rate</span></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">0.01</span>)</span><br></pre></td></tr></table></figure>
 
- # Optimizers require the parameters to optimize and a learning rate
- optimizer = optim.SGD(model.parameters(), lr=0.01)</code></pre>
+
+
 </li>
 </ol>
 <ol start="6">
@@ -510,39 +390,10 @@ def view_classify(img, ps, version="MNIST"):
 <li><p>optimizer调用step()方法更新模型的权重</p>
 </li>
 <li><p>一个较完整的训练过程</p>
-<pre class=" language-py"><code class="language-py"> ## Your solution here
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Your solution here</span></span><br><span class="line"></span><br><span class="line">model = nn.Sequential(nn.Linear(<span class="number">784</span>, <span class="number">128</span>),</span><br><span class="line">                      nn.ReLU(),</span><br><span class="line">                      nn.Linear(<span class="number">128</span>, <span class="number">64</span>),</span><br><span class="line">                      nn.ReLU(),</span><br><span class="line">                      nn.Linear(<span class="number">64</span>, <span class="number">10</span>),</span><br><span class="line">                      nn.LogSoftmax(dim=<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">criterion = nn.NLLLoss()</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">0.003</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">5</span></span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> range(epochs):</span><br><span class="line">    running_loss = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> images, labels <span class="keyword">in</span> trainloader:</span><br><span class="line">        <span class="comment"># Flatten MNIST images into a 784 long vector</span></span><br><span class="line">        images = images.view(images.shape[<span class="number">0</span>], <span class="number">-1</span>)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Training pass</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        output = model.forward(images)</span><br><span class="line"><span class="comment">#         print(output.shape)</span></span><br><span class="line"><span class="comment">#         print(labels.shape)</span></span><br><span class="line">        </span><br><span class="line">        loss = criterion(output, labels)</span><br><span class="line">        </span><br><span class="line">        running_loss += loss.item()</span><br><span class="line">        </span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">f"Training loss: <span class="subst">&#123;running_loss/len(trainloader)&#125;</span>"</span>)</span><br></pre></td></tr></table></figure>
 
- model = nn.Sequential(nn.Linear(784, 128),
-                       nn.ReLU(),
-                       nn.Linear(128, 64),
-                       nn.ReLU(),
-                       nn.Linear(64, 10),
-                       nn.LogSoftmax(dim=1))
 
- criterion = nn.NLLLoss()
- optimizer = optim.SGD(model.parameters(), lr=0.003)
 
- epochs = 5
- for e in range(epochs):
-     running_loss = 0
-     for images, labels in trainloader:
-         # Flatten MNIST images into a 784 long vector
-         images = images.view(images.shape[0], -1)
-
-         # TODO: Training pass
-         optimizer.zero_grad()
-         output = model.forward(images)
- #         print(output.shape)
- #         print(labels.shape)
-
-         loss = criterion(output, labels)
-
-         running_loss += loss.item()
-
-         loss.backward()
-         optimizer.step()
-     else:
-         print(f"Training loss: {running_loss/len(trainloader)}")</code></pre>
 </li>
 </ol>
 <h2 id="Part-4-Fashion-MNIST-Exercises-ipynb"><a href="#Part-4-Fashion-MNIST-Exercises-ipynb" class="headerlink" title="Part 4 - Fashion-MNIST (Exercises).ipynb"></a>Part 4 - Fashion-MNIST (Exercises).ipynb</h2><p>使用pytorch对数据集Fashion-MNIST进行分类的练习, 有如下过程</p>
@@ -556,126 +407,11 @@ def view_classify(img, ps, version="MNIST"):
 <li>训练结束, 输出正确率, 损失值等等</li>
 </ol>
 <p>完整代码如下</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> torch
-<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn<span class="token punctuation">.</span>functional <span class="token keyword">as</span> F
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn, optim</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets, transforms</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define a transform to normalize the data</span></span><br><span class="line">transform = transforms.Compose([transforms.ToTensor(),</span><br><span class="line">                                transforms.Normalize((<span class="number">0.5</span>,), (<span class="number">0.5</span>,))])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download and load the training data</span></span><br><span class="line">trainset = datasets.FashionMNIST(<span class="string">'~/.pytorch/F_MNIST_data/'</span>, download=<span class="literal">True</span>, train=<span class="literal">True</span>, transform=transform)</span><br><span class="line">trainloader = torch.utils.data.DataLoader(trainset, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download and load the test data</span></span><br><span class="line">testset = datasets.FashionMNIST(<span class="string">'~/.pytorch/F_MNIST_data/'</span>, download=<span class="literal">True</span>, train=<span class="literal">False</span>, transform=transform)</span><br><span class="line">testloader = torch.utils.data.DataLoader(testset, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义网络结构</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFashionMnist</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    super().__init__()</span><br><span class="line">    self.fc1 = nn.Linear(<span class="number">784</span>, <span class="number">256</span>)</span><br><span class="line">    self.fc2 = nn.Linear(<span class="number">256</span>, <span class="number">64</span>)</span><br><span class="line">    self.fc3 = nn.Linear(<span class="number">64</span>, <span class="number">10</span>)</span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">    x = x.view(<span class="number">-1</span>, <span class="number">784</span>)</span><br><span class="line">    x = F.relu(self.fc1(x))</span><br><span class="line">    x = F.relu(self.fc2(x))</span><br><span class="line">    x = F.log_softmax(self.fc3(x))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">  </span><br><span class="line">model = MyFashionMnist()</span><br><span class="line"></span><br><span class="line">optimizer = optim.Adam(model.parameters(), lr=<span class="number">0.003</span>)</span><br><span class="line"></span><br><span class="line">criterion = nn.NLLLoss()</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> range(epochs):</span><br><span class="line">  running_loss = <span class="number">0</span> <span class="comment"># 损失</span></span><br><span class="line">  <span class="keyword">for</span> images, labels <span class="keyword">in</span> trainloader:</span><br><span class="line">    output = model(images)</span><br><span class="line">    loss = criterion(output, labels)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    running_loss += loss.item()</span><br><span class="line">   </span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"loss: "</span>, running_loss / len(trainloader))</span><br><span class="line">    </span><br><span class="line">sum = correct = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用测试集测试正确率</span></span><br><span class="line"><span class="keyword">for</span> images, labels <span class="keyword">in</span> testloader:</span><br><span class="line">  output = torch.exp(model(images))</span><br><span class="line">  result = torch.argmax(output, dim=<span class="number">1</span>)</span><br><span class="line">  correct += (result == labels).sum()</span><br><span class="line">  sum += len(images)</span><br><span class="line">  </span><br><span class="line">print(<span class="string">"correct = "</span>, correct.item())</span><br><span class="line">print(<span class="string">"sum = "</span>, sum)</span><br><span class="line">print(<span class="string">"rate = &#123;&#125;"</span>.format(correct.item() / sum))</span><br></pre></td></tr></table></figure>
 
-<span class="token keyword">from</span> torch <span class="token keyword">import</span> nn<span class="token punctuation">,</span> optim
-<span class="token keyword">from</span> torchvision <span class="token keyword">import</span> datasets<span class="token punctuation">,</span> transforms
-
-<span class="token comment" spellcheck="true"># Define a transform to normalize the data</span>
-transform <span class="token operator">=</span> transforms<span class="token punctuation">.</span>Compose<span class="token punctuation">(</span><span class="token punctuation">[</span>transforms<span class="token punctuation">.</span>ToTensor<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                transforms<span class="token punctuation">.</span>Normalize<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true"># Download and load the training data</span>
-trainset <span class="token operator">=</span> datasets<span class="token punctuation">.</span>FashionMNIST<span class="token punctuation">(</span><span class="token string">'~/.pytorch/F_MNIST_data/'</span><span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transform<span class="token punctuation">)</span>
-trainloader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>trainset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true"># Download and load the test data</span>
-testset <span class="token operator">=</span> datasets<span class="token punctuation">.</span>FashionMNIST<span class="token punctuation">(</span><span class="token string">'~/.pytorch/F_MNIST_data/'</span><span class="token punctuation">,</span> download<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> train<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> transform<span class="token operator">=</span>transform<span class="token punctuation">)</span>
-testloader <span class="token operator">=</span> torch<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>data<span class="token punctuation">.</span>DataLoader<span class="token punctuation">(</span>testset<span class="token punctuation">,</span> batch_size<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">,</span> shuffle<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-
-<span class="token comment" spellcheck="true"># 定义网络结构</span>
-<span class="token keyword">class</span> <span class="token class-name">MyFashionMnist</span><span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Module<span class="token punctuation">)</span><span class="token punctuation">:</span>
-  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    super<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    self<span class="token punctuation">.</span>fc1 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">784</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">)</span>
-    self<span class="token punctuation">.</span>fc2 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">,</span> <span class="token number">64</span><span class="token punctuation">)</span>
-    self<span class="token punctuation">.</span>fc3 <span class="token operator">=</span> nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">def</span> <span class="token function">forward</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    x <span class="token operator">=</span> x<span class="token punctuation">.</span>view<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">784</span><span class="token punctuation">)</span>
-    x <span class="token operator">=</span> F<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>self<span class="token punctuation">.</span>fc1<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    x <span class="token operator">=</span> F<span class="token punctuation">.</span>relu<span class="token punctuation">(</span>self<span class="token punctuation">.</span>fc2<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    x <span class="token operator">=</span> F<span class="token punctuation">.</span>log_softmax<span class="token punctuation">(</span>self<span class="token punctuation">.</span>fc3<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">return</span> x
-
-model <span class="token operator">=</span> MyFashionMnist<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-optimizer <span class="token operator">=</span> optim<span class="token punctuation">.</span>Adam<span class="token punctuation">(</span>model<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr<span class="token operator">=</span><span class="token number">0.003</span><span class="token punctuation">)</span>
-
-criterion <span class="token operator">=</span> nn<span class="token punctuation">.</span>NLLLoss<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-epochs <span class="token operator">=</span> <span class="token number">20</span>
-
-<span class="token keyword">for</span> e <span class="token keyword">in</span> range<span class="token punctuation">(</span>epochs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-  running_loss <span class="token operator">=</span> <span class="token number">0</span> <span class="token comment" spellcheck="true"># 损失</span>
-  <span class="token keyword">for</span> images<span class="token punctuation">,</span> labels <span class="token keyword">in</span> trainloader<span class="token punctuation">:</span>
-    output <span class="token operator">=</span> model<span class="token punctuation">(</span>images<span class="token punctuation">)</span>
-    loss <span class="token operator">=</span> criterion<span class="token punctuation">(</span>output<span class="token punctuation">,</span> labels<span class="token punctuation">)</span>
-
-    optimizer<span class="token punctuation">.</span>zero_grad<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    loss<span class="token punctuation">.</span>backward<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    optimizer<span class="token punctuation">.</span>step<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    running_loss <span class="token operator">+=</span> loss<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  <span class="token keyword">else</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"loss: "</span><span class="token punctuation">,</span> running_loss <span class="token operator">/</span> len<span class="token punctuation">(</span>trainloader<span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-sum <span class="token operator">=</span> correct <span class="token operator">=</span> <span class="token number">0</span>
-
-<span class="token comment" spellcheck="true"># 用测试集测试正确率</span>
-<span class="token keyword">for</span> images<span class="token punctuation">,</span> labels <span class="token keyword">in</span> testloader<span class="token punctuation">:</span>
-  output <span class="token operator">=</span> torch<span class="token punctuation">.</span>exp<span class="token punctuation">(</span>model<span class="token punctuation">(</span>images<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  result <span class="token operator">=</span> torch<span class="token punctuation">.</span>argmax<span class="token punctuation">(</span>output<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
-  correct <span class="token operator">+=</span> <span class="token punctuation">(</span>result <span class="token operator">==</span> labels<span class="token punctuation">)</span><span class="token punctuation">.</span>sum<span class="token punctuation">(</span><span class="token punctuation">)</span>
-  sum <span class="token operator">+=</span> len<span class="token punctuation">(</span>images<span class="token punctuation">)</span>
-
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"correct = "</span><span class="token punctuation">,</span> correct<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"sum = "</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"rate = {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>correct<span class="token punctuation">.</span>item<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> sum<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
 <p>写了一份基于keras的代码做对比, 过程是类似的. 相对而言keras更黑箱所以代码短一些</p>
-<pre class=" language-py"><code class="language-py">import tensorflow as tf
-from tensorflow.keras import datasets, models, layers
-import os
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> datasets, models, layers</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">os.environ[<span class="string">'TF_CPP_MIN_LOG_LEVEL'</span>] = <span class="string">'2'</span></span><br><span class="line"></span><br><span class="line">(train_images, train_labels), (test_images, test_labels) = datasets.fashion_mnist.load_data()</span><br><span class="line">train_images = tf.reshape(train_images, [<span class="number">-1</span>, <span class="number">784</span>])</span><br><span class="line">test_images = tf.reshape(test_images, [<span class="number">-1</span>, <span class="number">784</span>])</span><br><span class="line"></span><br><span class="line">print(train_images.shape, train_labels.shape, test_images.shape, test_labels.shape)</span><br><span class="line"></span><br><span class="line">model = models.Sequential()</span><br><span class="line">model.add(layers.Dense(<span class="number">256</span>, activation=<span class="string">'relu'</span>, input_shape=(<span class="number">784</span>, )))</span><br><span class="line">model.add(layers.Dense(<span class="number">64</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(layers.Dense(<span class="number">10</span>, activation=<span class="string">'softmax'</span>))</span><br><span class="line">print(<span class="string">"model build!"</span>)</span><br><span class="line"></span><br><span class="line">model.compile(optimizer=<span class="string">'rmsprop'</span>,</span><br><span class="line">              loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将训练集随机化</span></span><br><span class="line">idx = tf.range(len(train_images))</span><br><span class="line">idx = tf.random.shuffle(idx)</span><br><span class="line">print(idx)</span><br><span class="line">train_images = tf.gather(train_images, indices=idx)</span><br><span class="line"><span class="comment"># train_images = train_images[idx]</span></span><br><span class="line">train_labels = tf.gather(train_labels, indices=idx)</span><br><span class="line"><span class="comment"># train_labels = train_labels[idx]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将label转化成one hot</span></span><br><span class="line">train_labels = tf.one_hot(train_labels, depth=<span class="number">10</span>)</span><br><span class="line">test_labels = tf.one_hot(test_labels, depth=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 划分出训练集和验证集</span></span><br><span class="line">partial_x_train = train_images[<span class="number">3000</span>:]</span><br><span class="line">x_val = train_images[:<span class="number">3000</span>]</span><br><span class="line">partial_y_train = train_labels[<span class="number">3000</span>:]</span><br><span class="line">y_val = train_labels[:<span class="number">3000</span>]</span><br><span class="line"></span><br><span class="line">print(partial_x_train.shape, partial_y_train.shape, x_val.shape, y_val.shape)</span><br><span class="line"></span><br><span class="line">history = model.fit(partial_x_train,</span><br><span class="line">                    partial_y_train,</span><br><span class="line">                    epochs=<span class="number">20</span>,</span><br><span class="line">                    batch_size=<span class="number">64</span>,</span><br><span class="line">                    validation_data=(x_val, y_val))</span><br><span class="line"></span><br><span class="line">result = model.evaluate(test_images, test_labels)</span><br></pre></td></tr></table></figure>
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-(train_images, train_labels), (test_images, test_labels) = datasets.fashion_mnist.load_data()
-train_images = tf.reshape(train_images, [-1, 784])
-test_images = tf.reshape(test_images, [-1, 784])
-
-print(train_images.shape, train_labels.shape, test_images.shape, test_labels.shape)
-
-model = models.Sequential()
-model.add(layers.Dense(256, activation='relu', input_shape=(784, )))
-model.add(layers.Dense(64, activation='relu'))
-model.add(layers.Dense(10, activation='softmax'))
-print("model build!")
-
-model.compile(optimizer='rmsprop',
-              loss='categorical_crossentropy',
-              metrics=['accuracy'])
-
-# 将训练集随机化
-idx = tf.range(len(train_images))
-idx = tf.random.shuffle(idx)
-print(idx)
-train_images = tf.gather(train_images, indices=idx)
-# train_images = train_images[idx]
-train_labels = tf.gather(train_labels, indices=idx)
-# train_labels = train_labels[idx]
-
-# 将label转化成one hot
-train_labels = tf.one_hot(train_labels, depth=10)
-test_labels = tf.one_hot(test_labels, depth=10)
-
-# 划分出训练集和验证集
-partial_x_train = train_images[3000:]
-x_val = train_images[:3000]
-partial_y_train = train_labels[3000:]
-y_val = train_labels[:3000]
-
-print(partial_x_train.shape, partial_y_train.shape, x_val.shape, y_val.shape)
-
-history = model.fit(partial_x_train,
-                    partial_y_train,
-                    epochs=20,
-                    batch_size=64,
-                    validation_data=(x_val, y_val))
-
-result = model.evaluate(test_images, test_labels)</code></pre>
 <p>差别是:</p>
 <ol>
 <li>keras的训练起来要比pytorch快得多. 不知道是不是因为keras在gpu条件满足情况下自动调用了gpu, 而pytorch用的是cpu</li>
@@ -689,41 +425,13 @@ result = model.evaluate(test_images, test_labels)</code></pre>
 <p> dropout也真是玄学</p>
 </li>
 <li><p>定义了自己的带dropout层的网络</p>
-<pre class=" language-py"><code class="language-py"> ## TODO: Define your model with dropout added
-
- from torch import nn, optim
- import torch.nn.functional as F
-
- class Classifier(nn.Module):
-     def __init__(self):
-         super().__init__()
-         self.fc1 = nn.Linear(784, 256)
-         self.fc2 = nn.Linear(256, 128)
-         self.fc3 = nn.Linear(128, 64)
-         self.fc4 = nn.Linear(64, 10)
-
-         self.dropout = nn.Dropout(p=0.2)
-
-     def forward(self, x):
-         # make sure input tensor is flattened
-         x = x.view(x.shape[0], -1)
-
-         x = self.dropout(F.relu(self.fc1(x)))
-         x = self.dropout(F.relu(self.fc2(x)))
-         x = self.dropout(F.relu(self.fc3(x)))
-         x = F.log_softmax(self.fc4(x), dim=1)
-
-         return x</code></pre>
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## <span class="doctag">TODO:</span> Define your model with dropout added</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn, optim</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Classifier</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">784</span>, <span class="number">256</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">256</span>, <span class="number">128</span>)</span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">128</span>, <span class="number">64</span>)</span><br><span class="line">        self.fc4 = nn.Linear(<span class="number">64</span>, <span class="number">10</span>)</span><br><span class="line">        </span><br><span class="line">        self.dropout = nn.Dropout(p=<span class="number">0.2</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># make sure input tensor is flattened</span></span><br><span class="line">        x = x.view(x.shape[<span class="number">0</span>], <span class="number">-1</span>)</span><br><span class="line">        </span><br><span class="line">        x = self.dropout(F.relu(self.fc1(x)))</span><br><span class="line">        x = self.dropout(F.relu(self.fc2(x)))</span><br><span class="line">        x = self.dropout(F.relu(self.fc3(x)))</span><br><span class="line">        x = F.log_softmax(self.fc4(x), dim=<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在训练时记录了各个时间点的损失, 所以用下面的代码可以轻松画出损失的变化值, 来判断是否发生过拟合</p>
-<pre class=" language-py"><code class="language-py"> import matplotlib.pyplot as plt
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">train_losses = torch.Tensor(train_losses) / len(trainloader)</span><br><span class="line">test_losses = torch.Tensor(test_losses) / len(testloader)</span><br><span class="line"></span><br><span class="line">plt.plot(train_losses.numpy(), label=<span class="string">'train_losses'</span>)</span><br><span class="line">plt.plot(test_losses.numpy(), label=<span class="string">'test_losses'</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
 
- train_losses = torch.Tensor(train_losses) / len(trainloader)
- test_losses = torch.Tensor(test_losses) / len(testloader)
 
- plt.plot(train_losses.numpy(), label='train_losses')
- plt.plot(test_losses.numpy(), label='test_losses')
- plt.legend()</code></pre>
+
 </li>
 </ol>
 <ol start="5">
@@ -742,16 +450,10 @@ result = model.evaluate(test_images, test_labels)</code></pre>
 </li>
 <li><p>使用torch.utils.data.DataLoader()方法得到生成器dataloader</p>
 <p>代码实现:</p>
-<pre class=" language-py"><code class="language-py">data_dir = 'Cat_Dog_data/train'
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data_dir = <span class="string">'Cat_Dog_data/train'</span></span><br><span class="line"></span><br><span class="line">transform = transforms.Compose([transforms.Resize(<span class="number">255</span>),</span><br><span class="line">                               transforms.CenterCrop(<span class="number">224</span>),</span><br><span class="line">                               transforms.ToTensor()])</span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> compose transforms here</span></span><br><span class="line">dataset = datasets.ImageFolder(data_dir, transform=transform)</span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> create the ImageFolder</span></span><br><span class="line">dataloader = torch.utils.data.DataLoader(dataset, batch_size=<span class="number">32</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> use the ImageFolder dataset to create the DataLoader</span></span><br></pre></td></tr></table></figure>
 
-transform = transforms.Compose([transforms.Resize(255),
-                            transforms.CenterCrop(224),
-                            transforms.ToTensor()])
-# TODO: compose transforms here
-dataset = datasets.ImageFolder(data_dir, transform=transform)
-# TODO: create the ImageFolder
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
-# TODO: use the ImageFolder dataset to create the DataLoader</code></pre>
+
+
 </li>
 </ol>
 </li>
@@ -763,19 +465,8 @@ dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
 <li><p>这部分讲的是迁移学习, 用别人预训练好的模型就可以做好多很厉害的东西啦. 样例使用的是densenet121, 分为feature和classifier部分, 我们需要改动的是classifier部分, 从开始的ImageNet输出1000类改成2类的分类器(猫狗分类). 直观上, 感觉像是那很复杂很复杂的feature部分是将图片的特征提取出来了, 作为一个1024长度的向量是输入, 然后我们再用之前学过的知识对这个输入进行分类???</p>
 </li>
 <li><p>自定义classifier, 看着有点怪, 不像之前自己定义的网络</p>
-<pre class=" language-py"><code class="language-py"> # Freeze parameters so we don't backprop through them
- for param in model.parameters():
-     param.requires_grad = False
+ <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Freeze parameters so we don't backprop through them</span></span><br><span class="line"><span class="keyword">for</span> param <span class="keyword">in</span> model.parameters():</span><br><span class="line">    param.requires_grad = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line">classifier = nn.Sequential(OrderedDict([</span><br><span class="line">                          (<span class="string">'fc1'</span>, nn.Linear(<span class="number">1024</span>, <span class="number">500</span>)),</span><br><span class="line">                          (<span class="string">'relu'</span>, nn.ReLU()),</span><br><span class="line">                          (<span class="string">'fc2'</span>, nn.Linear(<span class="number">500</span>, <span class="number">2</span>)),</span><br><span class="line">                          (<span class="string">'output'</span>, nn.LogSoftmax(dim=<span class="number">1</span>))</span><br><span class="line">                          ]))</span><br><span class="line">    </span><br><span class="line">model.classifier = classifier</span><br></pre></td></tr></table></figure>
 
- from collections import OrderedDict
- classifier = nn.Sequential(OrderedDict([
-                           ('fc1', nn.Linear(1024, 500)),
-                           ('relu', nn.ReLU()),
-                           ('fc2', nn.Linear(500, 2)),
-                           ('output', nn.LogSoftmax(dim=1))
-                           ]))
-
- model.classifier = classifier</code></pre>
 <ol start="3">
 <li>最后有一个自己使用预训练模型进行猫狗分类的练习, 我自己做出来正确率居然是51%(嗯, 不错, 对了一半…). 视频里讲的跟我差不多的方法是95+%的正确率. 我果然太天真. </li>
 <li>不过过程就是这样了, 从torchvision.models加载某一预训练模型, 然后查看他的网络结构, 修改最后一部分(分类器), 注意freeze网络参数. 然后开始使用gpu训练(据比较gpu和cpu的训练速度是几百倍的差别, 然而在colab上进行训练即使是一个epoch也要训练几分钟的…), 这部分和普通的网络训练一样, 最后是测试(或者将验证部分嵌入到训练部分, 在训练过程中不断获悉正确率)</li>

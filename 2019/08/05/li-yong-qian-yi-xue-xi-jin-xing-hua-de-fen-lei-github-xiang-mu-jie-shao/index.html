@@ -399,24 +399,14 @@
 <p><code>python test.py</code></p>
 <p>即可测试模型对花分类的准确率</p>
 <p>当epoch为3时, 模型的准确率达到了83%, 其中, 除roses外准确率都极高. (大多数错误都是由roses引起的)</p>
-<pre class=" language-bash"><code class="language-bash">Test Accuracy of daisy: 84% <span class="token punctuation">(</span>78/92<span class="token punctuation">)</span>
-Test Accuracy of dandelion: 94% <span class="token punctuation">(</span>125/132<span class="token punctuation">)</span>
-Test Accuracy of roses: 59% <span class="token punctuation">(</span>54/91<span class="token punctuation">)</span>
-Test Accuracy of sunflowers: 85% <span class="token punctuation">(</span>86/101<span class="token punctuation">)</span>
-Test Accuracy of tulips: 87% <span class="token punctuation">(</span>108/124<span class="token punctuation">)</span>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Test Accuracy of daisy: 84% (78/92)</span><br><span class="line">Test Accuracy of dandelion: 94% (125/132)</span><br><span class="line">Test Accuracy of roses: 59% (54/91)</span><br><span class="line">Test Accuracy of sunflowers: 85% (86/101)</span><br><span class="line">Test Accuracy of tulips: 87% (108/124)</span><br><span class="line"></span><br><span class="line">Test Accuracy (Overall): 83% (451/540)</span><br></pre></td></tr></table></figure>
 
-Test Accuracy <span class="token punctuation">(</span>Overall<span class="token punctuation">)</span>: 83% <span class="token punctuation">(</span>451/540<span class="token punctuation">)</span></code></pre>
 <h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>对一张图片进行分类</p>
-<pre class=" language-bash"><code class="language-bash">----------------usage----------------
-    run the demo with:
-    python demo.py -m model_name -i image_name.jpg
-    python demo.py --image image_name.jpg
-    python demo.py -i image_name.jpg
-    or use <span class="token variable"><span class="token variable">`</span>python demo.py -h<span class="token variable">`</span></span> to get <span class="token function">help</span>
-    -----------------end-----------------</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">----------------usage----------------</span><br><span class="line">    run the demo with:</span><br><span class="line">    python demo.py -m model_name -i image_name.jpg</span><br><span class="line">    python demo.py --image image_name.jpg</span><br><span class="line">    python demo.py -i image_name.jpg</span><br><span class="line">    or use `python demo.py -h` to get <span class="built_in">help</span></span><br><span class="line">    -----------------end-----------------</span><br></pre></td></tr></table></figure>
+
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="demo-1"><a href="#demo-1" class="headerlink" title="demo 1"></a>demo 1</h3><p><img src="/images/20190805_1.png" alt></p>
-<pre class=" language-bash"><code class="language-bash">$ python demo.py -m my_vgg16_3epochs.pth -i image/yvjingxiang_1.png
-郁金香</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python demo.py -m my_vgg16_3epochs.pth -i image/yvjingxiang_1.png</span><br><span class="line">郁金香</span><br></pre></td></tr></table></figure>
+
 <p>demo.py 的输出结果是图片的识别的花的中文名</p>
 
       </div>

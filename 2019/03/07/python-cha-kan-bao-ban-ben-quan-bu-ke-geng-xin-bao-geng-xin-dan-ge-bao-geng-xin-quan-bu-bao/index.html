@@ -330,10 +330,8 @@
 <p>首先通过pip下载<code>pip install pip-review</code></p>
 <p>然后执行以下命令：<code>pip-review --local --interactive</code></p>
 <p>或者执行下面python程序</p>
-<pre class=" language-py"><code class="language-py">from pip._internal.utils.misc import get_installed_distributions
-from subprocess import call
-for dist in get_installed_distributions():
-    call("pip install --upgrade " + dist.project_name, shell=True)</code></pre>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pip._internal.utils.misc <span class="keyword">import</span> get_installed_distributions</span><br><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> call</span><br><span class="line"><span class="keyword">for</span> dist <span class="keyword">in</span> get_installed_distributions():</span><br><span class="line">    call(<span class="string">"pip install --upgrade "</span> + dist.project_name, shell=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
 <p>:（  不过更新全部包不是非常靠谱，毕竟更新一个包都经常出问题！何况是更新所有的。</p>
 <h3 id="五、卸载包的方法"><a href="#五、卸载包的方法" class="headerlink" title="五、卸载包的方法"></a>五、卸载包的方法</h3><p>和安装的方法类似</p>
 <p><code>pip uninstall numpy</code></p>

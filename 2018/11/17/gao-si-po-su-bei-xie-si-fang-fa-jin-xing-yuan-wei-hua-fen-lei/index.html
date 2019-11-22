@@ -316,42 +316,25 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h3 id="贝叶斯方法完整代码"><a href="#贝叶斯方法完整代码" class="headerlink" title="贝叶斯方法完整代码"></a>贝叶斯方法完整代码</h3><pre class=" language-py"><code class="language-py">import seaborn as sns  
-iris = sns.load_dataset('iris')
+        <h3 id="贝叶斯方法完整代码"><a href="#贝叶斯方法完整代码" class="headerlink" title="贝叶斯方法完整代码"></a>贝叶斯方法完整代码</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns  </span><br><span class="line">iris = sns.load_dataset(<span class="string">'iris'</span>)</span><br><span class="line"></span><br><span class="line">X_iris = iris.drop(<span class="string">'species'</span>, axis=<span class="number">1</span>)</span><br><span class="line">y_iris = iris[<span class="string">'species'</span>]</span><br><span class="line"></span><br><span class="line">print(X_iris)</span><br><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> train_test_split</span><br><span class="line">Xtrain, Xtest, ytrain, ytest = train_test_split(X_iris, y_iris, random_state=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> GaussianNB</span><br><span class="line">model = GaussianNB()</span><br><span class="line">model.fit(Xtrain, ytrain)</span><br><span class="line">y_model = model.predict(Xtest)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line">accuracy_score(ytest, y_model)</span><br></pre></td></tr></table></figure>
 
-X_iris = iris.drop('species', axis=1)
-y_iris = iris['species']
-
-print(X_iris)
-from sklearn.cross_validation import train_test_split
-Xtrain, Xtest, ytrain, ytest = train_test_split(X_iris, y_iris, random_state=1)
-
-from sklearn.naive_bayes import GaussianNB
-model = GaussianNB()
-model.fit(Xtrain, ytrain)
-y_model = model.predict(Xtest)
-
-from sklearn.metrics import accuracy_score
-accuracy_score(ytest, y_model)</code></pre>
 <hr>
 <h2 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h2><h3 id="一-首先获取数据"><a href="#一-首先获取数据" class="headerlink" title="一-首先获取数据."></a>一-首先获取数据.</h3><p>这里我们在线导入seaborn库的iris(鸢尾花)数据</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> seaborn <span class="token keyword">as</span> sns
-iris <span class="token operator">=</span> sns<span class="token punctuation">.</span>load_dataset<span class="token punctuation">(</span><span class="token string">'iris'</span><span class="token punctuation">)</span></code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">iris = sns.load_dataset(<span class="string">'iris'</span>)</span><br></pre></td></tr></table></figure>
+
 <p><a href="https://github.com/mwaskom/seaborn-data" target="_blank" rel="noopener">这是github上的说明</a>, 可直接下载csv文件</p>
-<h3 id="二-将数据格式化"><a href="#二-将数据格式化" class="headerlink" title="二-将数据格式化"></a>二-将数据格式化</h3><pre class=" language-py"><code class="language-py">X_iris = iris.drop('species', axis=1)
-y_iris = iris['species']</code></pre>
+<h3 id="二-将数据格式化"><a href="#二-将数据格式化" class="headerlink" title="二-将数据格式化"></a>二-将数据格式化</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X_iris = iris.drop(<span class="string">'species'</span>, axis=<span class="number">1</span>)</span><br><span class="line">y_iris = iris[<span class="string">'species'</span>]</span><br></pre></td></tr></table></figure>
+
 <p>将类别那一列删除生成新的对象赋值给X_iris, y_iris为分类.<br><a href="https://blog.csdn.net/sinat_32547403/article/details/73822660" target="_blank" rel="noopener">pandas的drop方法参考</a></p>
-<h3 id="三-将数据切分为训练数据和测试数据"><a href="#三-将数据切分为训练数据和测试数据" class="headerlink" title="三-将数据切分为训练数据和测试数据"></a>三-将数据切分为训练数据和测试数据</h3><pre class=" language-py"><code class="language-py">from sklearn.cross_validation import train_test_split
-Xtrain, Xtest, ytrain, ytest = train_test_split(X_iris, y_iris, random_state=1)</code></pre>
+<h3 id="三-将数据切分为训练数据和测试数据"><a href="#三-将数据切分为训练数据和测试数据" class="headerlink" title="三-将数据切分为训练数据和测试数据"></a>三-将数据切分为训练数据和测试数据</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> train_test_split</span><br><span class="line">Xtrain, Xtest, ytrain, ytest = train_test_split(X_iris, y_iris, random_state=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
 <p><code>cross validation</code>是<strong>交叉验证</strong>的意思, <a href="https://blog.csdn.net/CherDW/article/details/54881167" target="_blank" rel="noopener">参考文章</a><br>参数<code>random_state</code>是固定的随机种子, <a href="http://sofasofa.io/forum_main_post.php?postid=1001204" target="_blank" rel="noopener">参考文章</a></p>
-<h3 id="四-调用高斯朴素贝叶斯实现训练"><a href="#四-调用高斯朴素贝叶斯实现训练" class="headerlink" title="四-调用高斯朴素贝叶斯实现训练"></a>四-调用高斯朴素贝叶斯实现训练</h3><pre class=" language-cpp"><code class="language-cpp">from sklearn<span class="token punctuation">.</span>naive_bayes import GaussianNB
-model <span class="token operator">=</span> <span class="token function">GaussianNB</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-model<span class="token punctuation">.</span><span class="token function">fit</span><span class="token punctuation">(</span>Xtrain<span class="token punctuation">,</span> ytrain<span class="token punctuation">)</span>
-y_model <span class="token operator">=</span> model<span class="token punctuation">.</span><span class="token function">predict</span><span class="token punctuation">(</span>Xtest<span class="token punctuation">)</span> # 进行预测</code></pre>
+<h3 id="四-调用高斯朴素贝叶斯实现训练"><a href="#四-调用高斯朴素贝叶斯实现训练" class="headerlink" title="四-调用高斯朴素贝叶斯实现训练"></a>四-调用高斯朴素贝叶斯实现训练</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.naive_bayes <span class="keyword">import</span> GaussianNB</span><br><span class="line">model = GaussianNB()</span><br><span class="line">model.fit(Xtrain, ytrain)</span><br><span class="line">y_model = model.predict(Xtest) # 进行预测</span><br></pre></td></tr></table></figure>
+
 <p>调用<code>Gaussian naive Bayes</code>模型, 并进行拟合, 预测</p>
 <h3 id="五-对测试结果进行评估"><a href="#五-对测试结果进行评估" class="headerlink" title="五-对测试结果进行评估"></a>五-对测试结果进行评估</h3><p><a href="https://blog.csdn.net/CherDW/article/details/55813071" target="_blank" rel="noopener">评估方法介绍</a></p>
-<pre class=" language-py"><code class="language-py">from sklearn.metrics import accuracy_score
-accuracy_score(ytest, y_model)</code></pre>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line">accuracy_score(ytest, y_model)</span><br></pre></td></tr></table></figure>
+
 <p>得到准确率为<code>0.9736842105263158</code><br><code>metrics</code>是指标的意思.</p>
 <p>说明对特征明显的数据, 即使是非常简单的分类算法也可以高效地进行分析.</p>
 

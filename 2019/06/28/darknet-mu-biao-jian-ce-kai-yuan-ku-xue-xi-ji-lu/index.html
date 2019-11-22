@@ -321,30 +321,15 @@
 <p>效果图:<br><img src="/images/20190628_1.png" alt><br><img src="/images/20190628_2.png" alt><br><img src="/images/20190628_3.png" alt></p>
 <hr>
 <h2 id="2-安装方法"><a href="#2-安装方法" class="headerlink" title="2. 安装方法"></a>2. 安装方法</h2><p>如何安装?</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> clone https://github.com/pjreddie/darknet
-<span class="token function">cd</span> darknet
-<span class="token function">make</span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/pjreddie/darknet</span><br><span class="line"><span class="built_in">cd</span> darknet</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
 <p>然后下载yolov3权重, 放到darknet根目录下<br><code>wget https://pjreddie.com/media/files/yolov3.weights</code></p>
 <p>执行命令<code>./darknet detector test cfg/coco.data cfg/yolov3.cfg yolov3.weights data/dog.jpg</code> 测试一下效果, 生成的图片保存在darknet根目录下</p>
 <hr>
 <h2 id="3-常用命令"><a href="#3-常用命令" class="headerlink" title="3. 常用命令"></a>3. 常用命令</h2><p>以下是几个常用的检测命令</p>
-<pre><code># 调用摄像头进行目标检测
-./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 调用摄像头进行目标检测</span><br><span class="line">./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights</span><br><span class="line"></span><br><span class="line"># 对视频进行目标检测</span><br><span class="line">./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights &lt;video_file&gt;</span><br><span class="line"></span><br><span class="line"># 检测单独的一张图片</span><br><span class="line">./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg</span><br><span class="line"></span><br><span class="line"># 设置阈值的检测</span><br><span class="line">./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg -thresh 0</span><br><span class="line"></span><br><span class="line"># 对多张图片的检测, 输入命令后, 输入图片路径</span><br><span class="line">./darknet detect cfg/yolov3.cfg yolov3.weights</span><br><span class="line"></span><br><span class="line"># 指定摄像头设备, 加参数 -c</span><br><span class="line">./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights -c 1</span><br></pre></td></tr></table></figure>
 
-# 对视频进行目标检测
-./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights &lt;video_file&gt;
-
-# 检测单独的一张图片
-./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg
-
-# 设置阈值的检测
-./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg -thresh 0
-
-# 对多张图片的检测, 输入命令后, 输入图片路径
-./darknet detect cfg/yolov3.cfg yolov3.weights
-
-# 指定摄像头设备, 加参数 -c
-./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights -c 1</code></pre><hr>
+<hr>
 <h2 id="4-GPU加速"><a href="#4-GPU加速" class="headerlink" title="4. GPU加速"></a>4. GPU加速</h2><p>用CPU进行测试非常的慢, 下面是官网的描述, 一张图10s(在我的电脑上还不止)<br><img src="/images/20190628_4.png" alt></p>
 <p>使用GPU可以大幅提高速度, 提升有多少呢? 在我的Geforce 940MX 辣鸡显卡上, 都可以实现比较卡顿的摄像头目标检测了! 如果是高性能的显卡, 想必会非常流畅(羡慕)</p>
 <p>当然, 用GPU是需要安装好cuda的. 我用的是cuda 10.0</p>
@@ -361,28 +346,12 @@
 <p><a href="http://www.dev47apps.com/" target="_blank" rel="noopener">官网: http://www.dev47apps.com/</a></p>
 <p><a href="https://www.freeyourdesktop.com/2018/10/need-a-webcam-in-ubuntu-no-problem-thanks-to-android/" target="_blank" rel="noopener">以及一篇非常好的安装教程</a></p>
 <p>ubuntu 18.04 (linux)下的安装方法是<br>复制下面这段代码做一个bash脚本, 然后执行它.</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /tmp/
-<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> linux-headers-<span class="token variable"><span class="token variable">`</span><span class="token function">uname</span> -r<span class="token variable">`</span></span>
-bits<span class="token operator">=</span><span class="token variable"><span class="token variable">`</span>getconf LONG_BIT<span class="token variable">`</span></span>
-<span class="token function">wget</span> https://www.dev47apps.com/files/600/droidcam-<span class="token variable">${bits}</span>bit.tar.bz2
-<span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">${bits}</span> -eq 32 <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> checksum<span class="token operator">=</span>90cd43b4745c51cffedc352090912eb1
-<span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">${bits}</span> -eq 64 <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> checksum<span class="token operator">=</span>9507c0b738f427c5f1dde7b2a364fdfb
-<span class="token keyword">echo</span> <span class="token string">"<span class="token variable">${checksum}</span>  droidcam-<span class="token variable">${bits}</span>bit.tar.bz2"</span> <span class="token operator">|</span> md5sum -c --
-<span class="token comment" spellcheck="true"># OK?</span>
-<span class="token function">tar</span> xjf droidcam-<span class="token variable">${bits}</span>bit.tar.bz2
-<span class="token function">cd</span> droidcam-<span class="token variable">${bits}</span>bit/
-<span class="token function">sudo</span> ./install</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /tmp/</span><br><span class="line">sudo apt-get install linux-headers-`uname -r`</span><br><span class="line">bits=`getconf LONG_BIT`</span><br><span class="line">wget https://www.dev47apps.com/files/600/droidcam-<span class="variable">$&#123;bits&#125;</span>bit.tar.bz2</span><br><span class="line">[[ <span class="variable">$&#123;bits&#125;</span> -eq 32 ]] &amp;&amp; checksum=90cd43b4745c51cffedc352090912eb1</span><br><span class="line">[[ <span class="variable">$&#123;bits&#125;</span> -eq 64 ]] &amp;&amp; checksum=9507c0b738f427c5f1dde7b2a364fdfb</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;checksum&#125;</span>  droidcam-<span class="variable">$&#123;bits&#125;</span>bit.tar.bz2"</span> | md5sum -c --</span><br><span class="line"><span class="comment"># OK?</span></span><br><span class="line">tar xjf droidcam-<span class="variable">$&#123;bits&#125;</span>bit.tar.bz2</span><br><span class="line"><span class="built_in">cd</span> droidcam-<span class="variable">$&#123;bits&#125;</span>bit/</span><br><span class="line">sudo ./install</span><br></pre></td></tr></table></figure>
+
 <p>建立启动器<br><code>gedit ~/.local/share/applications/droidcam.desktop</code><br>拷贝下面的代码进去</p>
-<pre><code>[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=false
-Name=DroidCam
-Exec=droidcam
-Comment=Use your Android phone as a wireless webcam or an IP Cam!
-Icon=droidcam
-Categories=GNOME;GTK;Video;
-Name[it]=droidcam</code></pre><p>就可以找到图形程序的图标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Version=1.0</span><br><span class="line">Type=Application</span><br><span class="line">Terminal=false</span><br><span class="line">Name=DroidCam</span><br><span class="line">Exec=droidcam</span><br><span class="line">Comment=Use your Android phone as a wireless webcam or an IP Cam!</span><br><span class="line">Icon=droidcam</span><br><span class="line">Categories=GNOME;GTK;Video;</span><br><span class="line">Name[it]=droidcam</span><br></pre></td></tr></table></figure>
+
+<p>就可以找到图形程序的图标</p>
 <p>然后就可以使用wifi连接手机上的摄像头. 也可以用usb连接的方式.<br><img src="/images/20190628_9.png" alt></p>
 <hr>
 <p>用命令<code>ls /dev/video*</code> 查看电脑上的摄像头设备. 目前有两个. 这个video1就是ip摄像头了.<br><img src="/images/20190628_10.png" alt><br>在使用darknet的时候, 在后面加参数<code>-c 1</code> 就可以指定摄像头设备了.</p>
@@ -401,14 +370,11 @@ Name[it]=droidcam</code></pre><p>就可以找到图形程序的图标</p>
 <p><img src="/images/20190628_12.png" alt></p>
 <p>思路是, darknet提供了一种参数, -prefix, 可以将视频检测的结果输出为一系列的图片. 我们将这些图片保存在tmp文件夹, 然后使用视频转化工具ffmpeg 将这一系列的图片转化为视频.</p>
 <p>下面是修改了的bash脚本, 保存为run.sh</p>
-<pre class=" language-py"><code class="language-py">#!/bin/bash
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights $<span class="number">1</span> -prefix ./tmp/pictures</span><br><span class="line">ffmpeg -i ./tmp/pictures_%<span class="number">08</span>d.jpg $<span class="number">2</span></span><br><span class="line"></span><br><span class="line">rm ./tmp/pictures_*.jpg</span><br></pre></td></tr></table></figure>
 
-./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights $1 -prefix ./tmp/pictures
-ffmpeg -i ./tmp/pictures_%08d.jpg $2
-
-rm ./tmp/pictures_*.jpg</code></pre>
 <p>我稍微修改了github issue上的脚本, 使得我们可以指定输入和输出的文件.<br>执行这条命令就可以保存视频了</p>
-<pre class=" language-bash"><code class="language-bash">./run.sh ./data/test-5.mp4 ./outputfiles/test-5.mp4</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./run.sh ./data/<span class="built_in">test</span>-5.mp4 ./outputfiles/<span class="built_in">test</span>-5.mp4</span><br></pre></td></tr></table></figure>
+
 <p>调用摄像头然后保存的话, 也稍微修改一下脚本就好了</p>
 <hr>
 <p>perfect</p>
