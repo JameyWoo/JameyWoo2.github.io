@@ -165,6 +165,7 @@ mark {
 }
 
 .bg-color {
+    background-image: -webkit-gradient(linear, left top, right top, from(#bf30ac), to(#0f9d58));
     background-image: linear-gradient(to right, #bf30ac 0%, #0f9d58 100%);
     opacity: 0.7;
 }
@@ -182,6 +183,7 @@ mark {
     position: fixed;
     bottom: 0;
     z-index: 300;
+    background: -webkit-gradient(linear, left top, right top, from(#bf30ac), to(#0f9d58));
     background: linear-gradient(to right, #bf30ac 0%, #0f9d58 100%);
     opacity: 0.7;
 }
@@ -347,15 +349,18 @@ header .go-back i {
 /* 背景图效果. */
 .bg-cover {
     position: relative;
+    display: -webkit-box;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+            align-items: center;
     height: 60vh;
     padding: 0;
     border: 0;
     overflow: hidden;
     background-position: center center;
     background-size: cover;
-    transform: translate3d(0px, 0px, 0px);
+    -webkit-transform: translate3d(0px, 0px, 0px);
+            transform: translate3d(0px, 0px, 0px);
 }
 
 .index-cover {
@@ -1060,6 +1065,7 @@ table tr:nth-child(2n), thead {
 
 .chip-container .chip-active {
     color: #FFF !important;
+    background: -webkit-gradient(linear, left top, right bottom, from(#FF5E3A), to(#FF2A68)) !important;
     background: linear-gradient(to bottom right, #FF5E3A 0%, #FF2A68 100%) !important;
     box-shadow: 2px 5px 10px #aaa !important;
 }
@@ -1081,6 +1087,7 @@ table tr:nth-child(2n), thead {
 
 .chip-container .chip:hover {
     color: #fff;
+    background: -webkit-gradient(linear, left top, right top, from(#4cbf30), to(#0f9d58)) !important;
     background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%) !important;
 }
 
@@ -1413,7 +1420,8 @@ table tr:nth-child(2n), thead {
     max-width: 160px;
     width: 100%;
     margin: 0 auto;
-    transform: translate3d(0, -65%, 0);
+    -webkit-transform: translate3d(0, -65%, 0);
+            transform: translate3d(0, -65%, 0);
 }
 
 .profile .author {
@@ -1507,7 +1515,9 @@ table tr:nth-child(2n), thead {
     border-radius: 35px;
     -moz-border-radius: 35px;
     -webkit-border-radius: 35px;
+    -webkit-transition: 0.4s linear;
     transition: 0.4s linear;
+    -webkit-transition-property: width, background-color;
     transition-property: width, background-color;
 }
 
@@ -1572,6 +1582,7 @@ table tr:nth-child(2n), thead {
 
 .other-skills .chip:hover {
     color: #fff;
+    background: -webkit-gradient(linear, left top, right top, from(#4cbf30), to(#0f9d58));
     background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);;
     border: 1px solid #4cbf30;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .25)
@@ -1669,6 +1680,7 @@ footer .copy-right {
 }
 
 .top-scroll .btn-floating {
+    background: -webkit-gradient(linear, left top, right bottom, from(#FF5E3A), to(#FF2A68));
     background: linear-gradient(to bottom right, #FF5E3A 0%, #FF2A68 100%);
     width: 48px;
     height: 48px;

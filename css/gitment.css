@@ -83,6 +83,7 @@ a.gitment-header-issue-link:visited {
 
 .gitment-editor-main .gitment-editor-tabs .gitment-selected {
     background-color: rgba(255, 255, 255, 0.2);
+    -webkit-transition: 0.3s background-color 0.2s;
     transition: 0.3s background-color 0.2s;
     border: 0 !important;
     color: #fff !important;

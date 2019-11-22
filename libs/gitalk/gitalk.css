@@ -980,10 +980,12 @@
 }
 .gt-container .gt-header {
   position: relative;
+  display: -webkit-box;
   display: flex;
 }
 .gt-container .gt-header-comment {
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
   margin-left: 1.25em;
 }
 @media (max-width: 479px) {
@@ -1005,6 +1007,7 @@
   resize: vertical;
   background-color: #f6f6f6;
   outline: none;
+  -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
 .gt-container .gt-header-textarea:hover {
@@ -1076,6 +1079,7 @@
   top: 0;
   background: #000;
   opacity: 0.6;
+  -webkit-transition: opacity 0.3s, bottom 0s;
   transition: opacity 0.3s, bottom 0s;
   z-index: 9999;
 }
@@ -1095,14 +1099,17 @@
 .gt-container .gt-comment {
   position: relative;
   padding: 0.625em 0;
+  display: -webkit-box;
   display: flex;
 }
 .gt-container .gt-comment-content {
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
   margin-left: 1.25em;
   padding: 0.75em 1em;
   background-color: #f9f9f9;
   overflow: auto;
+  -webkit-transition: all ease 0.25s;
   transition: all ease 0.25s;
 }
 .gt-container .gt-comment-content:hover {
@@ -1163,17 +1170,21 @@
 }
 @-webkit-keyframes gt-kf-rotate {
   0% {
-    transform: rotate(0);
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
   }
   100% {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 @keyframes gt-kf-rotate {
   0% {
-    transform: rotate(0);
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
   }
   100% {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
