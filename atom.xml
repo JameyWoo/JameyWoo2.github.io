@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fiveplus.top/"/>
-  <updated>2019-09-15T01:19:08.522Z</updated>
+  <updated>2019-11-22T15:47:28.567Z</updated>
   <id>https://fiveplus.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>正则表达式转化为DFA状态图</title>
+    <link href="https://fiveplus.top/2019/11/02/zheng-ze-biao-da-shi-zhuan-hua-wei-dfa-zhuang-tai-tu/"/>
+    <id>https://fiveplus.top/2019/11/02/zheng-ze-biao-da-shi-zhuan-hua-wei-dfa-zhuang-tai-tu/</id>
+    <published>2019-11-02T09:48:59.000Z</published>
+    <updated>2019-11-22T15:47:28.567Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;话不多说, 这是一个将正则表达式转化为DFA状态图的小工具, 是在做编译原理实验的时候在基础实验之上进行扩展的.&lt;/p&gt;
+&lt;p&gt;demo: &lt;/p&gt;
+&lt;p&gt;./main -r “(a|b)*a” -o test.png&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="编译原理" scheme="https://fiveplus.top/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+    
+      <category term="编译原理" scheme="https://fiveplus.top/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>自编码器AutoEncoder</title>
@@ -525,33 +554,6 @@
         
           &lt;p&gt;IDA*算法, ID(Iterative Deepening)指的是迭代加深. 它的思想是重复进行限制最大深度的深度优先搜索(此限制从某个最小值遍历到最大值), 也称为深度受限搜索.&lt;/p&gt;
 &lt;p&gt;一般情况下, 为了提高搜索速度, 迭代加深不会记录已搜索过的状态,
-        
-      
-    
-    </summary>
-    
-      <category term="算法" scheme="https://fiveplus.top/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="算法" scheme="https://fiveplus.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数组中出现次数超过一半的数字</title>
-    <link href="https://fiveplus.top/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/"/>
-    <id>https://fiveplus.top/2018/09/23/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi/</id>
-    <published>2018-09-22T16:00:00.000Z</published>
-    <updated>2019-08-15T05:48:54.927Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;用头脑风暴学算法，对于一个问题，我们不只是要解决它，还要去思考有什么好的方法，差的方法去解决，甚至是一些错误的但可以提供思想借鉴的方法。&lt;/p&gt;
-&lt;p&gt;此问题“数组中出现次数超过一半的数字”是一道非常经典的算法题，我把它放在算法风暴系列第一篇来解析，探讨学习一个算法的过程，
         
       
     

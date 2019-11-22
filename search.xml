@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>正则表达式转化为DFA状态图</title>
+      <link href="/2019/11/02/zheng-ze-biao-da-shi-zhuan-hua-wei-dfa-zhuang-tai-tu/"/>
+      <url>/2019/11/02/zheng-ze-biao-da-shi-zhuan-hua-wei-dfa-zhuang-tai-tu/</url>
+      
+        <content type="html"><![CDATA[<p>话不多说, 这是一个将正则表达式转化为DFA状态图的小工具, 是在做编译原理实验的时候在基础实验之上进行扩展的.</p><p>demo: </p><p>./main -r “(a|b)*a” -o test.png</p><p><img src="/images/test_mindfa.png" alt></p><p>下面是文档和链接, 欢迎 star哦.</p><hr><h2 id="在线文档"><a href="#在线文档" class="headerlink" title="在线文档"></a>在线文档</h2><p><a href="https://blog.csdn.net/wjh2622075127" target="_blank" rel="noopener">@author 姬小野</a></p><p><a href="https://fiveplus.top/re2graph">点击查看文档与Demo</a></p><p><a href="https://github.com/JameyWoo/re2graph" target="_blank" rel="noopener">Github地址</a></p><h2 id="项目依赖"><a href="#项目依赖" class="headerlink" title="项目依赖"></a>项目依赖</h2><p>此项目的图片生成部分依赖于项目 graphviz, <a href="https://www.graphviz.org/" target="_blank" rel="noopener">这是他们的主页</a> </p><p>致谢~</p><p>如何安装 graphviz 可以参考<a href="https://www.cnblogs.com/onemorepoint/p/8310996.html" target="_blank" rel="noopener">这篇文章</a></p><p>致谢~</p><p><strong>请安装好graphviz并配置好环境变量之后再使用本程序的画图功能. 字符串匹配功能不受影响</strong></p><p>配置好环境的标志是终端命令<br><code>dot --version</code> 或者 <code>circo --version</code> 能正确执行.<br>确认操作无误可重启电脑再尝试</p><h2 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h2><p>在工程根目录下, 执行 <code>make</code> 编译程序, 可得到目标文件 <code>main.exe</code></p><p>tmp 文件夹为临时文件, 保存了中间过程产生的nfa, dfa以及dot文件. </p><p>image 文件夹为图片文件夹, 保存了生成的图片</p><p>如果出现make时无法识别<code>.o</code>文件的情况, 可以尝试<code>make -f Makefile-win</code></p><h2 id="正则表达式支持"><a href="#正则表达式支持" class="headerlink" title="正则表达式支持"></a>正则表达式支持</h2><p>支持以下简单规则</p><pre class=" language-bash"><code class="language-bash"><span class="token punctuation">(</span> <span class="token punctuation">)</span>*+<span class="token punctuation">[</span><span class="token punctuation">]</span>a-z<span class="token operator">|</span></code></pre><p>如 <code>[0-9a-zA-Z]+@(gmail|qq|163).com</code></p><p>注意: <strong>输入字符过多时</strong>比如上面的re请不要开启 -g 的 d 参数. 因为边和点太多无法绘制出来. 注意, 默认不适用-g是会绘制三种图片的. <strong>所以这种情况需要指定-g m 或者 -g nm才会正确执行程序. 不然会一直尝试绘制nfa图</strong></p><h2 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h2><p>执行 make 得到目标程序</p><p>输入 <code>./main -h</code> 得到参数提示</p><pre class=" language-bash"><code class="language-bash">Usage: ./main <span class="token punctuation">[</span>options hir:s:o:p:g:<span class="token punctuation">]</span> <span class="token punctuation">[</span>:argument<span class="token punctuation">]</span>options:  -h    说明: 打印提示信息并退出程序  -i    说明: 手动输入正则表达式 和 待匹配字符串  -r <span class="token operator">&lt;</span>re_exp<span class="token operator">></span>    说明: 作为模式的正则表达式  -s <span class="token operator">&lt;</span>string<span class="token operator">></span>    说明: 待匹配的字符串  -o <span class="token operator">&lt;</span>png_file<span class="token operator">></span>    说明: 要输出的png文件路径  -p <span class="token operator">&lt;</span>pattern_name<span class="token operator">></span>    说明: 输出的状态图要布局的模式: circo <span class="token operator">|</span> dot <span class="token operator">|</span> neato <span class="token operator">|</span> twopi <span class="token operator">|</span> fdp <span class="token operator">|</span> patchwork  -g <span class="token operator">&lt;</span>graph_type<span class="token operator">></span>    说明: 要画的状态图的类型, 默认为三个类型: n <span class="token operator">|</span> d <span class="token operator">|</span> m, 可连起来写成字符串如 nm. 他们分别为 nfa <span class="token operator">|</span> dfa <span class="token operator">|</span> mindfademos:  ./main -i    说明: 手动输入正则表达式 和 待匹配字符串, 程序打印匹配结果  ./main -r <span class="token string">"(ab*|b)*ca*"</span> -s aabbacaa    说明: 用正则表达式 <span class="token punctuation">(</span>ab*<span class="token operator">|</span>b<span class="token punctuation">)</span>*ca* 去匹配字符串 aabbacaa  ./main -r <span class="token string">"(ab*|b)*ca*"</span> -o test.png    说明: 将 正则表达式 <span class="token punctuation">(</span>ab*<span class="token operator">|</span>b<span class="token punctuation">)</span>*ca* 转化到 test_nfa.png, test_dfa.png, test_mindfa.png 系列图片  ./main -r <span class="token string">"(ab*|b)*ca*"</span> -o test.png -p dot    说明: 用 dot模式 生成状态图  ./main -r <span class="token string">"(ab*|b)*ca*"</span> -o test.png -p dot -g nm    说明: 指定生成 nfa 和 mindfa 状态图good luck<span class="token operator">!</span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编译原理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编译原理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>自编码器AutoEncoder</title>
       <link href="/2019/08/14/zi-bian-ma-qi-autoencoder/"/>
       <url>/2019/08/14/zi-bian-ma-qi-autoencoder/</url>
@@ -805,31 +830,6 @@
     
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2018/01/04/hello-world/"/>
-      <url>/2018/01/04/hello-world/</url>
-      
-        <content type="html"><![CDATA[<h1 id="你好，世界！"><a href="#你好，世界！" class="headerlink" title="你好，世界！"></a>你好，世界！</h1><p>今天是本博客诞生的第一天，向世界问好！</p><p><code>hello, world!</code></p><h2 id="cpp"><a href="#cpp" class="headerlink" title="cpp"></a>cpp</h2><pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span><span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello, world!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="c"><a href="#c" class="headerlink" title="c"></a>c</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token function">printf</span><span class="token punctuation">(</span>"hello<span class="token punctuation">,</span> world<span class="token operator">!</span>\n<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><pre class=" language-py"><code class="language-py">print('hello, world!\n')</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> blog </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> blog </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>初步数论-扩展欧几里得&amp;线性同余方程</title>
       <link href="/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/"/>
       <url>/2018/01/04/chu-bu-shu-lun-kuo-zhan-ou-ji-li-de-xian-xing-tong-yu-fang-cheng/</url>
@@ -847,6 +847,31 @@
         <tags>
             
             <tag> 数学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2018/01/04/hello-world/"/>
+      <url>/2018/01/04/hello-world/</url>
+      
+        <content type="html"><![CDATA[<h1 id="你好，世界！"><a href="#你好，世界！" class="headerlink" title="你好，世界！"></a>你好，世界！</h1><p>今天是本博客诞生的第一天，向世界问好！</p><p><code>hello, world!</code></p><h2 id="cpp"><a href="#cpp" class="headerlink" title="cpp"></a>cpp</h2><pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span><span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"hello, world!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="c"><a href="#c" class="headerlink" title="c"></a>c</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token function">printf</span><span class="token punctuation">(</span>"hello<span class="token punctuation">,</span> world<span class="token operator">!</span>\n<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><pre class=" language-py"><code class="language-py">print('hello, world!\n')</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> blog </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> blog </tag>
             
         </tags>
       
