@@ -509,12 +509,30 @@
 <p>无法判断是否存在主元素</p>
 </blockquote>
 <p>这是奇数的情况:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#define N 7</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a[] = &#123;1, 4, 3, 1, 1, 2, 1&#125;; //N为奇数, 从0开始 </span><br><span class="line">	nth_element(a, a + N/2, a + N);</span><br><span class="line">	cout &lt;&lt; a[N/2];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#define N 7
 
-<p>这是偶数的情况:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#define N 6 </span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int a[] = &#123;1, 3, 1, 1, 2, 1&#125;; //N为偶数, 从0开始 </span><br><span class="line">	nth_element(a, a + N/2, a + N);</span><br><span class="line">	cout &lt;&lt; a[N/3];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+using namespace std;
 
-<p><strong>时间复杂度为O(N)</strong><br><strong>nth_element()是STL算法库中一种O(N)的单元素排序算法函数</strong></p>
+int main()
+{
+    int a[] = {1, 4, 3, 1, 1, 2, 1}; //N为奇数, 从0开始 
+    nth_element(a, a + N/2, a + N);
+    cout &lt;&lt; a[N/2];
+}</code></pre><p>这是偶数的情况:</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#define N 6 
+
+using namespace std;
+
+int main()
+{
+    int a[] = {1, 3, 1, 1, 2, 1}; //N为偶数, 从0开始 
+    nth_element(a, a + N/2, a + N);
+    cout &lt;&lt; a[N/3];
+}</code></pre><p><strong>时间复杂度为O(N)</strong><br><strong>nth_element()是STL算法库中一种O(N)的单元素排序算法函数</strong></p>
 <h2 id="豆瓣里一种巧妙地方法"><a href="#豆瓣里一种巧妙地方法" class="headerlink" title="豆瓣里一种巧妙地方法"></a><a href="https://www.douban.com/note/505717075/" target="_blank" rel="noopener">豆瓣里一种巧妙地方法</a></h2><p>最后介绍的是一种豆瓣网友分享的巧妙算法</p>
 <blockquote>
 <p>其核心思想在于：<strong>对于这样一个数组，去除掉任意两个不相等的数，剩下的数中，主元素的出现频率仍然大于50%。</strong></p>
@@ -530,9 +548,29 @@
 <p>这个算法的时间复杂度最大才O(N)，看书看到这一段时令我顿时拍案叫绝啊。其核心思想在于：对于这样一个数组，去除掉任意两个不相等的数，剩下的数中，主元素的出现频率仍然大于50%。而使用count来进行加减计数，当count=0时，必然是偶数个数与假设的主元素进行了比较，且其中有一半与假设数相同一半与假设数不同（当count=-1时，加上假设数的集合，也满足该条件）。</p>
 </blockquote>
 <p>下面是我写的简单代码(<strong>可能又bug</strong>)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#define N 7</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">//	int a[] = &#123;1, 4, 3, 1, 1, 2, 1&#125;;</span><br><span class="line">	int a[] = &#123;1, 3, 4, 4, 5, 4, 4&#125;;</span><br><span class="line">//	int a[] = &#123;1 ,5 ,6 ,8 ,7 ,9 ,4 ,2 ,7 ,5 ,2 ,2 ,2 ,2&#125;;</span><br><span class="line">	int cnt = 0, tmp = a[0];</span><br><span class="line">	for(int i = 1; i &lt; N; ++i) &#123;</span><br><span class="line">		if(tmp == a[i]) cnt++;</span><br><span class="line">		else cnt--;</span><br><span class="line">		if(cnt &lt; 0) &#123;</span><br><span class="line">			tmp = a[i];</span><br><span class="line">			cnt = 0;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; &quot;cnt == &quot; &lt;&lt; cnt &lt;&lt; endl;</span><br><span class="line">	if (cnt &gt; 0) cout &lt;&lt; tmp &lt;&lt; endl; </span><br><span class="line">	else cout &lt;&lt; &quot;There is no such a number !\n&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;iostream&gt;
+#define N 7
 
-<p>###总而言之, 主元素问题是一种很简单的思维启发问题, 方法有很多, 可是你想到了最简单的方法吗?</p>
+using namespace std;
+
+int main()
+{
+//    int a[] = {1, 4, 3, 1, 1, 2, 1};
+    int a[] = {1, 3, 4, 4, 5, 4, 4};
+//    int a[] = {1 ,5 ,6 ,8 ,7 ,9 ,4 ,2 ,7 ,5 ,2 ,2 ,2 ,2};
+    int cnt = 0, tmp = a[0];
+    for(int i = 1; i &lt; N; ++i) {
+        if(tmp == a[i]) cnt++;
+        else cnt--;
+        if(cnt &lt; 0) {
+            tmp = a[i];
+            cnt = 0;
+        }
+    }
+    cout &lt;&lt; &quot;cnt == &quot; &lt;&lt; cnt &lt;&lt; endl;
+    if (cnt &gt; 0) cout &lt;&lt; tmp &lt;&lt; endl; 
+    else cout &lt;&lt; &quot;There is no such a number !\n&quot;;
+}</code></pre><p>###总而言之, 主元素问题是一种很简单的思维启发问题, 方法有很多, 可是你想到了最简单的方法吗?</p>
 
             </div>
             <hr/>
@@ -862,7 +900,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

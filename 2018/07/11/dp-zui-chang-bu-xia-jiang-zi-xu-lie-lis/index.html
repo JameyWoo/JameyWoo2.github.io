@@ -499,9 +499,32 @@
 </blockquote>
 <p>这种方法的<strong>时间复杂度是O(n^2)</strong>, 可以看到相比于前面暴力递归的方法有了极大的进步.</p>
 <p>代码通过样例, 但不一定能过题, 请谨慎使用.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n, x;</span><br><span class="line">	vector&lt;int&gt; v;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	for (int i = 0; i &lt; n; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; x;</span><br><span class="line">		v.push_back(x);</span><br><span class="line">	&#125;</span><br><span class="line">	int dp[(int)v.size()] = &#123;1&#125;, ans = 1;</span><br><span class="line">	for (int i = 1; i &lt; (int)v.size(); ++i) &#123;</span><br><span class="line">		for (int j = 0; j &lt; i; ++j) &#123;</span><br><span class="line">			if (v[i] &gt;= v[j]) dp[i] = max(dp[i], dp[j] + 1); // 状态转移方程</span><br><span class="line">		&#125;</span><br><span class="line">		ans = max(ans, dp[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">8</span><br><span class="line">1 2 3 -9 3 9 0 11</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
 
-<h3 id="三-O-nlogn-方法-维护单调数组"><a href="#三-O-nlogn-方法-维护单调数组" class="headerlink" title="三. O(nlogn)方法, 维护单调数组"></a>三. O(nlogn)方法, 维护单调数组</h3><p>这个方法也是DP方法</p>
+int main()
+{
+    int n, x;
+    vector&lt;int&gt; v;
+    cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; x;
+        v.push_back(x);
+    }
+    int dp[(int)v.size()] = {1}, ans = 1;
+    for (int i = 1; i &lt; (int)v.size(); ++i) {
+        for (int j = 0; j &lt; i; ++j) {
+            if (v[i] &gt;= v[j]) dp[i] = max(dp[i], dp[j] + 1); // 状态转移方程
+        }
+        ans = max(ans, dp[i]);
+    }
+    cout &lt;&lt; ans;
+}
+/*
+8
+1 2 3 -9 3 9 0 11
+*/</code></pre><h3 id="三-O-nlogn-方法-维护单调数组"><a href="#三-O-nlogn-方法-维护单调数组" class="headerlink" title="三. O(nlogn)方法, 维护单调数组"></a>三. O(nlogn)方法, 维护单调数组</h3><p>这个方法也是DP方法</p>
 <p>时间复杂度可以从O(n^2)降到O(n log n).</p>
 <p><strong>我们从最长上升子序列的角度来探讨</strong></p>
 <p>假设对一个序列n[1…9] = {2 1 5 3 6 4 8 9 7}, 维护一个单调数组, 使得这个数组为最长上升子序列. 设这个数组为d[ ].</p>
@@ -519,7 +542,38 @@
 <p>经过前面的分析我们也许会发现, 这个DP的过程无法存储中间结果, 也就是说<strong>我们只能知道最长的子序列是多长, 而无法得到是哪个序列.</strong> 可谓是有利有弊.</p>
 <p>利用我们维护的数组的单调性, 我们可以用二分法查找这个比当前数更大数的位置, 从而方便的实现替换.</p>
 <p>所以时间复杂度为O(n log n).</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n, x;</span><br><span class="line">	vector&lt;int&gt; v, vec;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	for (int i = 0; i &lt; n; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; x;</span><br><span class="line">		v.push_back(x);</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 0; i &lt; (int)v.size(); ++i) &#123;</span><br><span class="line">		if (i == 0) vec.push_back(v[0]);</span><br><span class="line">		else &#123;</span><br><span class="line">			if (v[i] &gt;= vec[vec.size() - 1]) vec.push_back(v[i]);</span><br><span class="line">			else *upper_bound(vec.begin(), vec.end(), v[i]) = v[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 0; i &lt; (int)vec.size(); ++i) &#123;</span><br><span class="line">		cout &lt;&lt; vec[i] &lt;&lt; &apos; &apos;;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;len == &quot; &lt;&lt; vec.size() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">9</span><br><span class="line">2 1 5 3 6 4 8 9 7</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main()
+{
+    int n, x;
+    vector&lt;int&gt; v, vec;
+    cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; x;
+        v.push_back(x);
+    }
+    for (int i = 0; i &lt; (int)v.size(); ++i) {
+        if (i == 0) vec.push_back(v[0]);
+        else {
+            if (v[i] &gt;= vec[vec.size() - 1]) vec.push_back(v[i]);
+            else *upper_bound(vec.begin(), vec.end(), v[i]) = v[i];
+        }
+    }
+    for (int i = 0; i &lt; (int)vec.size(); ++i) {
+        cout &lt;&lt; vec[i] &lt;&lt; &#39; &#39;;
+    }
+    cout &lt;&lt; endl;
+    cout &lt;&lt; &quot;len == &quot; &lt;&lt; vec.size() &lt;&lt; endl;
+}
+
+/*
+9
+2 1 5 3 6 4 8 9 7
+*/</code></pre>
             </div>
             <hr/>
 
@@ -599,26 +653,27 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/">
+                <a href="/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="DP_最长回文子串">
+                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="倍增法求Lca(最近公共祖先)">
                         
-                        <span class="card-title">DP_最长回文子串</span>
+                        <span class="card-title">倍增法求Lca(最近公共祖先)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ####DP问题, 最长回文子串
-最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是连续的. 
-如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还
+                            一. 明确问题看标题便知道了, 这篇博客力求解决的问题是求出一棵树的两个结点的最近公共祖先(LCA), 方法是倍增法.
+那么什么是Lca呢? 
+
+它是一棵树上两个结点向上移动, 最后交汇的第一个结点, 也就是说这两个结点祖先里离树根最远也是
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-11
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-16
                         </span>
                         <span class="publish-author">
                             
@@ -650,30 +705,26 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/04/07/chi-san-shu-xue-c-sheng-cheng-zhen-zhi-biao-mo-ni/">
+                <a href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="离散数学_C++生成真值表_模拟">
+                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="DP_最长回文子串">
                         
-                        <span class="card-title">离散数学_C++生成真值表_模拟</span>
+                        <span class="card-title">DP_最长回文子串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            生成真值表的代码
-输入一个真值表达式, 程序自动生成它的真值表.
-纯模拟思路
-
-合取*析取|单条件&gt;双条件-非!
-
-12345678910111213141516171819202122232425262728293031323334
+                            ####DP问题, 最长回文子串
+最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是连续的. 
+如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-04-07
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-11
                             </span>
                         <span class="publish-author">
                             
@@ -847,7 +898,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

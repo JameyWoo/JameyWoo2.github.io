@@ -463,7 +463,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        612
+                        621
                     </div>
                     
 
@@ -483,13 +483,124 @@
             <div id="articleContent">
                 <p>效果图<br><img src="/images/20190626_1.png" alt><br>调用face_recognition.face_landmarks()方法即可得到人脸特征点, 返回一个字典, 下图是返回的数据, 包括chin(下巴), left_eye(左眼)等.<br><img src="/images/20190626_2.png" alt><br>我画了两种图, 一种是遍历所有的点, 直接给点画图的图(点用实心圆绘制). 第二个是单独画下巴, 连成线, 用的是polylines方法.</p>
 <p>我是4.10版本的opencv. 查阅官方py文档, <a href="https://docs.opencv.org/4.1.0/dc/da5/tutorial_py_drawing_functions.html" target="_blank" rel="noopener">这是链接</a><br><img src="/images/20190626_3.png" alt><br>完整代码:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">image = face_recognition.load_image_file(<span class="string">"./data/奥巴马.png"</span>)</span><br><span class="line">image2 = image.copy()</span><br><span class="line">face_landmarks_list = face_recognition.face_landmarks(image)</span><br><span class="line"><span class="comment"># print(face_landmarks_list)</span></span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> face_landmarks_list:</span><br><span class="line">    print(each)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> each.keys():</span><br><span class="line">        print(i, end=<span class="string">': '</span>)</span><br><span class="line">        print(each[i])</span><br><span class="line">        <span class="keyword">for</span> any <span class="keyword">in</span> each[i]:</span><br><span class="line">            image = cv2.circle(image, any, <span class="number">3</span>, (<span class="number">0</span>,<span class="number">0</span>,<span class="number">255</span>), <span class="number">-1</span>)</span><br><span class="line">cv2.imshow(<span class="string">"奥巴马"</span>, image)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单独画下巴</span></span><br><span class="line"><span class="keyword">for</span> each <span class="keyword">in</span> face_landmarks_list:</span><br><span class="line">    pts = np.array(each[<span class="string">'chin'</span>])</span><br><span class="line">    pts = pts.reshape((<span class="number">-1</span>, <span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">    cv2.polylines(image2, [pts], <span class="literal">False</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>)) <span class="comment"># false 参数使其不闭合</span></span><br><span class="line">cv2.imshow(<span class="string">"奥巴马2"</span>, image2)</span><br><span class="line"></span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import face_recognition
+import numpy as np
+import cv2
 
+image = face_recognition.load_image_file("./data/奥巴马.png")
+image2 = image.copy()
+face_landmarks_list = face_recognition.face_landmarks(image)
+# print(face_landmarks_list)
+for each in face_landmarks_list:
+    print(each)
+    for i in each.keys():
+        print(i, end=': ')
+        print(each[i])
+        for any in each[i]:
+            image = cv2.circle(image, any, 3, (0,0,255), -1)
+cv2.imshow("奥巴马", image)
+
+# 单独画下巴
+for each in face_landmarks_list:
+    pts = np.array(each['chin'])
+    pts = pts.reshape((-1, 1, 2))
+    cv2.polylines(image2, [pts], False, (0, 255, 255)) # false 参数使其不闭合
+cv2.imshow("奥巴马2", image2)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()</code></pre>
 <p>在线摄像机版本:</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">camera = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    ret, image = camera.read()</span><br><span class="line">    image = cv2.flip(image, <span class="number">1</span>)</span><br><span class="line">    image2 = image.copy()</span><br><span class="line"></span><br><span class="line">    face_landmarks_list = face_recognition.face_landmarks(image)</span><br><span class="line">    <span class="comment"># print(face_landmarks_list)</span></span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> face_landmarks_list:</span><br><span class="line">        print(each)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> each.keys():</span><br><span class="line">            print(i, end=<span class="string">': '</span>)</span><br><span class="line">            print(each[i])</span><br><span class="line">            <span class="keyword">for</span> any <span class="keyword">in</span> each[i]:</span><br><span class="line">                image = cv2.circle(image, any, <span class="number">3</span>, (<span class="number">0</span>,<span class="number">0</span>,<span class="number">255</span>), <span class="number">-1</span>)</span><br><span class="line">    cv2.imshow(<span class="string">"奥巴马"</span>, image)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 单独画下巴</span></span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> face_landmarks_list:</span><br><span class="line">        pts = np.array(each[<span class="string">'chin'</span>])</span><br><span class="line">        pts = pts.reshape((<span class="number">-1</span>, <span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">        cv2.polylines(image2, [pts], <span class="literal">False</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>)) <span class="comment"># false 参数使其不闭合</span></span><br><span class="line">    cv2.imshow(<span class="string">"奥巴马2"</span>, image2)</span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1000</span> // <span class="number">12</span>) &amp; <span class="number">0xff</span> == ord(<span class="string">"q"</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">cv2.destroyAllWindows()</span><br><span class="line">camera.release()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import face_recognition
+import numpy as np
+import cv2
 
+camera = cv2.VideoCapture(0)
+
+while True:
+    ret, image = camera.read()
+    image = cv2.flip(image, 1)
+    image2 = image.copy()
+
+    face_landmarks_list = face_recognition.face_landmarks(image)
+    # print(face_landmarks_list)
+    for each in face_landmarks_list:
+        print(each)
+        for i in each.keys():
+            print(i, end=': ')
+            print(each[i])
+            for any in each[i]:
+                image = cv2.circle(image, any, 3, (0,0,255), -1)
+    cv2.imshow("奥巴马", image)
+
+    # 单独画下巴
+    for each in face_landmarks_list:
+        pts = np.array(each['chin'])
+        pts = pts.reshape((-1, 1, 2))
+        cv2.polylines(image2, [pts], False, (0, 255, 255)) # false 参数使其不闭合
+    cv2.imshow("奥巴马2", image2)
+    if cv2.waitKey(1000 // 12) & 0xff == ord("q"):
+        break
+
+cv2.destroyAllWindows()
+camera.release()</code></pre>
 <p>附一份在线的人脸搜索代码, 人脸数据保存在相对路径<code>./data/mans</code> 下</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 人脸数据, 文件, 编码, 名字</span></span><br><span class="line">files = os.listdir(<span class="string">"./data/mans"</span>)</span><br><span class="line">face_images = [<span class="number">0</span>]*len(files)</span><br><span class="line">face_encodings = [<span class="number">0</span>]*len(files)</span><br><span class="line">face_names = [<span class="number">0</span>]*len(files)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取编码和名称</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(files)):</span><br><span class="line">    face_images[i] = face_recognition.load_image_file(<span class="string">'./data/mans/'</span> + files[i])</span><br><span class="line">    face_encodings[i] = face_recognition.face_encodings(face_images[i])</span><br><span class="line">    <span class="keyword">if</span> len(face_encodings[i]) &gt; <span class="number">0</span>:</span><br><span class="line">        face_encodings[i] = face_encodings[i][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        face_encodings[i] = <span class="literal">None</span></span><br><span class="line">    face_names[i] = re.findall(<span class="string">r'(.*)\..*'</span>, files[i])[<span class="number">0</span>]</span><br><span class="line">print(face_names)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 人脸比较</span></span><br><span class="line"><span class="comment"># results = face_recognition.compare_faces(face_encodings[0], face_encodings[1])</span></span><br><span class="line"><span class="comment"># print(results)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 人脸距离</span></span><br><span class="line"><span class="comment"># face_distances = face_recognition.face_distance(face_encodings[0], face_encodings[1])</span></span><br><span class="line"><span class="comment"># index = np.argmin(face_distances)</span></span><br><span class="line"><span class="comment"># print(index)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># camera = cv2.VideoCapture('./data/test.avi') # 从视频文件</span></span><br><span class="line">camera = cv2.VideoCapture(<span class="number">0</span>) <span class="comment"># 从摄像头</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    ret, img = camera.read()</span><br><span class="line">    img = cv2.flip(img, <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # 灰度处理</span></span><br><span class="line">    locations = face_recognition.face_locations(img)</span><br><span class="line">    <span class="keyword">for</span> top, right, bottom, left <span class="keyword">in</span> locations:</span><br><span class="line">        cv2.rectangle(img, (left, top), (right, bottom), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">        sub_img = img[top:bottom, left:right]</span><br><span class="line">        sub_img_code = face_recognition.face_encodings(sub_img)</span><br><span class="line">        <span class="keyword">if</span> len(sub_img_code) != <span class="number">0</span>:</span><br><span class="line">            face_distances = face_recognition.face_distance(face_encodings, sub_img_code[<span class="number">0</span>])</span><br><span class="line">            print(face_distances)</span><br><span class="line">            index = np.argmin(face_distances)</span><br><span class="line">            name = face_names[index]</span><br><span class="line">            cv2.putText(img, name, (left, top - <span class="number">20</span>), cv2.FONT_HERSHEY_SIMPLEX, <span class="number">1</span>, <span class="number">255</span>, <span class="number">2</span>)</span><br><span class="line">    cv2.imshow(<span class="string">'Face'</span>, img)</span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1000</span> // <span class="number">12</span>) &amp; <span class="number">0xff</span> == ord(<span class="string">"q"</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">cv2.destroyAllWindows()</span><br><span class="line">camera.release()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import cv2
+import face_recognition
+import numpy as np
+import os
+import re
+
+# 人脸数据, 文件, 编码, 名字
+files = os.listdir("./data/mans")
+face_images = [0]*len(files)
+face_encodings = [0]*len(files)
+face_names = [0]*len(files)
+
+# 获取编码和名称
+for i in range(len(files)):
+    face_images[i] = face_recognition.load_image_file('./data/mans/' + files[i])
+    face_encodings[i] = face_recognition.face_encodings(face_images[i])
+    if len(face_encodings[i]) > 0:
+        face_encodings[i] = face_encodings[i][0]
+    else:
+        face_encodings[i] = None
+    face_names[i] = re.findall(r'(.*)\..*', files[i])[0]
+print(face_names)
+
+# 人脸比较
+# results = face_recognition.compare_faces(face_encodings[0], face_encodings[1])
+# print(results)
+
+# 人脸距离
+# face_distances = face_recognition.face_distance(face_encodings[0], face_encodings[1])
+# index = np.argmin(face_distances)
+# print(index)
+
+# camera = cv2.VideoCapture('./data/test.avi') # 从视频文件
+camera = cv2.VideoCapture(0) # 从摄像头
+
+while True:
+    ret, img = camera.read()
+    img = cv2.flip(img, 1)
+    # img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # 灰度处理
+    locations = face_recognition.face_locations(img)
+    for top, right, bottom, left in locations:
+        cv2.rectangle(img, (left, top), (right, bottom), (255, 0, 0), 2)
+        sub_img = img[top:bottom, left:right]
+        sub_img_code = face_recognition.face_encodings(sub_img)
+        if len(sub_img_code) != 0:
+            face_distances = face_recognition.face_distance(face_encodings, sub_img_code[0])
+            print(face_distances)
+            index = np.argmin(face_distances)
+            name = face_names[index]
+            cv2.putText(img, name, (left, top - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, 255, 2)
+    cv2.imshow('Face', img)
+    if cv2.waitKey(1000 // 12) & 0xff == ord("q"):
+        break
+
+cv2.destroyAllWindows()
+camera.release()</code></pre>
+
             </div>
             <hr/>
 
@@ -586,7 +697,7 @@ darknet 实现了c语言版本的yolo v3, 不依赖任何其他库. 因此安装
 效果图:
 
 2. 安装方法如何安装?
-123git clone https://github.com/pjreddie/da
+git clone https://github.com/pjreddie/darkn
                         
                     </div>
                     <div class="publish-info">
@@ -824,7 +935,7 @@ darknet 实现了c语言版本的yolo v3, 不依赖任何其他库. 因此安装
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

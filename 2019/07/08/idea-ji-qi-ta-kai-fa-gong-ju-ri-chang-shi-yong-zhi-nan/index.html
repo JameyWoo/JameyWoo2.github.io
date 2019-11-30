@@ -463,7 +463,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        5 分
                     </div>
                     
                 
@@ -488,11 +488,51 @@
 <p><a href="https://www.jianshu.com/p/d4a1347f467b" target="_blank" rel="noopener">简书上的好教程</a></p>
 <p>效果<br><img src="/images/20190708_14.png" alt><br><img src="/images/20190708_15.png" alt></p>
 <p>安装<br><code>pip install sphinx</code><br><code>mkdir doc_test</code><br><code>cd doc_test</code><br>执行<code>sphinx-quickstart</code><br>下面是配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\姬小野\PycharmProjects\get_nlp_data\doc_test&gt; sphinx-quickstart</span><br><span class="line">Welcome to the Sphinx 2.1.2 quickstart utility.</span><br><span class="line"></span><br><span class="line">Please enter values for the following settings (just press Enter to</span><br><span class="line">accept a default value, if one is given in brackets).</span><br><span class="line"></span><br><span class="line">Selected root path: .</span><br><span class="line"></span><br><span class="line">You have two options for placing the build directory for Sphinx output.</span><br><span class="line">Either, you use a directory &quot;_build&quot; within the root path, or you separate</span><br><span class="line">&quot;source&quot; and &quot;build&quot; directories within the root path.</span><br><span class="line">&gt; Separate source and build directories (y/n) [n]: n</span><br><span class="line"></span><br><span class="line">The project name will occur in several places in the built documentation.</span><br><span class="line">&gt; Project name: NLP_Books</span><br><span class="line">&gt; Author name(s): Jamey</span><br><span class="line">&gt; Project release []: v0.6</span><br><span class="line"></span><br><span class="line">If the documents are to be written in a language other than English,</span><br><span class="line">you can select a language here by its language code. Sphinx will then</span><br><span class="line">translate text that it generates into that language.</span><br><span class="line"></span><br><span class="line">For a list of supported codes, see</span><br><span class="line">https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-language.</span><br><span class="line">&gt; Project language [en]: zh_cn</span><br><span class="line"></span><br><span class="line">Creating file .\conf.py.</span><br><span class="line">Creating file .\index.rst.</span><br><span class="line">Creating file .\Makefile.</span><br><span class="line">Creating file .\make.bat.</span><br><span class="line"></span><br><span class="line">Finished: An initial directory structure has been created.</span><br><span class="line"></span><br><span class="line">You should now populate your master file .\index.rst and create other documentation</span><br><span class="line">source files. Use the Makefile to build the docs, like so:</span><br><span class="line">   make builder</span><br><span class="line">where &quot;builder&quot; is one of the supported builders, e.g. html, latex or linkcheck.</span><br><span class="line"></span><br><span class="line">PS C:\Users\姬小野\PycharmProjects\get_nlp_data\doc_test&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>PS C:\Users\姬小野\PycharmProjects\get_nlp_data\doc_test&gt; sphinx-quickstart
+Welcome to the Sphinx 2.1.2 quickstart utility.
 
-<p>找到conf.py, 取消注释, 路径改成自己项目路径<br><img src="/images/20190708_16.png" alt><br>修改extensions为如下</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extensions = [</span><br><span class="line">    <span class="string">'sphinx.ext.autodoc'</span>,</span><br><span class="line">    <span class="string">'sphinx.ext.todo'</span>,</span><br><span class="line">    <span class="string">'sphinx.ext.viewcode'</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+Please enter values for the following settings (just press Enter to
+accept a default value, if one is given in brackets).
 
+Selected root path: .
+
+You have two options for placing the build directory for Sphinx output.
+Either, you use a directory &quot;_build&quot; within the root path, or you separate
+&quot;source&quot; and &quot;build&quot; directories within the root path.
+&gt; Separate source and build directories (y/n) [n]: n
+
+The project name will occur in several places in the built documentation.
+&gt; Project name: NLP_Books
+&gt; Author name(s): Jamey
+&gt; Project release []: v0.6
+
+If the documents are to be written in a language other than English,
+you can select a language here by its language code. Sphinx will then
+translate text that it generates into that language.
+
+For a list of supported codes, see
+https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-language.
+&gt; Project language [en]: zh_cn
+
+Creating file .\conf.py.
+Creating file .\index.rst.
+Creating file .\Makefile.
+Creating file .\make.bat.
+
+Finished: An initial directory structure has been created.
+
+You should now populate your master file .\index.rst and create other documentation
+source files. Use the Makefile to build the docs, like so:
+   make builder
+where &quot;builder&quot; is one of the supported builders, e.g. html, latex or linkcheck.
+
+PS C:\Users\姬小野\PycharmProjects\get_nlp_data\doc_test&gt;
+</code></pre><p>找到conf.py, 取消注释, 路径改成自己项目路径<br><img src="/images/20190708_16.png" alt><br>修改extensions为如下</p>
+<pre class=" language-py"><code class="language-py">extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
+    'sphinx.ext.viewcode'
+]</code></pre>
 <p>执行<br> <code>sphinx-apidoc -o ./source ../</code><br> 其中 <code>./source</code> 为rst文件所在目录</p>
 <p>使用<code>make</code> 查看可用的make命令<br>这里我们<code>make html</code></p>
 <h2 id="12-使用read-the-Doc-托管文档"><a href="#12-使用read-the-Doc-托管文档" class="headerlink" title="12. 使用read the Doc 托管文档"></a>12. 使用read the Doc 托管文档</h2><p>看这网站logo, 难道大多数python包的文档都是托管到这的?<br><img src="/images/20190708_17.png" alt></p>
@@ -505,8 +545,22 @@
 <h2 id="14-使用mkdocs生成快速文档"><a href="#14-使用mkdocs生成快速文档" class="headerlink" title="14. 使用mkdocs生成快速文档"></a>14. 使用mkdocs生成快速文档</h2><p>mkdocs能够根据markdown快速生成文档网站, 然后部署在github page上, 这样可以给每个项目都部署一个文档网站了<br><a href="https://fiveplus.top/hello-world/">比如这个文档页面, 就是我用来测试mkdocs效果的页面</a><br>效果如图<br><img src="/images/20190708_23.png" alt><br><img src="/images/20190708_24.png" alt><br>可以方便地更换各种主题</p>
 <p>甚至可以单独把它作为一个博客网站来玩</p>
 <p>输入命令<code>mkdocs -h</code> 即可查看他的功能</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(torch)$  mkdocs -h</span><br><span class="line">Usage: mkdocs [OPTIONS] COMMAND [ARGS]...</span><br><span class="line"></span><br><span class="line">  MkDocs - Project documentation with Markdown.</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -V, --version  Show the version and <span class="built_in">exit</span>.</span><br><span class="line">  -q, --quiet    Silence warnings</span><br><span class="line">  -v, --verbose  Enable verbose output</span><br><span class="line">  -h, --<span class="built_in">help</span>     Show this message and <span class="built_in">exit</span>.</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  build      Build the MkDocs documentation</span><br><span class="line">  gh-deploy  Deploy your documentation to GitHub Pages</span><br><span class="line">  new        Create a new MkDocs project</span><br><span class="line">  serve      Run the <span class="built_in">builtin</span> development server</span><br></pre></td></tr></table></figure>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">(</span>torch<span class="token punctuation">)</span>$  mkdocs -h
+Usage: mkdocs <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> COMMAND <span class="token punctuation">[</span>ARGS<span class="token punctuation">]</span><span class="token punctuation">..</span>.
 
+  MkDocs - Project documentation with Markdown.
+
+Options:
+  -V, --version  Show the version and exit.
+  -q, --quiet    Silence warnings
+  -v, --verbose  Enable verbose output
+  -h, --help     Show this message and exit.
+
+Commands:
+  build      Build the MkDocs documentation
+  gh-deploy  Deploy your documentation to GitHub Pages
+  new        Create a new MkDocs project
+  serve      Run the <span class="token function">builtin</span> development server</code></pre>
 <h2 id="15-github-gist"><a href="#15-github-gist" class="headerlink" title="15. github gist"></a>15. github gist</h2><p>代码片段管理服务</p>
 <p>今天偶然知道了github还提供这样一个服务, 之前知道贴代码可以用Pastebin.</p>
 <p>简而言之就是大家可以把自己的代码片段贴上去, 然后分享.  支持匿名, 私密, markdown等.<br><img src="/images/20190708_25.png" alt></p>
@@ -664,7 +718,7 @@ darknet 实现了c语言版本的yolo v3, 不依赖任何其他库. 因此安装
 效果图:
 
 2. 安装方法如何安装?
-123git clone https://github.com/pjreddie/da
+git clone https://github.com/pjreddie/darkn
                         
                     </div>
                     <div class="publish-info">
@@ -847,7 +901,7 @@ darknet 实现了c语言版本的yolo v3, 不依赖任何其他库. 因此安装
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

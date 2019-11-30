@@ -461,7 +461,7 @@ demo:
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        729
+                        714
                     </div>
                     
 
@@ -499,14 +499,45 @@ demo:
 <p>image 文件夹为图片文件夹, 保存了生成的图片</p>
 <p>如果出现make时无法识别<code>.o</code>文件的情况, 可以尝试<code>make -f Makefile-win</code></p>
 <h2 id="正则表达式支持"><a href="#正则表达式支持" class="headerlink" title="正则表达式支持"></a>正则表达式支持</h2><p>支持以下简单规则</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">( )</span><br><span class="line">*</span><br><span class="line">+</span><br><span class="line">[]</span><br><span class="line">a-z</span><br><span class="line">|</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">(</span> <span class="token punctuation">)</span>
+*
++
+<span class="token punctuation">[</span><span class="token punctuation">]</span>
+a-z
+<span class="token operator">|</span></code></pre>
 <p>如 <code>[0-9a-zA-Z]+@(gmail|qq|163).com</code></p>
 <p>注意: <strong>输入字符过多时</strong>比如上面的re请不要开启 -g 的 d 参数. 因为边和点太多无法绘制出来. 注意, 默认不适用-g是会绘制三种图片的. <strong>所以这种情况需要指定-g m 或者 -g nm才会正确执行程序. 不然会一直尝试绘制nfa图</strong></p>
 <h2 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h2><p>执行 make 得到目标程序</p>
 <p>输入 <code>./main -h</code> 得到参数提示</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Usage: ./main [options hir:s:o:p:g:] [:argument]</span><br><span class="line">options:</span><br><span class="line">  -h</span><br><span class="line">    说明: 打印提示信息并退出程序</span><br><span class="line">  -i</span><br><span class="line">    说明: 手动输入正则表达式 和 待匹配字符串</span><br><span class="line">  -r &lt;re_exp&gt;</span><br><span class="line">    说明: 作为模式的正则表达式</span><br><span class="line">  -s &lt;<span class="built_in">string</span>&gt;</span><br><span class="line">    说明: 待匹配的字符串</span><br><span class="line">  -o &lt;png_file&gt;</span><br><span class="line">    说明: 要输出的png文件路径</span><br><span class="line">  -p &lt;pattern_name&gt;</span><br><span class="line">    说明: 输出的状态图要布局的模式: circo | dot | neato | twopi | fdp | patchwork</span><br><span class="line">  -g &lt;graph_type&gt;</span><br><span class="line">    说明: 要画的状态图的类型, 默认为三个类型: n | d | m, 可连起来写成字符串如 nm. 他们分别为 nfa | dfa | mindfa</span><br><span class="line">demos:</span><br><span class="line">  ./main -i</span><br><span class="line">    说明: 手动输入正则表达式 和 待匹配字符串, 程序打印匹配结果</span><br><span class="line">  ./main -r <span class="string">"(ab*|b)*ca*"</span> -s aabbacaa</span><br><span class="line">    说明: 用正则表达式 (ab*|b)*ca* 去匹配字符串 aabbacaa</span><br><span class="line">  ./main -r <span class="string">"(ab*|b)*ca*"</span> -o test.png</span><br><span class="line">    说明: 将 正则表达式 (ab*|b)*ca* 转化到 test_nfa.png, test_dfa.png, test_mindfa.png 系列图片</span><br><span class="line">  ./main -r <span class="string">"(ab*|b)*ca*"</span> -o test.png -p dot</span><br><span class="line">    说明: 用 dot模式 生成状态图</span><br><span class="line">  ./main -r <span class="string">"(ab*|b)*ca*"</span> -o test.png -p dot -g nm</span><br><span class="line">    说明: 指定生成 nfa 和 mindfa 状态图</span><br><span class="line"></span><br><span class="line">good luck!</span><br></pre></td></tr></table></figure>
+<pre class=" language-c++"><code class="language-c++">Usage: ./main [options hir:s:o:p:g:] [:argument]
+options:
+  -h
+    说明: 打印提示信息并退出程序
+  -i
+    说明: 手动输入正则表达式 和 待匹配字符串
+  -r <re_exp>
+    说明: 作为模式的正则表达式
+  -s <string>
+    说明: 待匹配的字符串
+  -o <png_file>
+    说明: 要输出的png文件路径
+  -p <pattern_name>
+    说明: 输出的状态图要布局的模式: circo | dot | neato | twopi | fdp | patchwork
+  -g <graph_type>
+    说明: 要画的状态图的类型, 默认为三个类型: n | d | m, 可连起来写成字符串如 nm. 他们分别为 nfa | dfa | mindfa
+demos:
+  ./main -i
+    说明: 手动输入正则表达式 和 待匹配字符串, 程序打印匹配结果
+  ./main -r "(ab*|b)*ca*" -s aabbacaa
+    说明: 用正则表达式 (ab*|b)*ca* 去匹配字符串 aabbacaa
+  ./main -r "(ab*|b)*ca*" -o test.png
+    说明: 将 正则表达式 (ab*|b)*ca* 转化到 test_nfa.png, test_dfa.png, test_mindfa.png 系列图片
+  ./main -r "(ab*|b)*ca*" -o test.png -p dot
+    说明: 用 dot模式 生成状态图
+  ./main -r "(ab*|b)*ca*" -o test.png -p dot -g nm
+    说明: 指定生成 nfa 和 mindfa 状态图
 
+good luck!</code></pre>
 
             </div>
             <hr/>
@@ -835,7 +866,7 @@ demo:
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

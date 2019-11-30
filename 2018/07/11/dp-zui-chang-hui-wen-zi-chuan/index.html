@@ -457,7 +457,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        633
+                        619
                     </div>
                     
 
@@ -487,7 +487,37 @@
 <p>不过其实这道题是非常有技巧的, 我们可以看到要获取dp[i][j]值, 那么就需要知道dp[i+1][j-1]的值, 那么就不能从前往后遍历i了, 怎么办呢? 从后往前遍历吗? 当然也不行. 这就是这种方法的精彩所在, 两套循环,<strong>外围遍历长度, 内围遍历字符串起始点i.</strong></p>
 <p>因为dp[i][j]的长度是j - i + 1, 而dp[i+1][j-1]的长度是j - i - 1, 长度差了两个, 如果我把长度小的结果都求解出来了, 那么长度更长的用长度更小的, 无论i是否会更大, 都是可以的. 不得不说很是精彩.</p>
 <p>代码实现上, <strong>注意前面初始化长度 2时对ans赋恰当的值.</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	string str; </span><br><span class="line">	cin &gt;&gt; str;</span><br><span class="line">	int dp[str.size() + 1][str.size() + 1] = &#123;&#125;, ans = 1;</span><br><span class="line">	for (int i = 0; i &lt; int(str.size()); ++i) &#123;</span><br><span class="line">		dp[i][i] = 1;</span><br><span class="line">		if (str[i] == str[i + 1]) &#123;</span><br><span class="line">			dp[i][i + 1] = 1;</span><br><span class="line">			ans = 2;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int len = 3; len &lt;= (int)str.size(); ++len) &#123;</span><br><span class="line">		for (int i = 0; i + len - 1 &lt; (int)str.size(); ++i) &#123;</span><br><span class="line">			int k = i + len - 1;</span><br><span class="line">			if (str[i] == str[k]) &#123;</span><br><span class="line">				dp[i][k] = dp[i + 1][k - 1];</span><br><span class="line">				if (dp[i][k]) ans = len;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">PATZJUJZTACCBCC    ans = 9</span><br><span class="line"></span><br><span class="line">34567536487326483254   ans = 1</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    string str; 
+    cin &gt;&gt; str;
+    int dp[str.size() + 1][str.size() + 1] = {}, ans = 1;
+    for (int i = 0; i &lt; int(str.size()); ++i) {
+        dp[i][i] = 1;
+        if (str[i] == str[i + 1]) {
+            dp[i][i + 1] = 1;
+            ans = 2;
+        }
+    }
+    for (int len = 3; len &lt;= (int)str.size(); ++len) {
+        for (int i = 0; i + len - 1 &lt; (int)str.size(); ++i) {
+            int k = i + len - 1;
+            if (str[i] == str[k]) {
+                dp[i][k] = dp[i + 1][k - 1];
+                if (dp[i][k]) ans = len;
+            }
+        }
+    }
+    cout &lt;&lt; ans;
+}
+/*
+PATZJUJZTACCBCC    ans = 9
+
+34567536487326483254   ans = 1
+*/ </code></pre>
             </div>
             <hr/>
 
@@ -567,27 +597,26 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/07/16/bei-zeng-fa-qiu-lca-zui-jin-gong-gong-zu-xian/">
+                <a href="/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="倍增法求Lca(最近公共祖先)">
+                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="DP_最长不下降子序列">
                         
-                        <span class="card-title">倍增法求Lca(最近公共祖先)</span>
+                        <span class="card-title">DP_最长不下降子序列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一. 明确问题看标题便知道了, 这篇博客力求解决的问题是求出一棵树的两个结点的最近公共祖先(LCA), 方法是倍增法.
-那么什么是Lca呢? 
-
-它是一棵树上两个结点向上移动, 最后交汇的第一个结点, 也就是说这两个结点祖先里离树根最远也是
+                            序言同类的问题还有“最长上升子序列”, “最长下降子序列”, …
+他们的不同就在于定义的core规则不同, 有的是&gt;=, 有的是&gt;, 有的是&lt;
+由此启发, 我们可以在解决其他的问题, 不一定是比较数的大小的问题里面抽象出这
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-16
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-11
                         </span>
                         <span class="publish-author">
                             
@@ -619,26 +648,32 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/">
+                <a href="/2018/04/07/chi-san-shu-xue-c-sheng-cheng-zhen-zhi-biao-mo-ni/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="DP_最长不下降子序列">
+                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="离散数学_C++生成真值表_模拟">
                         
-                        <span class="card-title">DP_最长不下降子序列</span>
+                        <span class="card-title">离散数学_C++生成真值表_模拟</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            序言同类的问题还有“最长上升子序列”, “最长下降子序列”, …
-他们的不同就在于定义的core规则不同, 有的是&gt;=, 有的是&gt;, 有的是&lt;
-由此启发, 我们可以在解决其他的问题, 不一定是比较数的大小的问题里面抽象出这
+                            生成真值表的代码
+输入一个真值表达式, 程序自动生成它的真值表.
+纯模拟思路
+
+合取*析取|单条件&gt;双条件-非!
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-07-11
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-04-07
                             </span>
                         <span class="publish-author">
                             
@@ -812,7 +847,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

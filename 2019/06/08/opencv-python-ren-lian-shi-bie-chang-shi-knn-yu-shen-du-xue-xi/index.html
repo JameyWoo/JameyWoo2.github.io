@@ -483,50 +483,465 @@
 <hr>
 <h2 id="人脸数据获取"><a href="#人脸数据获取" class="headerlink" title="人脸数据获取"></a>人脸数据获取</h2><p>进行人脸识别首先要有人脸数据库，我们可以用opencv调用摄像头，进行人脸检测，并将人脸灰度图片写入到(200, 200)的pgm文件作为我们的人脸数据库。</p>
 <p>code</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate</span><span class="params">()</span>:</span></span><br><span class="line">    face_cascade = cv2.CascadeClassifier( <span class="comment"># haar级联文件-人脸</span></span><br><span class="line">        <span class="string">'./cascades/haarcascade_frontalface_default.xml'</span></span><br><span class="line">    )</span><br><span class="line">    camera = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        ret, frame = camera.read()</span><br><span class="line">        frame = cv2.flip(frame, <span class="number">1</span>)  <span class="comment"># 翻转为正常角度</span></span><br><span class="line">        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) <span class="comment">#转灰度处理</span></span><br><span class="line">        faces = face_cascade.detectMultiScale(gray, <span class="number">1.3</span>, <span class="number">5</span>) <span class="comment"># 识别</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (x, y, w, h) <span class="keyword">in</span> faces:</span><br><span class="line">            img = cv2.rectangle( <span class="comment"># 画框图</span></span><br><span class="line">                frame, (x, y), (x + w, y + h), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span></span><br><span class="line">            )</span><br><span class="line">            <span class="comment"># cv2.putText(</span></span><br><span class="line">            <span class="comment">#     img, 'name', (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, 255, 2</span></span><br><span class="line">            <span class="comment"># )</span></span><br><span class="line">            f = cv2.resize(gray[y: y+h, x: x+w], (<span class="number">200</span>, <span class="number">200</span>)) <span class="comment"># 统一大小</span></span><br><span class="line">            cv2.imwrite(<span class="string">'./data/at/name/%s.pgm'</span> % str(count), f) <span class="comment"># 将人脸数据写入到pgm文件中</span></span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        cv2.imshow(<span class="string">'camera'</span>, frame)</span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(int(<span class="number">1000</span> / <span class="number">12</span>)) &amp; <span class="number">0xff</span> == ord(<span class="string">"q"</span>): <span class="comment"># 等待ｑ键</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    camera.release()</span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    generate()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import cv2
 
+def generate():
+    face_cascade = cv2.CascadeClassifier( # haar级联文件-人脸
+        './cascades/haarcascade_frontalface_default.xml'
+    )
+    camera = cv2.VideoCapture(0)
+    count = 0
+
+    while True:
+        ret, frame = camera.read()
+        frame = cv2.flip(frame, 1)  # 翻转为正常角度
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) #转灰度处理
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5) # 识别
+
+        for (x, y, w, h) in faces:
+            img = cv2.rectangle( # 画框图
+                frame, (x, y), (x + w, y + h), (255, 0, 0), 2
+            )
+            # cv2.putText(
+            #     img, 'name', (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, 255, 2
+            # )
+            f = cv2.resize(gray[y: y+h, x: x+w], (200, 200)) # 统一大小
+            cv2.imwrite('./data/at/name/%s.pgm' % str(count), f) # 将人脸数据写入到pgm文件中
+            count += 1
+        if count == 200:
+            break
+
+        cv2.imshow('camera', frame)
+        if cv2.waitKey(int(1000 / 12)) & 0xff == ord("q"): # 等待ｑ键
+            break
+
+    camera.release()
+    cv2.destroyAllWindows()
+    return
+
+if __name__ == '__main__':
+    generate()</code></pre>
 <h2 id="处理图片读取到并数组中"><a href="#处理图片读取到并数组中" class="headerlink" title="处理图片读取到并数组中"></a>处理图片读取到并数组中</h2><p><strong>这个代码是读取数据的模块，在后面的代码中多次调用以获取数据</strong>。<br>将上一步存储的图片数据转化为可处理的numpy数组，提供了两种相似的接口函数。</p>
 <p>read_images 为普通的读取到灰度的pgm图片返回的数组<br>read_images_binary 是将pgm图片进行了二值化处理得到的数组数据</p>
 <p>返回的数据类型为 list, list, dict<br>分别为 图片数据、图片标签、标签和人名的映射字典</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys, re</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_images</span><span class="params">(path, sz=None)</span>:</span> <span class="comment"># 读取自己的图片数据库</span></span><br><span class="line">    c = <span class="number">0</span></span><br><span class="line">    X, y = [], []</span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> dirname, dirnames, filenames <span class="keyword">in</span> os.walk(path): <span class="comment"># 遍历文件夹下文件</span></span><br><span class="line">        <span class="keyword">for</span> subdirname <span class="keyword">in</span> dirnames:</span><br><span class="line">            subject_path = os.path.join(dirname, subdirname)</span><br><span class="line">            <span class="comment"># print("subdirname = ", dirname)</span></span><br><span class="line">            <span class="comment"># print("subject_path = ", subject_path)</span></span><br><span class="line">            <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(subject_path):</span><br><span class="line">                <span class="keyword">if</span> filename[<span class="number">-4</span>:] != <span class="string">'.pgm'</span>: <span class="comment"># 如果文件不是pgm文件,那么跳过</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                filepath = os.path.join(subject_path, filename) <span class="comment"># 生成完整的文件名</span></span><br><span class="line">                <span class="comment"># print(filepath)</span></span><br><span class="line">                im = cv2.imread(os.path.join(subject_path, filename), \</span><br><span class="line">                                cv2.IMREAD_GRAYSCALE) <span class="comment"># 读取pgm图片</span></span><br><span class="line">                <span class="comment"># print(np.shape(im))</span></span><br><span class="line">                <span class="comment"># 改变大小</span></span><br><span class="line">                <span class="keyword">if</span> sz <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    im = cv2.resize(im, (<span class="number">200</span>, <span class="number">200</span>)) <span class="comment"># 调整图片大小</span></span><br><span class="line"></span><br><span class="line">                X.append(np.asarray(im, dtype=np.uint8))</span><br><span class="line">                y.append(c)</span><br><span class="line">            <span class="comment"># print(re.findall(r'./data/at/(.*)', subject_path))</span></span><br><span class="line">            dic[c] = re.findall(<span class="string">r'./data/at/(.*)'</span>, subject_path)[<span class="number">0</span>]</span><br><span class="line">            c = c + <span class="number">1</span></span><br><span class="line">    <span class="comment"># print("c = ", c)</span></span><br><span class="line">    <span class="comment"># print(X)</span></span><br><span class="line">    <span class="keyword">return</span> [X, y], dic</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_images_binary</span><span class="params">(path, sz=None)</span>:</span> <span class="comment"># 读取自己的图片数据库</span></span><br><span class="line">    c = <span class="number">0</span></span><br><span class="line">    X, y = [], []</span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> dirname, dirnames, filenames <span class="keyword">in</span> os.walk(path): <span class="comment"># 遍历文件夹下文件</span></span><br><span class="line">        <span class="keyword">for</span> subdirname <span class="keyword">in</span> dirnames:</span><br><span class="line">            subject_path = os.path.join(dirname, subdirname)</span><br><span class="line">            <span class="comment"># print("subdirname = ", dirname)</span></span><br><span class="line">            <span class="comment"># print("subject_path = ", subject_path)</span></span><br><span class="line">            <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(subject_path):</span><br><span class="line">                <span class="keyword">if</span> filename[<span class="number">-4</span>:] != <span class="string">'.pgm'</span>: <span class="comment"># 如果文件不是pgm文件,那么跳过</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                filepath = os.path.join(subject_path, filename) <span class="comment"># 生成完整的文件名</span></span><br><span class="line">                <span class="comment"># print(filepath)</span></span><br><span class="line">                im = cv2.imread(os.path.join(subject_path, filename), \</span><br><span class="line">                                cv2.IMREAD_GRAYSCALE) <span class="comment"># 读取pgm图片</span></span><br><span class="line">                ret, im = cv2.threshold(im, <span class="number">120</span>, <span class="number">255</span>, cv2.THRESH_BINARY)</span><br><span class="line">                <span class="keyword">if</span> sz <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    im = cv2.resize(im, (<span class="number">200</span>, <span class="number">200</span>)) <span class="comment"># 调整图片大小</span></span><br><span class="line"></span><br><span class="line">                X.append(np.asarray(im, dtype=np.uint8))</span><br><span class="line">                y.append(c)</span><br><span class="line">            <span class="comment"># print(re.findall(r'./data/at/(.*)', subject_path))</span></span><br><span class="line">            dic[c] = re.findall(<span class="string">r'./data/at/(.*)'</span>, subject_path)[<span class="number">0</span>]</span><br><span class="line">            c = c + <span class="number">1</span></span><br><span class="line">    <span class="comment"># print("c = ", c)</span></span><br><span class="line">    <span class="comment"># print(X)</span></span><br><span class="line">    <span class="keyword">return</span> [X, y], dic</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import os, sys, re
+import cv2
+import numpy as np
 
+def read_images(path, sz=None): # 读取自己的图片数据库
+    c = 0
+    X, y = [], []
+    dic = {}
+    for dirname, dirnames, filenames in os.walk(path): # 遍历文件夹下文件
+        for subdirname in dirnames:
+            subject_path = os.path.join(dirname, subdirname)
+            # print("subdirname = ", dirname)
+            # print("subject_path = ", subject_path)
+            for filename in os.listdir(subject_path):
+                if filename[-4:] != '.pgm': # 如果文件不是pgm文件,那么跳过
+                    continue
+                filepath = os.path.join(subject_path, filename) # 生成完整的文件名
+                # print(filepath)
+                im = cv2.imread(os.path.join(subject_path, filename), \
+                                cv2.IMREAD_GRAYSCALE) # 读取pgm图片
+                # print(np.shape(im))
+                # 改变大小
+                if sz is not None:
+                    im = cv2.resize(im, (200, 200)) # 调整图片大小
+
+                X.append(np.asarray(im, dtype=np.uint8))
+                y.append(c)
+            # print(re.findall(r'./data/at/(.*)', subject_path))
+            dic[c] = re.findall(r'./data/at/(.*)', subject_path)[0]
+            c = c + 1
+    # print("c = ", c)
+    # print(X)
+    return [X, y], dic
+
+def read_images_binary(path, sz=None): # 读取自己的图片数据库
+    c = 0
+    X, y = [], []
+    dic = {}
+    for dirname, dirnames, filenames in os.walk(path): # 遍历文件夹下文件
+        for subdirname in dirnames:
+            subject_path = os.path.join(dirname, subdirname)
+            # print("subdirname = ", dirname)
+            # print("subject_path = ", subject_path)
+            for filename in os.listdir(subject_path):
+                if filename[-4:] != '.pgm': # 如果文件不是pgm文件,那么跳过
+                    continue
+                filepath = os.path.join(subject_path, filename) # 生成完整的文件名
+                # print(filepath)
+                im = cv2.imread(os.path.join(subject_path, filename), \
+                                cv2.IMREAD_GRAYSCALE) # 读取pgm图片
+                ret, im = cv2.threshold(im, 120, 255, cv2.THRESH_BINARY)
+                if sz is not None:
+                    im = cv2.resize(im, (200, 200)) # 调整图片大小
+
+                X.append(np.asarray(im, dtype=np.uint8))
+                y.append(c)
+            # print(re.findall(r'./data/at/(.*)', subject_path))
+            dic[c] = re.findall(r'./data/at/(.*)', subject_path)[0]
+            c = c + 1
+    # print("c = ", c)
+    # print(X)
+    return [X, y], dic</code></pre>
 <h2 id="调用opencv内置函数进行人脸识别"><a href="#调用opencv内置函数进行人脸识别" class="headerlink" title="调用opencv内置函数进行人脸识别"></a>调用opencv内置函数进行人脸识别</h2><p>内置的三种人脸识别函数</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = cv2.face.EigenFaceRecognizer_create() <span class="comment"># 这个版本的opencv名字改了,和书上的有点不一样</span></span><br><span class="line">model = cv2.face.LBPHFaceRecognizer_create(<span class="number">1</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">90</span>)</span><br><span class="line">model = cv2.face.FisherFaceRecognizer_create()</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-py"><code class="language-py">model = cv2.face.EigenFaceRecognizer_create() # 这个版本的opencv名字改了,和书上的有点不一样
+model = cv2.face.LBPHFaceRecognizer_create(1, 8, 8, 90)
+model = cv2.face.FisherFaceRecognizer_create()</code></pre>
 <p>调用opencv-python提供的这三种人脸识别函数，发现效果都不好。人脸总是检测错误，准确率极低，要它何用？（不知道是不是我使用姿势不太正确）于是我催生出自己实现人脸识别算法那的念头。</p>
 <p>观察框出的人脸，觉得一个人的人脸图片，单单框出了人脸，那应该相似度很高啊。类似于手写数字识别，简单的knn算法可以达到很高的正确率，那么是不是可以用knn较好的解决这个问题。</p>
 <p>实践出来的结果是：不是的。</p>
 <p>code</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw, ImageFont</span><br><span class="line"><span class="keyword">from</span> getData <span class="keyword">import</span> read_images</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cv2ImgAddText</span><span class="params">(img, text, left, top, textColor=<span class="params">(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>)</span>, textSize=<span class="number">20</span>)</span>:</span></span><br><span class="line">    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))</span><br><span class="line">    draw = ImageDraw.Draw(img)</span><br><span class="line">    fontText = ImageFont.truetype(</span><br><span class="line">        <span class="string">"SimHei.ttf"</span>, textSize, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">    draw.text((left, top), text, textColor, font=fontText)</span><br><span class="line">    <span class="keyword">return</span> cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">face_rec</span><span class="params">()</span>:</span> <span class="comment"># 人脸识别</span></span><br><span class="line"></span><br><span class="line">    [X, y], label2name = read_images(<span class="string">'./data/at'</span>)</span><br><span class="line">    print(<span class="string">"label2name:"</span>, label2name)</span><br><span class="line">    print(np.shape(X))</span><br><span class="line">    print(<span class="string">"label2name = "</span>, label2name)</span><br><span class="line">    print(np.shape(X))</span><br><span class="line">    <span class="comment"># print("y = ", y)</span></span><br><span class="line">    y = np.asarray(y, dtype=np.int32)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 调用人脸识别函数生成模型</span></span><br><span class="line">    <span class="comment"># model = cv2.face.EigenFaceRecognizer_create() # 这个版本的opencv名字改了,和书上的有点不一样</span></span><br><span class="line">    model = cv2.face.LBPHFaceRecognizer_create(<span class="number">1</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">8</span>)</span><br><span class="line">    model.train(np.asarray(X), np.asarray(y)) <span class="comment"># 训练</span></span><br><span class="line">    camera = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">    face_cascade = cv2.CascadeClassifier( <span class="comment"># 分类器检测人脸</span></span><br><span class="line">        <span class="string">'./cascades/haarcascade_frontalface_default.xml'</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        read, img = camera.read()</span><br><span class="line">        img = cv2.flip(img, <span class="number">1</span>)  <span class="comment"># 翻转为正常角度</span></span><br><span class="line">        faces = face_cascade.detectMultiScale(img, <span class="number">1.3</span>, <span class="number">5</span>)</span><br><span class="line">        <span class="keyword">for</span> (x, y, w, h) <span class="keyword">in</span> faces:</span><br><span class="line">            img = cv2.rectangle(img, (x, y), (x+w, y+h), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">            roi = gray[x: x+<span class="number">2</span>, y: y+h]</span><br><span class="line">            roi = cv2.resize(roi, (<span class="number">200</span>, <span class="number">200</span>), interpolation=cv2.INTER_LINEAR)</span><br><span class="line">            params = model.predict(roi) <span class="comment"># 预测</span></span><br><span class="line">            print(params) <span class="comment"># 返回 (图片标签, 置信度)</span></span><br><span class="line">            <span class="keyword">if</span> params[<span class="number">0</span>] &gt;= <span class="number">0</span>:</span><br><span class="line">                name = label2name[params[<span class="number">0</span>]]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                name = <span class="string">"未知"</span></span><br><span class="line">            print(<span class="string">"检测到%s"</span> % name)</span><br><span class="line">            print(<span class="string">"label: %s, Confidence: %.2f"</span> % (params[<span class="number">0</span>], params[<span class="number">1</span>]))</span><br><span class="line">            img = cv2ImgAddText(img, name, x, y - <span class="number">20</span>, (<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">20</span>)</span><br><span class="line">            <span class="comment"># cv2.putText(img, name, (x, y - 20),</span></span><br><span class="line">            <span class="comment">#             cv2.FONT_HERSHEY_SIMPLEX, 1, 255, 2) # putText只能写上ascii中的部分字符, 呵呵</span></span><br><span class="line">        <span class="comment"># print(img)</span></span><br><span class="line"></span><br><span class="line">        cv2.imshow(<span class="string">'camera'</span>, img)</span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">1000</span> // <span class="number">12</span>) &amp; <span class="number">0xff</span> == ord(<span class="string">"q"</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    face_rec() <span class="comment"># 人脸识别</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import cv2
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from getData import read_images
 
+def cv2ImgAddText(img, text, left, top, textColor=(0, 255, 0), textSize=20):
+    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(img)
+    fontText = ImageFont.truetype(
+        "SimHei.ttf", textSize, encoding="utf-8")
+    draw.text((left, top), text, textColor, font=fontText)
+    return cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)
+
+def face_rec(): # 人脸识别
+
+    [X, y], label2name = read_images('./data/at')
+    print("label2name:", label2name)
+    print(np.shape(X))
+    print("label2name = ", label2name)
+    print(np.shape(X))
+    # print("y = ", y)
+    y = np.asarray(y, dtype=np.int32)
+
+    # 调用人脸识别函数生成模型
+    # model = cv2.face.EigenFaceRecognizer_create() # 这个版本的opencv名字改了,和书上的有点不一样
+    model = cv2.face.LBPHFaceRecognizer_create(1, 3, 8, 8)
+    model.train(np.asarray(X), np.asarray(y)) # 训练
+    camera = cv2.VideoCapture(0)
+    face_cascade = cv2.CascadeClassifier( # 分类器检测人脸
+        './cascades/haarcascade_frontalface_default.xml'
+    )
+    while True:
+        read, img = camera.read()
+        img = cv2.flip(img, 1)  # 翻转为正常角度
+        faces = face_cascade.detectMultiScale(img, 1.3, 5)
+        for (x, y, w, h) in faces:
+            img = cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            roi = gray[x: x+2, y: y+h]
+            roi = cv2.resize(roi, (200, 200), interpolation=cv2.INTER_LINEAR)
+            params = model.predict(roi) # 预测
+            print(params) # 返回 (图片标签, 置信度)
+            if params[0] >= 0:
+                name = label2name[params[0]]
+            else:
+                name = "未知"
+            print("检测到%s" % name)
+            print("label: %s, Confidence: %.2f" % (params[0], params[1]))
+            img = cv2ImgAddText(img, name, x, y - 20, (255, 255, 0), 20)
+            # cv2.putText(img, name, (x, y - 20),
+            #             cv2.FONT_HERSHEY_SIMPLEX, 1, 255, 2) # putText只能写上ascii中的部分字符, 呵呵
+        # print(img)
+
+        cv2.imshow('camera', img)
+        if cv2.waitKey(1000 // 12) & 0xff == ord("q"):
+            break
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    face_rec() # 人脸识别</code></pre>
 <h2 id="knn算法进行人脸识别"><a href="#knn算法进行人脸识别" class="headerlink" title="knn算法进行人脸识别"></a>knn算法进行人脸识别</h2><p>简单的knn模板</p>
 <p>knn 实现</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> getData <span class="keyword">import</span> read_images</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">knn</span><span class="params">(xtest, data, label, k)</span>:</span> <span class="comment"># xtest为测试的特征向量，data、label为“训练”数据集，k为设定的阈值</span></span><br><span class="line"><span class="comment">#     print(xtest.shape)</span></span><br><span class="line"><span class="comment">#     print(label.shape)</span></span><br><span class="line">    exp_xtest = np.tile(xtest, (len(label), <span class="number">1</span>)) - data</span><br><span class="line">    sq_diff = exp_xtest**<span class="number">2</span></span><br><span class="line">    sum_diff = sq_diff.sum(axis=<span class="number">1</span>)</span><br><span class="line">    distance = sum_diff**<span class="number">0.5</span></span><br><span class="line">    <span class="comment"># print(distance)</span></span><br><span class="line">    sort_index = distance.argsort()</span><br><span class="line">    classCount = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        one_label = label[sort_index[i]]</span><br><span class="line">        classCount[one_label] = classCount.get(one_label, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    sortedClassCount = sorted(classCount.items(), key = <span class="keyword">lambda</span> x:x[<span class="number">1</span>], reverse=<span class="literal">True</span>)</span><br><span class="line">    print(distance.sum())</span><br><span class="line">    print(classCount)</span><br><span class="line">    print(sortedClassCount)</span><br><span class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    [X, y], label2name = read_images(<span class="string">'./data/at/'</span>)</span><br><span class="line">    print(np.shape(X))</span><br><span class="line">    X = np.array(X)</span><br><span class="line">    Xx = X.reshape(X.shape[<span class="number">0</span>], <span class="number">40000</span>)</span><br><span class="line">    xdata, label = Xx, y</span><br><span class="line">    result = knn(np.array(xdata[<span class="number">67</span>]), xdata, label, <span class="number">3</span>)</span><br><span class="line">    print(<span class="string">"result = "</span>, label2name[result])</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import numpy as np
+import matplotlib.pyplot as plt
+from getData import read_images
 
+def knn(xtest, data, label, k): # xtest为测试的特征向量，data、label为“训练”数据集，k为设定的阈值
+#     print(xtest.shape)
+#     print(label.shape)
+    exp_xtest = np.tile(xtest, (len(label), 1)) - data
+    sq_diff = exp_xtest**2
+    sum_diff = sq_diff.sum(axis=1)
+    distance = sum_diff**0.5
+    # print(distance)
+    sort_index = distance.argsort()
+    classCount = {}
+    for i in range(k):
+        one_label = label[sort_index[i]]
+        classCount[one_label] = classCount.get(one_label, 0) + 1
+    sortedClassCount = sorted(classCount.items(), key = lambda x:x[1], reverse=True)
+    print(distance.sum())
+    print(classCount)
+    print(sortedClassCount)
+    return sortedClassCount[0][0]
+
+def main():
+    [X, y], label2name = read_images('./data/at/')
+    print(np.shape(X))
+    X = np.array(X)
+    Xx = X.reshape(X.shape[0], 40000)
+    xdata, label = Xx, y
+    result = knn(np.array(xdata[67]), xdata, label, 3)
+    print("result = ", label2name[result])
+    return result
+
+if __name__ == '__main__':
+    main()</code></pre>
 <p>调用knn的主体部分</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw, ImageFont</span><br><span class="line"><span class="keyword">from</span> getData <span class="keyword">import</span> read_images_binary</span><br><span class="line"><span class="keyword">from</span> knn <span class="keyword">import</span> knn</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cv2ImgAddText</span><span class="params">(img, text, left, top, textColor=<span class="params">(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>)</span>, textSize=<span class="number">20</span>)</span>:</span></span><br><span class="line">    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))</span><br><span class="line">    draw = ImageDraw.Draw(img)</span><br><span class="line">    fontText = ImageFont.truetype(</span><br><span class="line">        <span class="string">"SimHei.ttf"</span>, textSize, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">    draw.text((left, top), text, textColor, font=fontText)</span><br><span class="line">    <span class="keyword">return</span> cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">face_rec</span><span class="params">()</span>:</span> <span class="comment"># 人脸识别</span></span><br><span class="line"></span><br><span class="line">    [X, y], label2name = read_images_binary(<span class="string">'./data/at'</span>)</span><br><span class="line">    X = np.array(X)</span><br><span class="line">    Xx = X.reshape(X.shape[<span class="number">0</span>], <span class="number">40000</span>)</span><br><span class="line">    xdata, label = Xx, y</span><br><span class="line"></span><br><span class="line">    y = np.asarray(y, dtype=np.int32)</span><br><span class="line">    face_cascade = cv2.CascadeClassifier( <span class="comment"># 分类器检测人脸</span></span><br><span class="line">        <span class="string">'./cascades/haarcascade_frontalface_default.xml'</span></span><br><span class="line">    )</span><br><span class="line">    videoCapture = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        read, img = videoCapture.read()</span><br><span class="line">        img = cv2.flip(img, <span class="number">1</span>)</span><br><span class="line">        faces = face_cascade.detectMultiScale(img, <span class="number">1.3</span>, <span class="number">5</span>)</span><br><span class="line">        <span class="keyword">for</span> (x, y, w, h) <span class="keyword">in</span> faces:</span><br><span class="line">            img = cv2.rectangle(img, (x, y), (x+w, y+h), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">            roi = gray[x: x+<span class="number">2</span>, y: y+h]</span><br><span class="line">            roi = cv2.resize(roi, (<span class="number">200</span>, <span class="number">200</span>), interpolation=cv2.INTER_LINEAR)</span><br><span class="line">            roi = np.array(roi).reshape(<span class="number">40000</span>, )</span><br><span class="line">            result = knn(roi, xdata, label, <span class="number">3</span>)</span><br><span class="line">            print(result) <span class="comment"># 返回结果的标签</span></span><br><span class="line">            name = label2name[result]</span><br><span class="line">            print(<span class="string">"检测到%s"</span> % name)</span><br><span class="line">            img = cv2ImgAddText(img, name, x, y - <span class="number">20</span>, (<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">20</span>)</span><br><span class="line">        cv2.imshow(<span class="string">'camera'</span>, img)</span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">1000</span> // <span class="number">12</span>) &amp; <span class="number">0xff</span> == ord(<span class="string">"q"</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    face_rec() <span class="comment"># 人脸识别</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import cv2
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from getData import read_images_binary
+from knn import knn
 
+
+def cv2ImgAddText(img, text, left, top, textColor=(0, 255, 0), textSize=20):
+    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(img)
+    fontText = ImageFont.truetype(
+        "SimHei.ttf", textSize, encoding="utf-8")
+    draw.text((left, top), text, textColor, font=fontText)
+    return cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)
+
+def face_rec(): # 人脸识别
+
+    [X, y], label2name = read_images_binary('./data/at')
+    X = np.array(X)
+    Xx = X.reshape(X.shape[0], 40000)
+    xdata, label = Xx, y
+
+    y = np.asarray(y, dtype=np.int32)
+    face_cascade = cv2.CascadeClassifier( # 分类器检测人脸
+        './cascades/haarcascade_frontalface_default.xml'
+    )
+    videoCapture = cv2.VideoCapture(0)
+    while True:
+        read, img = videoCapture.read()
+        img = cv2.flip(img, 1)
+        faces = face_cascade.detectMultiScale(img, 1.3, 5)
+        for (x, y, w, h) in faces:
+            img = cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            roi = gray[x: x+2, y: y+h]
+            roi = cv2.resize(roi, (200, 200), interpolation=cv2.INTER_LINEAR)
+            roi = np.array(roi).reshape(40000, )
+            result = knn(roi, xdata, label, 3)
+            print(result) # 返回结果的标签
+            name = label2name[result]
+            print("检测到%s" % name)
+            img = cv2ImgAddText(img, name, x, y - 20, (255, 255, 0), 20)
+        cv2.imshow('camera', img)
+        if cv2.waitKey(1000 // 12) & 0xff == ord("q"):
+            break
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    face_rec() # 人脸识别</code></pre>
 <h2 id="使用Dense层神经网络进行人脸识别"><a href="#使用Dense层神经网络进行人脸识别" class="headerlink" title="使用Dense层神经网络进行人脸识别"></a>使用Dense层神经网络进行人脸识别</h2><p>简单的神经网络多分类器实现（效果不好，大概是数据太少，每个人只有200张(200, 200) 的pgm图片数据。</p>
 <p>调用keras的高级API，搭积木一样的建立神经网络。</p>
 <p>即使是这么少的数据，训练一次的时间也要好几分钟。调参调了好久，关键是调不出效果啊～</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> getData <span class="keyword">import</span> read_images, read_images_binary</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">to_onehot</span><span class="params">(y)</span>:</span> <span class="comment"># 将标签转化为独热码oen-hot</span></span><br><span class="line">    print(<span class="string">"max of y = "</span>, np.max(y))</span><br><span class="line">    onehots = np.zeros((len(y), np.max(y) + <span class="number">1</span>), dtype=np.float)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(y)):</span><br><span class="line">        onehots[i][y[i]] = <span class="number">1.0</span></span><br><span class="line">    print(<span class="string">"shape of onehots : "</span>, np.shape(onehots))</span><br><span class="line">    <span class="keyword">return</span> onehots</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_model_dense</span><span class="params">(size=<span class="params">(<span class="number">200</span>, <span class="number">200</span>)</span>)</span>:</span> <span class="comment"># 设置一个全连接层网络，返回模型，未训练</span></span><br><span class="line">    model = models.Sequential([</span><br><span class="line">        layers.Dense(<span class="number">16</span>, activation=<span class="string">'relu'</span>, input_shape=((<span class="number">40000</span>, ))),</span><br><span class="line">        layers.Dense(<span class="number">16</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">        layers.Dense(<span class="number">16</span>, activation=<span class="string">'relu'</span>),</span><br><span class="line">        layers.Dense(<span class="number">4</span>, activation=<span class="string">'softmax'</span>)</span><br><span class="line">    ])</span><br><span class="line">    model.compile(</span><br><span class="line">        optimizer=<span class="string">'rmsprop'</span>,</span><br><span class="line">        loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">        metrics=[<span class="string">'accuracy'</span>]</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">k_fold_validation</span><span class="params">(train_data, train_targets)</span>:</span></span><br><span class="line">    k = <span class="number">4</span></span><br><span class="line">    num_val_samples = len(train_data) // k</span><br><span class="line">    num_epochs = <span class="number">5</span></span><br><span class="line">    all_scores = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        print(<span class="string">'processing fole # '</span>, i)</span><br><span class="line">        val_data = train_data[i * num_val_samples: (i + <span class="number">1</span>) * num_val_samples]</span><br><span class="line">        val_targets = train_targets[i * num_val_samples: (i + <span class="number">1</span>) * num_val_samples]</span><br><span class="line"></span><br><span class="line">        partial_train_data = np.concatenate(</span><br><span class="line">            [train_data[:i * num_val_samples],</span><br><span class="line">            train_data[(i + <span class="number">1</span>) * num_val_samples:]],</span><br><span class="line">            axis=<span class="number">0</span></span><br><span class="line">        )</span><br><span class="line">        partial_train_targets = np.concatenate(</span><br><span class="line">            [train_targets[:i * num_val_samples],</span><br><span class="line">             train_targets[(i + <span class="number">1</span>) * num_val_samples:]],</span><br><span class="line">            axis = <span class="number">0</span></span><br><span class="line">        )</span><br><span class="line">        model = get_model_dense()</span><br><span class="line">        model.fit(</span><br><span class="line">            partial_train_data,</span><br><span class="line">            partial_train_targets,</span><br><span class="line">            epochs=num_epochs,</span><br><span class="line">            batch_size=<span class="number">3</span></span><br><span class="line">        )</span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        model5开始，对图片进行了阈值为１２０的图片二值化处理</span></span><br><span class="line"><span class="string">        model6调整了参数（防止过拟合），从６４调成１６</span></span><br><span class="line"><span class="string">        model7加了一层</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        model.save(<span class="string">'dense_model_7.h5'</span>)</span><br><span class="line">        val_mse, val_mae = model.evaluate(val_data, val_targets)</span><br><span class="line">        all_scores.append(val_mae)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    [X, y], label2name = read_images_binary(<span class="string">'./data/at/'</span>) <span class="comment"># 调用人脸数据</span></span><br><span class="line">    X = np.array(X).reshape(len(X), <span class="number">40000</span>) / <span class="number">255</span></span><br><span class="line">    y = to_onehot(np.array(y))</span><br><span class="line">    index = np.arange(len(X))</span><br><span class="line">    np.random.shuffle(index) <span class="comment"># 生成打乱的索引</span></span><br><span class="line">    print(<span class="string">"index = "</span>, index)</span><br><span class="line">    X = X[index] <span class="comment"># 得到打乱的数据</span></span><br><span class="line">    y = y[index]</span><br><span class="line">    print(X)</span><br><span class="line">    print(y)</span><br><span class="line">    print(X.shape)</span><br><span class="line">    print(y.shape)</span><br><span class="line">    k_fold_validation(X, y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">from getData import read_images, read_images_binary
+import numpy as np
+from tensorflow.keras import models
+from tensorflow.keras import layers
 
+def to_onehot(y): # 将标签转化为独热码oen-hot
+    print("max of y = ", np.max(y))
+    onehots = np.zeros((len(y), np.max(y) + 1), dtype=np.float)
+    for i in range(len(y)):
+        onehots[i][y[i]] = 1.0
+    print("shape of onehots : ", np.shape(onehots))
+    return onehots
+
+def get_model_dense(size=(200, 200)): # 设置一个全连接层网络，返回模型，未训练
+    model = models.Sequential([
+        layers.Dense(16, activation='relu', input_shape=((40000, ))),
+        layers.Dense(16, activation='relu'),
+        layers.Dense(16, activation='relu'),
+        layers.Dense(4, activation='softmax')
+    ])
+    model.compile(
+        optimizer='rmsprop',
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
+    return model
+
+def k_fold_validation(train_data, train_targets):
+    k = 4
+    num_val_samples = len(train_data) // k
+    num_epochs = 5
+    all_scores = []
+
+    for i in range(k):
+        print('processing fole # ', i)
+        val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
+        val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
+
+        partial_train_data = np.concatenate(
+            [train_data[:i * num_val_samples],
+            train_data[(i + 1) * num_val_samples:]],
+            axis=0
+        )
+        partial_train_targets = np.concatenate(
+            [train_targets[:i * num_val_samples],
+             train_targets[(i + 1) * num_val_samples:]],
+            axis = 0
+        )
+        model = get_model_dense()
+        model.fit(
+            partial_train_data,
+            partial_train_targets,
+            epochs=num_epochs,
+            batch_size=3
+        )
+        '''
+        model5开始，对图片进行了阈值为１２０的图片二值化处理
+        model6调整了参数（防止过拟合），从６４调成１６
+        model7加了一层
+        '''
+        model.save('dense_model_7.h5')
+        val_mse, val_mae = model.evaluate(val_data, val_targets)
+        all_scores.append(val_mae)
+
+def main():
+    [X, y], label2name = read_images_binary('./data/at/') # 调用人脸数据
+    X = np.array(X).reshape(len(X), 40000) / 255
+    y = to_onehot(np.array(y))
+    index = np.arange(len(X))
+    np.random.shuffle(index) # 生成打乱的索引
+    print("index = ", index)
+    X = X[index] # 得到打乱的数据
+    y = y[index]
+    print(X)
+    print(y)
+    print(X.shape)
+    print(y.shape)
+    k_fold_validation(X, y)
+
+
+if __name__ == "__main__":
+    main()</code></pre>
 <p>主体部分</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw, ImageFont</span><br><span class="line"><span class="keyword">from</span> getData <span class="keyword">import</span> read_images</span><br><span class="line"><span class="keyword">from</span> knn <span class="keyword">import</span> knn</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cv2ImgAddText</span><span class="params">(img, text, left, top, textColor=<span class="params">(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>)</span>, textSize=<span class="number">20</span>)</span>:</span></span><br><span class="line">    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))</span><br><span class="line">    draw = ImageDraw.Draw(img)</span><br><span class="line">    fontText = ImageFont.truetype(</span><br><span class="line">        <span class="string">"SimHei.ttf"</span>, textSize, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">    draw.text((left, top), text, textColor, font=fontText)</span><br><span class="line">    <span class="keyword">return</span> cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">face_rec</span><span class="params">()</span>:</span> <span class="comment"># 人脸识别</span></span><br><span class="line"></span><br><span class="line">    [X, y], label2name = read_images(<span class="string">'./data/at'</span>)</span><br><span class="line">    print(<span class="string">"label2name: "</span>, label2name)</span><br><span class="line">    X = np.array(X)</span><br><span class="line">    Xx = X.reshape(X.shape[<span class="number">0</span>], <span class="number">40000</span>)</span><br><span class="line">    xdata, label = Xx, y</span><br><span class="line"></span><br><span class="line">    y = np.asarray(y, dtype=np.int32)</span><br><span class="line">    face_cascade = cv2.CascadeClassifier( <span class="comment"># 分类器检测人脸</span></span><br><span class="line">        <span class="string">'./cascades/haarcascade_frontalface_default.xml'</span></span><br><span class="line">    )</span><br><span class="line">    videoCapture = cv2.VideoCapture(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    model = models.load_model(<span class="string">'dense_model_6.h5'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        read, img = videoCapture.read()</span><br><span class="line">        img = cv2.flip(img, <span class="number">1</span>)</span><br><span class="line">        faces = face_cascade.detectMultiScale(img, <span class="number">1.3</span>, <span class="number">5</span>)</span><br><span class="line">        <span class="keyword">for</span> (x, y, w, h) <span class="keyword">in</span> faces:</span><br><span class="line">            img = cv2.rectangle(img, (x, y), (x+w, y+h), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span><br><span class="line">            roi = gray[x: x+<span class="number">2</span>, y: y+h]</span><br><span class="line">            roi = cv2.resize(roi, (<span class="number">200</span>, <span class="number">200</span>), interpolation=cv2.INTER_LINEAR)</span><br><span class="line">            roi = np.array(roi).reshape(<span class="number">40000</span>, )</span><br><span class="line">            prediction = model.predict(np.array([roi]))</span><br><span class="line">            <span class="comment"># print(np.shape(roi))</span></span><br><span class="line">            print(<span class="string">"dnn predict result :"</span>, prediction)</span><br><span class="line">            index = np.argmax(prediction) <span class="comment"># 最大值所在的索引</span></span><br><span class="line">            name = label2name[index]</span><br><span class="line">            print(<span class="string">"检测到%s"</span> % name)</span><br><span class="line">            img = cv2ImgAddText(img, name, x, y - <span class="number">20</span>, (<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">20</span>)</span><br><span class="line">        cv2.imshow(<span class="string">'camera'</span>, img)</span><br><span class="line">        <span class="keyword">if</span> cv2.waitKey(<span class="number">1000</span> // <span class="number">12</span>) &amp; <span class="number">0xff</span> == ord(<span class="string">"q"</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    face_rec() <span class="comment"># 人脸识别</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import cv2
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from getData import read_images
+from knn import knn
+from tensorflow.keras import models
 
+
+def cv2ImgAddText(img, text, left, top, textColor=(0, 255, 0), textSize=20):
+    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(img)
+    fontText = ImageFont.truetype(
+        "SimHei.ttf", textSize, encoding="utf-8")
+    draw.text((left, top), text, textColor, font=fontText)
+    return cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)
+
+def face_rec(): # 人脸识别
+
+    [X, y], label2name = read_images('./data/at')
+    print("label2name: ", label2name)
+    X = np.array(X)
+    Xx = X.reshape(X.shape[0], 40000)
+    xdata, label = Xx, y
+
+    y = np.asarray(y, dtype=np.int32)
+    face_cascade = cv2.CascadeClassifier( # 分类器检测人脸
+        './cascades/haarcascade_frontalface_default.xml'
+    )
+    videoCapture = cv2.VideoCapture(0)
+
+    model = models.load_model('dense_model_6.h5')
+
+    while True:
+        read, img = videoCapture.read()
+        img = cv2.flip(img, 1)
+        faces = face_cascade.detectMultiScale(img, 1.3, 5)
+        for (x, y, w, h) in faces:
+            img = cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            roi = gray[x: x+2, y: y+h]
+            roi = cv2.resize(roi, (200, 200), interpolation=cv2.INTER_LINEAR)
+            roi = np.array(roi).reshape(40000, )
+            prediction = model.predict(np.array([roi]))
+            # print(np.shape(roi))
+            print("dnn predict result :", prediction)
+            index = np.argmax(prediction) # 最大值所在的索引
+            name = label2name[index]
+            print("检测到%s" % name)
+            img = cv2ImgAddText(img, name, x, y - 20, (255, 255, 0), 20)
+        cv2.imshow('camera', img)
+        if cv2.waitKey(1000 // 12) & 0xff == ord("q"):
+            break
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    face_rec() # 人脸识别</code></pre>
 <h2 id="一些小知识点"><a href="#一些小知识点" class="headerlink" title="一些小知识点"></a>一些小知识点</h2><h3 id="opencv-putText无法写中文"><a href="#opencv-putText无法写中文" class="headerlink" title="opencv putText无法写中文"></a>opencv putText无法写中文</h3><p>putText()不能直接写上中文，那就用PIL库曲线救国了。下面是一个demo。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="comment">#中文乱码处理</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw, ImageFont</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cv2ImgAddText</span><span class="params">(img, text, left, top, textColor=<span class="params">(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>)</span>, textSize=<span class="number">20</span>)</span>:</span></span><br><span class="line">    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))</span><br><span class="line">    draw = ImageDraw.Draw(img)</span><br><span class="line">    fontText = ImageFont.truetype(</span><br><span class="line">        <span class="string">"SimHei.ttf"</span>, textSize, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">    draw.text((left, top), text, textColor, font=fontText)</span><br><span class="line">    <span class="keyword">return</span> cv2.cvtColor(numpy.asarray(img), cv2.COLOR_RGB2BGR)</span><br><span class="line"></span><br><span class="line">img = cv2.imread(<span class="string">'./test.png'</span>)</span><br><span class="line">img = cv2ImgAddText(img, <span class="string">"你好世界"</span>, <span class="number">140</span>, <span class="number">60</span>, (<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">20</span>)</span><br><span class="line">cv2.imshow(<span class="string">'image'</span>, img)</span><br><span class="line">cv2.waitKey(<span class="number">0</span>)</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">#coding=utf-8
+#中文乱码处理
 
+import cv2
+import numpy
+from PIL import Image, ImageDraw, ImageFont
+
+def cv2ImgAddText(img, text, left, top, textColor=(0, 255, 0), textSize=20):
+    img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(img)
+    fontText = ImageFont.truetype(
+        "SimHei.ttf", textSize, encoding="utf-8")
+    draw.text((left, top), text, textColor, font=fontText)
+    return cv2.cvtColor(numpy.asarray(img), cv2.COLOR_RGB2BGR)
+
+img = cv2.imread('./test.png')
+img = cv2ImgAddText(img, "你好世界", 140, 60, (255, 255, 0), 20)
+cv2.imshow('image', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()</code></pre>
 <h3 id="二值化图片"><a href="#二值化图片" class="headerlink" title="二值化图片"></a>二值化图片</h3><p>使用<code>cv2.threshold()</code>函数，设置<code>cv2.THRESH_BINARY</code>参数进行二值化。可以设置阈值。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">img = cv2.imread(<span class="string">'test.jpg'</span>)</span><br><span class="line"><span class="comment"># img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)</span></span><br><span class="line">cv2.imwrite(<span class="string">'test.jpg'</span>, cv2.Canny(img, <span class="number">50</span>, <span class="number">120</span>))</span><br><span class="line">cv2.imshow(<span class="string">'canny'</span>, cv2.imread(<span class="string">'test.jpg'</span>))</span><br><span class="line">ret, img = cv2.threshold(img, <span class="number">110</span>, <span class="number">255</span>, cv2.THRESH_BINARY)</span><br><span class="line">cv2.imshow(<span class="string">'binary'</span>, img)</span><br><span class="line">cv2.waitKey()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import cv2
+import numpy as np
 
+img = cv2.imread('test.jpg')
+# img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imwrite('test.jpg', cv2.Canny(img, 50, 120))
+cv2.imshow('canny', cv2.imread('test.jpg'))
+ret, img = cv2.threshold(img, 110, 255, cv2.THRESH_BINARY)
+cv2.imshow('binary', img)
+cv2.waitKey()
+cv2.destroyAllWindows()</code></pre>
 <h3 id="路径目录测试"><a href="#路径目录测试" class="headerlink" title="路径目录测试"></a>路径目录测试</h3><p>由于代码文件和图片文件中间隔了两个文件夹，且图片所在文件夹名称代表图片标签名称，所以如何遍历文件夹，读取到有用的信息是个技术活。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">path = <span class="string">'./data'</span></span><br><span class="line"><span class="keyword">for</span> dirname, dirnames, filenames <span class="keyword">in</span> os.walk(path):</span><br><span class="line">    <span class="keyword">for</span> subdirname <span class="keyword">in</span> dirnames:</span><br><span class="line">        subject_path = os.path.join(dirname, subdirname)</span><br><span class="line">        <span class="comment"># print(subject_path)</span></span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(subject_path):</span><br><span class="line">            <span class="keyword">if</span> filename[<span class="number">-4</span>:] == <span class="string">'.pgm'</span>:</span><br><span class="line">                filepath = os.path.join(subject_path, filename)</span><br><span class="line">                print(filepath)</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import os
 
+path = './data'
+for dirname, dirnames, filenames in os.walk(path):
+    for subdirname in dirnames:
+        subject_path = os.path.join(dirname, subdirname)
+        # print(subject_path)
+        for filename in os.listdir(subject_path):
+            if filename[-4:] == '.pgm':
+                filepath = os.path.join(subject_path, filename)
+                print(filepath)</code></pre>
 <h3 id="np-random-shuffle-测试"><a href="#np-random-shuffle-测试" class="headerlink" title="np.random.shuffle() 测试"></a>np.random.shuffle() 测试</h3><p><code>np.random.shuffle()</code> 能够将某一迭代对象进行打乱。<br>会直接改变传递给他的对象，而不会返回值，需要注意。</p>
 <p>用这个函数，生成索引的随机排列，可以很方便的得到打乱的数据和标签，从而更好的进行训练。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = range(<span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(type(a[<span class="number">9</span>]))</span><br><span class="line">print(np.array(a))</span><br><span class="line">index = np.array(a)</span><br><span class="line">np.random.shuffle(index)</span><br><span class="line">print(index)</span><br><span class="line"></span><br><span class="line">index = np.arange(<span class="number">7</span>)</span><br><span class="line">print(index)</span><br></pre></td></tr></table></figure>
+<pre class=" language-py"><code class="language-py">import numpy as np
 
+a = range(0, 10)
+print(a)
+print(type(a[9]))
+print(np.array(a))
+index = np.array(a)
+np.random.shuffle(index)
+print(index)
+
+index = np.arange(7)
+print(index)</code></pre>
 <h3 id="keras保存和恢复模型"><a href="#keras保存和恢复模型" class="headerlink" title="keras保存和恢复模型"></a>keras保存和恢复模型</h3><p><code>from tensorflow.keras import models</code><br><code>model.save(&#39;dense_model_7.h5&#39;)</code><br><code>model = models.load_model(&#39;dense_model_6.h5&#39;)</code><br>就不用每次都重新训练了。</p>
 
             </div>
@@ -858,7 +1273,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

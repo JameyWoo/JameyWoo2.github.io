@@ -456,14 +456,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.2k
+                        199
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        1 分
                     </div>
                     
                 
@@ -477,37 +477,155 @@
                 <p>我们按照复杂程度来讨论不同的Tarjan算法变形的差异.</p>
 <h2 id="第一个问题-Tarjan算法找出一个图里面的全部强连通分量-包括单独的点"><a href="#第一个问题-Tarjan算法找出一个图里面的全部强连通分量-包括单独的点" class="headerlink" title="第一个问题: Tarjan算法找出一个图里面的全部强连通分量(包括单独的点)."></a>第一个问题: Tarjan算法找出一个图里面的全部强连通分量(包括单独的点).</h2><p>但此时只是有所区分的将所有的点划分为一个个的强连通分量, 尚且没有缩点. 上面这个功能实现起来最简单. </p>
 <p>它的Tarjan函数内部是这样的.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[u] = low[u] = ++index;</span><br><span class="line">	<span class="built_in">stack</span>[++top] = u;</span><br><span class="line">	in_stack[u] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[u].size(); ++i) &#123;</span><br><span class="line">		<span class="keyword">int</span> v = G[u][i];</span><br><span class="line">		<span class="keyword">if</span> (!dfn[v]) &#123; <span class="comment">// 更新新的点.</span></span><br><span class="line">			tarjan(v);</span><br><span class="line">			low[u] = min(low[u], low[v]);</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (in_stack[v]) &#123;</span><br><span class="line">			low[u] = min(low[u], low[v]);</span><br><span class="line">		&#125; <span class="comment">// 还剩下一种不在栈中但是已经访问过的情况,是其他连通分量的</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (dfn[u] == low[u]) &#123;</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="built_in">stack</span>[top] &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">			in_stack[<span class="built_in">stack</span>[top]] = <span class="literal">false</span>; <span class="comment">// 漏写了这一条.</span></span><br><span class="line">		&#125; <span class="keyword">while</span> (<span class="built_in">stack</span>[--top + <span class="number">1</span>] != u);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-c++"><code class="language-c++">void tarjan(int u)
+{
+    dfn[u] = low[u] = ++index;
+    stack[++top] = u;
+    in_stack[u] = true;
+    for (int i = 0; i < G[u].size(); ++i) {
+        int v = G[u][i];
+        if (!dfn[v]) { // 更新新的点.
+            tarjan(v);
+            low[u] = min(low[u], low[v]);
+        } else if (in_stack[v]) {
+            low[u] = min(low[u], low[v]);
+        } // 还剩下一种不在栈中但是已经访问过的情况,是其他连通分量的
+    }
+    if (dfn[u] == low[u]) {
+        do {
+            cout << stack[top] << ' ';
+            in_stack[stack[top]] = false; // 漏写了这一条.
+        } while (stack[--top + 1] != u);
+        cout << endl;
+    }
+}</code></pre>
 <h2 id="第二个问题-对每个强连通分量进行缩点-使得此图变成一张DAG"><a href="#第二个问题-对每个强连通分量进行缩点-使得此图变成一张DAG" class="headerlink" title="第二个问题: 对每个强连通分量进行缩点, 使得此图变成一张DAG."></a>第二个问题: 对每个强连通分量进行缩点, 使得此图变成一张DAG.</h2><p>在Tarjan函数内部他们的主要区别是当<code>dfn[u] == low[u]</code>的这一段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">if (dfn[u] == low[u]) &#123;</span><br><span class="line">		cnt++;</span><br><span class="line">		int now;</span><br><span class="line">		do &#123;</span><br><span class="line">			now = sta.top();</span><br><span class="line">			sta.pop();</span><br><span class="line">			in_stack[now] = false;</span><br><span class="line">			to[now] = cnt;</span><br><span class="line">		&#125; while (now != u);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
+<pre><code>if (dfn[u] == low[u]) {
+        cnt++;
+        int now;
+        do {
+            now = sta.top();
+            sta.pop();
+            in_stack[now] = false;
+            to[now] = cnt;
+        } while (now != u);
+    }</code></pre><ul>
 <li><p><strong>增加了一个全局变量<code>cnt</code>, 表示当前缩点的编号.</strong></p>
 </li>
 <li><p><strong>增加了一个<code>to</code>数组, 用来表示原来的点在缩点之后是哪个点.</strong></p>
 </li>
 </ul>
 <p>所以我们可以有下面这段代码, <strong><code>set&lt;int&gt; Now</code>代表缩点后的新图.</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		for (int j = 0; j &lt; G[i].size(); ++j) &#123;</span><br><span class="line">			int u = to[i], v = to[G[i][j]];</span><br><span class="line">			if (u != v) Now[u].insert(v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>通过<code>to</code>数组关联起原图和缩点后图的点, 从而建立新图.</strong></p>
+<pre><code>for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 0; j &lt; G[i].size(); ++j) {
+            int u = to[i], v = to[G[i][j]];
+            if (u != v) Now[u].insert(v);
+        }
+    }</code></pre><p><strong>通过<code>to</code>数组关联起原图和缩点后图的点, 从而建立新图.</strong></p>
 <p>这样, 通过<code>dfn[u] == low[u]</code>处的修改, 以及结合<code>to</code>数组建立新图的过程, 就实现了Tarjan算法的缩点.</p>
 <h2 id="第三个问题-如何快速获得新图各个结点的入度出度"><a href="#第三个问题-如何快速获得新图各个结点的入度出度" class="headerlink" title="第三个问题: 如何快速获得新图各个结点的入度出度."></a>第三个问题: 如何快速获得新图各个结点的入度出度.</h2><p>上面的<code>to</code>数组保留, 看下面这段代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		for (int j = 0; j &lt; G[i].size(); ++j) &#123;</span><br><span class="line">			if (to[i] != to[G[i][j]]) &#123;</span><br><span class="line">				out[to[i]]++;</span><br><span class="line">				in[to[G[i][j]]]++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<p>一二层循环遍历之前所有的边, 里面一个条件语句, <strong>判断边的两端点是否指向同一个缩点, 如果不是, 那么他们在<code>to</code>数组中所指向的新的结点也将作为一条边</strong>. <strong>利用<code>to</code>数组可以快速方便的获取新图中的入度和出度, 这样的话要知道入度和出度就无需建立新图.</strong></p>
+<pre><code>for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 0; j &lt; G[i].size(); ++j) {
+            if (to[i] != to[G[i][j]]) {
+                out[to[i]]++;
+                in[to[G[i][j]]]++;
+            }
+        }
+    }</code></pre><p>一二层循环遍历之前所有的边, 里面一个条件语句, <strong>判断边的两端点是否指向同一个缩点, 如果不是, 那么他们在<code>to</code>数组中所指向的新的结点也将作为一条边</strong>. <strong>利用<code>to</code>数组可以快速方便的获取新图中的入度和出度, 这样的话要知道入度和出度就无需建立新图.</strong></p>
 <p>##第四个问题: 缩点之后求解DAG最长路</p>
 <p>看洛谷上的这道题 <a href="https://www.luogu.org/problemnew/show/P3387" target="_blank" rel="noopener">传送门</a></p>
 <p>此题是以点为权值而非边, 但做法是基本差不多的. 都是DP算法.</p>
 <p>DP函数是这样</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int DP(int u)</span><br><span class="line">&#123;</span><br><span class="line">	if (dp[u]) return dp[u];</span><br><span class="line">	set&lt;int&gt;::iterator is = Now[u].begin();</span><br><span class="line">	while (is != Now[u].end()) &#123;</span><br><span class="line">		dp[u] = max(dp[u], DP(*is));</span><br><span class="line">		is++;</span><br><span class="line">	&#125;</span><br><span class="line">	dp[u] += val_now[u];</span><br><span class="line">	return dp[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>状态转移方程: <code>dp[i] = max{dp[j] | (i, j) ∈E} + val_now[i]</code></strong><br><strong>区别于边为权值的方程:<code>dp[i] = max{dp[j]+length[i→j] | (i,j)∈E}</code></strong></p>
+<pre><code>int DP(int u)
+{
+    if (dp[u]) return dp[u];
+    set&lt;int&gt;::iterator is = Now[u].begin();
+    while (is != Now[u].end()) {
+        dp[u] = max(dp[u], DP(*is));
+        is++;
+    }
+    dp[u] += val_now[u];
+    return dp[u];
+}</code></pre><p><strong>状态转移方程: <code>dp[i] = max{dp[j] | (i, j) ∈E} + val_now[i]</code></strong><br><strong>区别于边为权值的方程:<code>dp[i] = max{dp[j]+length[i→j] | (i,j)∈E}</code></strong></p>
 <p>AC代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;stack&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 10005;</span><br><span class="line">stack&lt;int&gt; sta;</span><br><span class="line">vector&lt;int&gt; G[maxn];</span><br><span class="line">set&lt;int&gt; Now[maxn];</span><br><span class="line">int n, m, index = 0, cnt = 0, ans = 0;</span><br><span class="line">int to[maxn], dfn[maxn] = &#123;&#125;, low[maxn];</span><br><span class="line">int dp[maxn] = &#123;&#125;, val[maxn], val_now[maxn] = &#123;&#125;;</span><br><span class="line">bool in_stack[maxn] = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">void tarjan(int u)</span><br><span class="line">&#123;</span><br><span class="line">	dfn[u] = low[u] = ++index;</span><br><span class="line">	in_stack[u] = true;</span><br><span class="line">	sta.push(u);</span><br><span class="line">	for (int i = 0; i &lt; G[u].size(); ++i) &#123;</span><br><span class="line">		int v = G[u][i];</span><br><span class="line">		if (dfn[v] == 0) &#123;</span><br><span class="line">			tarjan(v);</span><br><span class="line">			low[u] = min(low[u], low[v]);</span><br><span class="line">		&#125; else if (in_stack[v]) low[u] = min(low[u], low[v]);</span><br><span class="line">	&#125;</span><br><span class="line">	if (dfn[u] == low[u]) &#123;</span><br><span class="line">		cnt++;</span><br><span class="line">		int now;</span><br><span class="line">		do &#123;</span><br><span class="line">			now = sta.top();</span><br><span class="line">			sta.pop();</span><br><span class="line">			in_stack[now] = false;</span><br><span class="line">			to[now] = cnt;</span><br><span class="line">		&#125; while (now != u);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int DP(int u)</span><br><span class="line">&#123;</span><br><span class="line">	if (dp[u]) return dp[u];</span><br><span class="line">	set&lt;int&gt;::iterator is = Now[u].begin();</span><br><span class="line">	while (is != Now[u].end()) &#123;</span><br><span class="line">		dp[u] = max(dp[u], DP(*is));</span><br><span class="line">		is++;</span><br><span class="line">	&#125;</span><br><span class="line">	dp[u] += val_now[u];</span><br><span class="line">	return dp[u];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i)</span><br><span class="line">		cin &gt;&gt; val[i];</span><br><span class="line">	for (int i = 0; i &lt; m; ++i) &#123;</span><br><span class="line">		int u, v;</span><br><span class="line">		cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">		G[u].push_back(v);</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i)</span><br><span class="line">		if (dfn[i] == 0) tarjan(i);</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		for (int j = 0; j &lt; G[i].size(); ++j) &#123;</span><br><span class="line">			int u = to[i], v = to[G[i][j]];</span><br><span class="line">			if (u != v) Now[u].insert(v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		int t = to[i];</span><br><span class="line">		val_now[t] += val[i];</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt;= cnt; ++i)</span><br><span class="line">		ans = max(ans, dp[i] = DP(i));</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;stack&gt;
+#include &lt;set&gt;
+using namespace std;
 
-<p><em><em>我认为Tarjan算法缩点的核心就是<code>to</code>数组. </em></em></p>
+const int maxn = 10005;
+stack&lt;int&gt; sta;
+vector&lt;int&gt; G[maxn];
+set&lt;int&gt; Now[maxn];
+int n, m, index = 0, cnt = 0, ans = 0;
+int to[maxn], dfn[maxn] = {}, low[maxn];
+int dp[maxn] = {}, val[maxn], val_now[maxn] = {};
+bool in_stack[maxn] = {};
+
+void tarjan(int u)
+{
+    dfn[u] = low[u] = ++index;
+    in_stack[u] = true;
+    sta.push(u);
+    for (int i = 0; i &lt; G[u].size(); ++i) {
+        int v = G[u][i];
+        if (dfn[v] == 0) {
+            tarjan(v);
+            low[u] = min(low[u], low[v]);
+        } else if (in_stack[v]) low[u] = min(low[u], low[v]);
+    }
+    if (dfn[u] == low[u]) {
+        cnt++;
+        int now;
+        do {
+            now = sta.top();
+            sta.pop();
+            in_stack[now] = false;
+            to[now] = cnt;
+        } while (now != u);
+    }
+}
+
+int DP(int u)
+{
+    if (dp[u]) return dp[u];
+    set&lt;int&gt;::iterator is = Now[u].begin();
+    while (is != Now[u].end()) {
+        dp[u] = max(dp[u], DP(*is));
+        is++;
+    }
+    dp[u] += val_now[u];
+    return dp[u];
+}
+
+int main()
+{
+    cin &gt;&gt; n &gt;&gt; m;
+    for (int i = 1; i &lt;= n; ++i)
+        cin &gt;&gt; val[i];
+    for (int i = 0; i &lt; m; ++i) {
+        int u, v;
+        cin &gt;&gt; u &gt;&gt; v;
+        G[u].push_back(v);
+    }
+    for (int i = 1; i &lt;= n; ++i)
+        if (dfn[i] == 0) tarjan(i);
+    for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 0; j &lt; G[i].size(); ++j) {
+            int u = to[i], v = to[G[i][j]];
+            if (u != v) Now[u].insert(v);
+        }
+    }
+    for (int i = 1; i &lt;= n; ++i) {
+        int t = to[i];
+        val_now[t] += val[i];
+    }
+    for (int i = 1; i &lt;= cnt; ++i)
+        ans = max(ans, dp[i] = DP(i));
+    cout &lt;&lt; ans;
+}</code></pre><p><em><em>我认为Tarjan算法缩点的核心就是<code>to</code>数组. </em></em></p>
 
             </div>
             <hr/>
@@ -831,7 +949,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

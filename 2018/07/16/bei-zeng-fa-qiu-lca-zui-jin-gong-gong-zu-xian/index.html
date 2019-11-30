@@ -458,14 +458,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.4k
+                        2.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        10 分
+                        9 分
                     </div>
                     
                 
@@ -514,12 +514,44 @@
 <h3 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h3><p><strong>用邻接表存储一棵树, 并用from[]数组记录各结点的父节点, 其中没有父节点的就是root.</strong></p>
 <p>parents[u][]数组存储的是u结点的祖先结点.<br>如parents[u][0], 是u结点的2⁰祖先结点, 即1祖先, 也即父节点. 在输入过程中可以直接得到.<br>parents[u][1], 是u结点的2¹祖先结点,即2祖先, 也即父亲的父亲<br>parents[u][2], 是u结点的2²祖先结点, 即4祖先, 也即(父亲的父亲)的(父亲的父亲), 也就是爷爷的爷爷. </p>
 <p><strong>理解这个关系很重要, 这也是通过父亲结点获取整个祖先结点的关键.</strong> 现在可以先跳过.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getData</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">int</span> u, v;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v;</span><br><span class="line">		G[u].push_back(v);</span><br><span class="line">		parents[v][<span class="number">0</span>] = u;</span><br><span class="line">		from[v] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">		<span class="keyword">if</span> (from[i] == <span class="number">-1</span>) root = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    cin <span class="token operator">>></span> n<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> u<span class="token punctuation">,</span> v<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        cin <span class="token operator">>></span> u <span class="token operator">>></span> v<span class="token punctuation">;</span>
+        G<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        parents<span class="token punctuation">[</span>v<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> u<span class="token punctuation">;</span>
+        from<span class="token punctuation">[</span>v<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>from<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> root <span class="token operator">=</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <h3 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h3><p><strong>获取各结点的深度, 可以用DFS或这BFS方法</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">void getDepth_dfs(int u) // DFS求深度</span><br><span class="line">&#123;</span><br><span class="line">	int len = G[u].size();</span><br><span class="line">	for (int i = 0; i &lt; len; ++i) &#123;</span><br><span class="line">		int v = G[u][i];</span><br><span class="line">		depth[v] = depth[u] + 1;</span><br><span class="line">		getDepth_dfs(v);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void getDepth_bfs(int u) // BFS求深度</span><br><span class="line">&#123;</span><br><span class="line">	queue&lt;int&gt; Q;</span><br><span class="line">	Q.push(u);</span><br><span class="line">	while (!Q.empty()) &#123;</span><br><span class="line">		int v = Q.front();</span><br><span class="line">		Q.pop();</span><br><span class="line">		for (int i = 0; i &lt; G[v].size(); ++i) &#123;</span><br><span class="line">			depth[G[v][i]] = depth[v] + 1;</span><br><span class="line">			Q.push(G[v][i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>void getDepth_dfs(int u) // DFS求深度
+{
+    int len = G[u].size();
+    for (int i = 0; i &lt; len; ++i) {
+        int v = G[u][i];
+        depth[v] = depth[u] + 1;
+        getDepth_dfs(v);
+    }
+}
 
-<h3 id="步骤三"><a href="#步骤三" class="headerlink" title="步骤三"></a>步骤三</h3><p><strong>求祖先</strong></p>
+void getDepth_bfs(int u) // BFS求深度
+{
+    queue&lt;int&gt; Q;
+    Q.push(u);
+    while (!Q.empty()) {
+        int v = Q.front();
+        Q.pop();
+        for (int i = 0; i &lt; G[v].size(); ++i) {
+            depth[G[v][i]] = depth[v] + 1;
+            Q.push(G[v][i]);
+        }
+    }
+}</code></pre><h3 id="步骤三"><a href="#步骤三" class="headerlink" title="步骤三"></a>步骤三</h3><p><strong>求祖先</strong></p>
 <p>在步骤一里面我们讨论了parents数组的意义, 它存的是结点u的2次幂祖先, 从父亲结点开始. 为什么要存2次幂? 这就是<strong>倍增法</strong>的思想了, 我们进行范围缩小不是一步一步的, 那样太暴力了, <strong>所以我们需要某个跨度, 让我们能够先跨越大步, 接近的时候在小步小步跨越, 这样可以大大节省时间.</strong></p>
 <p><em><em>读者可能会疑惑, 先大步, 后小步, 可是我怎么知道什么时候该大步, 什么时候该小步呢? 难道不会不小心跨过头吗? </em></em></p>
 <p>其实不会的, 在代码实现上, <strong>这样的跨越有条件约束, 是非常讲究的. 读者不必为此纠结, <em><em> 不过要讲解也是十分费力不讨好的事情, 所以请读者认证推敲后面Lca函数的代码, 认真琢磨为什么是那样跨越, 其中真味自会品出. </em></em>最好是自己写几个例子, 模拟跨越的过程, 在结合现实意义去理解</strong></p>
@@ -528,13 +560,40 @@
 <p><strong>parents[i][j] = parents[parents[i][j-1]][j-1]</strong></p>
 </blockquote>
 <p>这是构造此数组的公式. 不难理解, <em><em>父亲的父亲就是爷爷, 爷爷的爷爷就是4倍祖先. </em></em> 请读者结合现实意义去理解. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void getParents()</span><br><span class="line">&#123;</span><br><span class="line">	for (int up = 1; (1 &lt;&lt; up) &lt;= n; ++up) &#123;</span><br><span class="line">		for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">			parents[i][up] = parents[parents[i][up - 1]][up - 1];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="步骤四"><a href="#步骤四" class="headerlink" title="步骤四"></a>步骤四</h3><p>做完了前面<strong>O(VlogV)</strong>的预处理操作, 剩下的就是查询了, 一次查询<strong>O(logV)</strong></p>
+<pre><code>void getParents()
+{
+    for (int up = 1; (1 &lt;&lt; up) &lt;= n; ++up) {
+        for (int i = 1; i &lt;= n; ++i) {
+            parents[i][up] = parents[parents[i][up - 1]][up - 1];
+        }
+    }
+}</code></pre><h3 id="步骤四"><a href="#步骤四" class="headerlink" title="步骤四"></a>步骤四</h3><p>做完了前面<strong>O(VlogV)</strong>的预处理操作, 剩下的就是查询了, 一次查询<strong>O(logV)</strong></p>
 <p>因此, 我们可以敏锐的想到: <strong>Lca算法适合查询次数比较多的情况, 不然, 光是预处理就花了那么多时间了</strong>. 所以说, 查询是我们享受成果的时候了.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">int Lca(int u, int v)</span><br><span class="line">&#123;</span><br><span class="line">	if (depth[u] &lt; depth[v]) swap(u, v); // 使满足u深度更大, 便于后面操作 </span><br><span class="line">	int i = -1, j;</span><br><span class="line">	// i求的是最大二分跨度 </span><br><span class="line">	while ((1 &lt;&lt; (i + 1)) &lt;= depth[u]) ++i;</span><br><span class="line">	</span><br><span class="line">	// 下面这个循环是为了让u和v到同一深度 </span><br><span class="line">	for (j = i; j &gt;= 0; --j) &#123;</span><br><span class="line">		if (depth[u] - (1 &lt;&lt; j) &gt;= depth[v]) &#123; // 是&gt;=, 因为如果&lt;,代表跳过头了,跳到了上面. </span><br><span class="line">			u = parents[u][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	if (u == v) return u; // 刚好是祖宗 </span><br><span class="line">	</span><br><span class="line">	// u和v一起二分找祖宗</span><br><span class="line">	for (j = i; j &gt;= 0; --j) &#123;</span><br><span class="line">		if (parents[u][j] != parents[v][j]) &#123;</span><br><span class="line">			u = parents[u][j];</span><br><span class="line">			v = parents[v][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return parents[u][0]; // 说明上个循环迭代到了Lca的子结点 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>int Lca(int u, int v)
+{
+    if (depth[u] &lt; depth[v]) swap(u, v); // 使满足u深度更大, 便于后面操作 
+    int i = -1, j;
+    // i求的是最大二分跨度 
+    while ((1 &lt;&lt; (i + 1)) &lt;= depth[u]) ++i;
 
-<ul>
+    // 下面这个循环是为了让u和v到同一深度 
+    for (j = i; j &gt;= 0; --j) {
+        if (depth[u] - (1 &lt;&lt; j) &gt;= depth[v]) { // 是&gt;=, 因为如果&lt;,代表跳过头了,跳到了上面. 
+            u = parents[u][j];
+        }
+    }
+
+    if (u == v) return u; // 刚好是祖宗 
+
+    // u和v一起二分找祖宗
+    for (j = i; j &gt;= 0; --j) {
+        if (parents[u][j] != parents[v][j]) {
+            u = parents[u][j];
+            v = parents[v][j];
+        }
+    }
+    return parents[u][0]; // 说明上个循环迭代到了Lca的子结点 
+}</code></pre><ul>
 <li><p>首先把u调整到深度更大(或相同)的结点, 便于后面操作.</p>
 </li>
 <li><p>然后获取最大跨度i, 所有的跨越都是从i开始的.</p>
@@ -545,7 +604,132 @@
 </li>
 </ul>
 <p>至此, 我们的问题就解决了.</p>
-<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int maxn = 10005;</span><br><span class="line">int parents[maxn][20], depth[maxn];</span><br><span class="line">int n, from[maxn], root = -1;</span><br><span class="line">vector&lt;int&gt; G[maxn];</span><br><span class="line"></span><br><span class="line">void init()</span><br><span class="line">&#123;</span><br><span class="line">	memset(parents, -1, sizeof(parents));</span><br><span class="line">	memset(from, -1, sizeof(from));</span><br><span class="line">	memset(depth, -1, sizeof(depth));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void getData()</span><br><span class="line">&#123;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	int u, v;</span><br><span class="line">	for (int i = 1; i &lt; n; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">		G[u].push_back(v);</span><br><span class="line">		parents[v][0] = u;</span><br><span class="line">		from[v] = 1;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		if (from[i] == -1) root = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void getDepth_dfs(int u)</span><br><span class="line">&#123;</span><br><span class="line">	int len = G[u].size();</span><br><span class="line">	for (int i = 0; i &lt; len; ++i) &#123;</span><br><span class="line">		int v = G[u][i];</span><br><span class="line">		depth[v] = depth[u] + 1;</span><br><span class="line">		getDepth_dfs(v);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void getDepth_bfs(int u)</span><br><span class="line">&#123;</span><br><span class="line">	queue&lt;int&gt; Q;</span><br><span class="line">	Q.push(u);</span><br><span class="line">	while (!Q.empty()) &#123;</span><br><span class="line">		int v = Q.front();</span><br><span class="line">		Q.pop();</span><br><span class="line">		for (int i = 0; i &lt; G[v].size(); ++i) &#123;</span><br><span class="line">			depth[G[v][i]] = depth[v] + 1;</span><br><span class="line">			Q.push(G[v][i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void getParents()</span><br><span class="line">&#123;</span><br><span class="line">	for (int up = 1; (1 &lt;&lt; up) &lt;= n; ++up) &#123;</span><br><span class="line">		for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">			parents[i][up] = parents[parents[i][up - 1]][up - 1];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int Lca(int u, int v)</span><br><span class="line">&#123;</span><br><span class="line">	if (depth[u] &lt; depth[v]) swap(u, v);</span><br><span class="line">	int i = -1, j;</span><br><span class="line">	while ((1 &lt;&lt; (i + 1)) &lt;= depth[u]) ++i;</span><br><span class="line">	for (j = i; j &gt;= 0; --j) &#123;</span><br><span class="line">		if (depth[u] - (1 &lt;&lt; j) &gt;= depth[v]) &#123;</span><br><span class="line">			u = parents[u][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	if (u == v) return u;</span><br><span class="line">	for (j = i; j &gt;= 0; --j) &#123;</span><br><span class="line">		if (parents[u][j] != parents[v][j]) &#123;</span><br><span class="line">			u = parents[u][j];</span><br><span class="line">			v = parents[v][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return parents[u][0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void questions()</span><br><span class="line">&#123;</span><br><span class="line">	int q, u, v;</span><br><span class="line">	cin &gt;&gt; q;</span><br><span class="line">	for (int i = 0; i &lt; q; ++i) &#123;</span><br><span class="line">		cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">		int ans = Lca(u, v);</span><br><span class="line">		cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">		//cout &lt;&lt; u &lt;&lt; &quot; 和 &quot; &lt;&lt; v &lt;&lt; &quot; 的最近公共祖先(LCA)是: &quot; &lt;&lt; ans &lt;&lt; endl; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	init();</span><br><span class="line">	getData();</span><br><span class="line">	depth[root] = 1;</span><br><span class="line">	getDepth_dfs(root);</span><br><span class="line">	//getDepth_bfs(root);</span><br><span class="line">	getParents();</span><br><span class="line">	questions();</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">9</span><br><span class="line">1 2</span><br><span class="line">1 3</span><br><span class="line">1 4</span><br><span class="line">2 5</span><br><span class="line">2 6</span><br><span class="line">3 7</span><br><span class="line">6 8</span><br><span class="line">7 9</span><br><span class="line">5</span><br><span class="line">1 3</span><br><span class="line">5 6</span><br><span class="line">8 9</span><br><span class="line">8 4</span><br><span class="line">5 8</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre><code>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+const int maxn = 10005;
+int parents[maxn][20], depth[maxn];
+int n, from[maxn], root = -1;
+vector&lt;int&gt; G[maxn];
+
+void init()
+{
+    memset(parents, -1, sizeof(parents));
+    memset(from, -1, sizeof(from));
+    memset(depth, -1, sizeof(depth));
+}
+
+void getData()
+{
+    cin &gt;&gt; n;
+    int u, v;
+    for (int i = 1; i &lt; n; ++i) {
+        cin &gt;&gt; u &gt;&gt; v;
+        G[u].push_back(v);
+        parents[v][0] = u;
+        from[v] = 1;
+    }
+    for (int i = 1; i &lt;= n; ++i) {
+        if (from[i] == -1) root = i;
+    }
+}
+
+void getDepth_dfs(int u)
+{
+    int len = G[u].size();
+    for (int i = 0; i &lt; len; ++i) {
+        int v = G[u][i];
+        depth[v] = depth[u] + 1;
+        getDepth_dfs(v);
+    }
+}
+
+void getDepth_bfs(int u)
+{
+    queue&lt;int&gt; Q;
+    Q.push(u);
+    while (!Q.empty()) {
+        int v = Q.front();
+        Q.pop();
+        for (int i = 0; i &lt; G[v].size(); ++i) {
+            depth[G[v][i]] = depth[v] + 1;
+            Q.push(G[v][i]);
+        }
+    }
+}
+
+void getParents()
+{
+    for (int up = 1; (1 &lt;&lt; up) &lt;= n; ++up) {
+        for (int i = 1; i &lt;= n; ++i) {
+            parents[i][up] = parents[parents[i][up - 1]][up - 1];
+        }
+    }
+}
+
+int Lca(int u, int v)
+{
+    if (depth[u] &lt; depth[v]) swap(u, v);
+    int i = -1, j;
+    while ((1 &lt;&lt; (i + 1)) &lt;= depth[u]) ++i;
+    for (j = i; j &gt;= 0; --j) {
+        if (depth[u] - (1 &lt;&lt; j) &gt;= depth[v]) {
+            u = parents[u][j];
+        }
+    }
+    if (u == v) return u;
+    for (j = i; j &gt;= 0; --j) {
+        if (parents[u][j] != parents[v][j]) {
+            u = parents[u][j];
+            v = parents[v][j];
+        }
+    }
+    return parents[u][0];
+}
+
+void questions()
+{
+    int q, u, v;
+    cin &gt;&gt; q;
+    for (int i = 0; i &lt; q; ++i) {
+        cin &gt;&gt; u &gt;&gt; v;
+        int ans = Lca(u, v);
+        cout &lt;&lt; ans &lt;&lt; endl;
+        //cout &lt;&lt; u &lt;&lt; &quot; 和 &quot; &lt;&lt; v &lt;&lt; &quot; 的最近公共祖先(LCA)是: &quot; &lt;&lt; ans &lt;&lt; endl; 
+    }
+}
+
+int main()
+{
+    init();
+    getData();
+    depth[root] = 1;
+    getDepth_dfs(root);
+    //getDepth_bfs(root);
+    getParents();
+    questions();
+}
+/*
+9
+1 2
+1 3
+1 4
+2 5
+2 6
+3 7
+6 8
+7 9
+5
+1 3
+5 6
+8 9
+8 4
+5 8
+*/</code></pre>
             </div>
             <hr/>
 
@@ -676,21 +860,21 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/07/11/dp-zui-chang-hui-wen-zi-chuan/">
+                <a href="/2018/07/11/dp-zui-chang-bu-xia-jiang-zi-xu-lie-lis/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="DP_最长回文子串">
+                        <img src="/medias/featureimages/color-13.jpg" class="responsive-img" alt="DP_最长不下降子序列">
                         
-                        <span class="card-title">DP_最长回文子串</span>
+                        <span class="card-title">DP_最长不下降子序列</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ####DP问题, 最长回文子串
-最长回文子串问题指的是在一个字符串中, 是回文子串的长度的最大值. 这里的回文子串是连续的. 
-如字符串”PATZJUJZTACCBCC”, 他的最长回文子串是”ATZJUJZTA”, 长度为9, 当然它还
+                            序言同类的问题还有“最长上升子序列”, “最长下降子序列”, …
+他们的不同就在于定义的core规则不同, 有的是&gt;=, 有的是&gt;, 有的是&lt;
+由此启发, 我们可以在解决其他的问题, 不一定是比较数的大小的问题里面抽象出这
                         
                     </div>
                     <div class="publish-info">
@@ -869,7 +1053,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

@@ -457,14 +457,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1k
+                        315
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        1 分
                     </div>
                     
                 
@@ -483,18 +483,112 @@
 <p>同时<strong>时间复杂度为O(n log n).</strong> </p>
 <p>我们来回顾一下快速幂, <strong><em>是从一次不断进行倍增, 如果数n 的二进制形式在某一位上为1,那么就乘以这一位,否则不乘</em></strong> </p>
 <p>先写一下快速幂代码. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, p, ans = <span class="number">1</span>, val = <span class="number">2</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; p;</span><br><span class="line">	<span class="keyword">while</span> (n) &#123;</span><br><span class="line">		<span class="keyword">if</span> (n &amp; <span class="number">1</span>) ans = ans * val % p;</span><br><span class="line">		val *= val;</span><br><span class="line">		n /= <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// OK, 就是这么简单.</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-c++"><code class="language-c++">#include <iostream>
+using namespace std;
 
+int main()
+{
+    int n, p, ans = 1, val = 2;
+    cin >> n >> p;
+    while (n) {
+        if (n & 1) ans = ans * val % p;
+        val *= val;
+        n /= 2;
+    }
+    cout << ans;
+}
+// OK, 就是这么简单.</code></pre>
 <hr>
 <p>那么矩阵快速幂也呼之欲出了. </p>
 <p>然而写了代码发现计算过程有误.(划掉, 应该是推导有误,睡个午觉再来看看).<br>OK, 找出bug来了, 推导没有错误, <strong>是做矩阵乘法的时候几个下标写错了. 需要特别小心</strong></p>
 <p>但是发现答案稍微有点问题<em><em>,看出其实now矩阵不用设置为二维单位矩阵,直接是[1, 0], 他就是答案. </em></em></p>
 <p>但是非常悲剧的是洛谷上没有这么简单的模板题, 都<em><em>不给我辛苦学习AC一下的快感. </em></em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n, p = (1 &lt;&lt; 31);</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	int now[2][1] = &#123;&#123;1&#125;, &#123;0&#125;&#125;, matrix[2][2] = &#123;&#123;1, 1&#125;, &#123;1, 0&#125;&#125;;</span><br><span class="line">	while (n) &#123;</span><br><span class="line">		int a, b, c, d;</span><br><span class="line">		if (n &amp; 1) &#123; // 矩阵相乘. </span><br><span class="line">			a = matrix[0][0] * now[0][0] + matrix[0][1] * now[1][0];</span><br><span class="line">			b = matrix[1][0] * now[0][0] + matrix[1][1] * now[1][0];</span><br><span class="line">			now[0][0] = a % p, now[1][0] = b % p;</span><br><span class="line">		&#125;</span><br><span class="line">		// 下面是矩阵平方, 有点麻烦. </span><br><span class="line">		a = matrix[0][0] * matrix[0][0] + matrix[0][1] * matrix[1][0];</span><br><span class="line">		b = matrix[0][0] * matrix[0][1] + matrix[0][1] * matrix[1][1];</span><br><span class="line">		c = matrix[1][0] * matrix[0][0] + matrix[1][1] * matrix[1][0];</span><br><span class="line">		d = matrix[1][0] * matrix[0][1] + matrix[1][1] * matrix[1][1];</span><br><span class="line">		//cout &lt;&lt; &quot;c = &quot; &lt;&lt; c &lt;&lt; endl; </span><br><span class="line">		matrix[0][0] = a % p, matrix[0][1] = b % p, matrix[1][0] = c % p, matrix[1][1] = d % p;</span><br><span class="line">		n /= 2;</span><br><span class="line">		//cout &lt;&lt; &quot;----------&quot; &lt;&lt; endl;</span><br><span class="line">		//cout &lt;&lt; matrix[0][0] &lt;&lt; &apos; &apos; &lt;&lt; matrix[0][1] &lt;&lt; endl &lt;&lt; matrix[1][0] &lt;&lt; &apos; &apos; &lt;&lt; matrix[1][1] &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; now[1][0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
 
-<p>再来串矩阵快速幂模板(不只是斐波那契矩阵)</p>
+int main()
+{
+    int n, p = (1 &lt;&lt; 31);
+    cin &gt;&gt; n;
+    int now[2][1] = {{1}, {0}}, matrix[2][2] = {{1, 1}, {1, 0}};
+    while (n) {
+        int a, b, c, d;
+        if (n &amp; 1) { // 矩阵相乘. 
+            a = matrix[0][0] * now[0][0] + matrix[0][1] * now[1][0];
+            b = matrix[1][0] * now[0][0] + matrix[1][1] * now[1][0];
+            now[0][0] = a % p, now[1][0] = b % p;
+        }
+        // 下面是矩阵平方, 有点麻烦. 
+        a = matrix[0][0] * matrix[0][0] + matrix[0][1] * matrix[1][0];
+        b = matrix[0][0] * matrix[0][1] + matrix[0][1] * matrix[1][1];
+        c = matrix[1][0] * matrix[0][0] + matrix[1][1] * matrix[1][0];
+        d = matrix[1][0] * matrix[0][1] + matrix[1][1] * matrix[1][1];
+        //cout &lt;&lt; &quot;c = &quot; &lt;&lt; c &lt;&lt; endl; 
+        matrix[0][0] = a % p, matrix[0][1] = b % p, matrix[1][0] = c % p, matrix[1][1] = d % p;
+        n /= 2;
+        //cout &lt;&lt; &quot;----------&quot; &lt;&lt; endl;
+        //cout &lt;&lt; matrix[0][0] &lt;&lt; &#39; &#39; &lt;&lt; matrix[0][1] &lt;&lt; endl &lt;&lt; matrix[1][0] &lt;&lt; &#39; &#39; &lt;&lt; matrix[1][1] &lt;&lt; endl;
+    }
+    cout &lt;&lt; now[1][0];
+}</code></pre><p>再来串矩阵快速幂模板(不只是斐波那契矩阵)</p>
 <p>也就是<strong>矩阵计算 + 快速幂</strong>的组合. <strong>O(n</strong>3 + log k)**</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line">const LL mode = 1000000007;</span><br><span class="line"></span><br><span class="line">void calc(LL ans[105][105], LL matrix[105][105], LL n)</span><br><span class="line">&#123;</span><br><span class="line">	LL tmp[105][105];</span><br><span class="line">	memset(tmp, 0, sizeof(tmp));</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		for (int j = 1; j &lt;= n; ++j) &#123;</span><br><span class="line">			for (int k = 1; k &lt;= n; ++k) &#123;</span><br><span class="line">				tmp[i][j] += ans[i][k] * matrix[k][j];</span><br><span class="line">				tmp[i][j] %= mode;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		for (int j = 1; j &lt;= n; ++j) &#123;</span><br><span class="line">			ans[i][j] = tmp[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	LL n, k, matrix[105][105], ans[105][105];</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; k;</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		for (int j = 1; j &lt;= n; ++j) &#123;</span><br><span class="line">			cin &gt;&gt; matrix[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	// 初始化为单位矩阵. </span><br><span class="line">	memset(ans, 0, sizeof(ans));</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		ans[i][i] = 1;</span><br><span class="line">	&#125;</span><br><span class="line">	while (k) &#123;</span><br><span class="line">		if (k &amp; 1) &#123;</span><br><span class="line">			calc(ans, matrix, n);</span><br><span class="line">		&#125;</span><br><span class="line">		calc(matrix, matrix, n);</span><br><span class="line">		k /= 2;</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt;= n; ++i) &#123;</span><br><span class="line">		for (int j = 1; j &lt;= n; ++j) &#123;</span><br><span class="line">			cout &lt;&lt; ans[i][j] &lt;&lt; &apos; &apos;;</span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">矩阵计算 + 快速幂</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+typedef long long LL;
+
+const LL mode = 1000000007;
+
+void calc(LL ans[105][105], LL matrix[105][105], LL n)
+{
+    LL tmp[105][105];
+    memset(tmp, 0, sizeof(tmp));
+    for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 1; j &lt;= n; ++j) {
+            for (int k = 1; k &lt;= n; ++k) {
+                tmp[i][j] += ans[i][k] * matrix[k][j];
+                tmp[i][j] %= mode;
+            }
+        }
+    }
+    for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 1; j &lt;= n; ++j) {
+            ans[i][j] = tmp[i][j];
+        }
+    }
+}
+
+int main()
+{
+    LL n, k, matrix[105][105], ans[105][105];
+    cin &gt;&gt; n &gt;&gt; k;
+    for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 1; j &lt;= n; ++j) {
+            cin &gt;&gt; matrix[i][j];
+        }
+    }
+    // 初始化为单位矩阵. 
+    memset(ans, 0, sizeof(ans));
+    for (int i = 1; i &lt;= n; ++i) {
+        ans[i][i] = 1;
+    }
+    while (k) {
+        if (k &amp; 1) {
+            calc(ans, matrix, n);
+        }
+        calc(matrix, matrix, n);
+        k /= 2;
+    }
+    for (int i = 1; i &lt;= n; ++i) {
+        for (int j = 1; j &lt;= n; ++j) {
+            cout &lt;&lt; ans[i][j] &lt;&lt; &#39; &#39;;
+        }
+        cout &lt;&lt; endl;
+    }
+}
+/*
+矩阵计算 + 快速幂
+*/ </code></pre>
             </div>
             <hr/>
 
@@ -818,7 +912,7 @@
 
             
             &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-            <span class="white-color">39.3k</span>
+            <span class="white-color">37.2k</span>
             
 
             <br>

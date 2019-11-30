@@ -365,7 +365,8 @@
         
         
           &lt;p&gt;一个&lt;strong&gt;生成随机树（此树非彼数）的算法&lt;/strong&gt;，树的结点编号从1开始，这个算法生成了树的结点个数、树的结点的权值、树的每条边的结点。&lt;br&gt;如下面是一棵10结点的二叉树的生成结果： &lt;/p&gt;
-&lt;figure class=&quot;highlight
+&lt;pre&gt;&lt;code&gt;10
+-23 -44 -51 -9
         
       
     
@@ -525,7 +526,7 @@
       
         
         
-          &lt;h3 id=&quot;贝叶斯方法完整代码&quot;&gt;&lt;a href=&quot;#贝叶斯方法完整代码&quot; class=&quot;headerlink&quot; title=&quot;贝叶斯方法完整代码&quot;&gt;&lt;/a&gt;贝叶斯方法完整代码&lt;/h3&gt;&lt;figure class=&quot;highlight py&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+          &lt;h3 id=&quot;贝叶斯方法完整代码&quot;&gt;&lt;a href=&quot;#贝叶斯方法完整代码&quot; class=&quot;headerlink&quot; title=&quot;贝叶斯方法完整代码&quot;&gt;&lt;/a&gt;贝叶斯方法完整代码&lt;/h3&gt;&lt;pre class=&quot; language-py&quot;&gt;&lt;code
         
       
     
